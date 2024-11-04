@@ -15,8 +15,7 @@ public abstract class ViewComponent
         componentCapacity = 8;
         components = new ViewComponent[componentCapacity];
         numChildren = 0;
-        xyCords = new int[4]
-        xyCords = {0,0,0,0};
+        xyCords = new int[4]{0,0,0,0};
         orderRank=0; 
         //xyCords and orderRank intialized when added as a child to some other ViewComponent
         //therefore in almost all cases, a ViewComponent should have a parent ViewComponent
