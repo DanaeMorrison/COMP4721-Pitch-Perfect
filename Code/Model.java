@@ -10,8 +10,8 @@
     // private Lesson[] lessons;
 
     private ArrayList<Flashcard> flashcards = new ArrayList<>();
-    private ArrayList<Flashcard> lessons = new ArrayList<>();
-    private ArrayList<Flashcard> units = new ArrayList<>();
+    private ArrayList<Lesson> lessons = new ArrayList<>();
+    private ArrayList<Unit> units = new ArrayList<>();
 
     private int[] flashcardIDs = {0, 2, 4};
     private int[] imageIDs = {0, 2, 4};
