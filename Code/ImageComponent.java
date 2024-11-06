@@ -5,13 +5,10 @@ import javafx.scene.image.ImageView;
 public class ImageComponent extends ViewComponent
 {
     private ImageView thisObject;
-    /*
-     * Tryna decide whether I can keep it simple and just set image
-     * in constructor or if we'd want to get/set the image and store the url
-     */
+
     public ImageComponent()
     {
-        //setting image to empty path wont work and is temporary
+        //setting image to empty path is temporary and should be changed
         thisObject = new ImageView(new Image(""));
     }
     @Override

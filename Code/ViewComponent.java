@@ -63,9 +63,7 @@ public abstract class ViewComponent
         }
         xyCords = xyCordsNew;
         
-        //Still need to actually update the xStart, etc..., of the javaFX object.
-        //I think I want this to call a private method which is contained in extensions
-        //of this abstract class which handles this.
+        //private abstract method to be implemented by extensions
         updateXYHelper(xyCords);
     }
     public int getOrderRank()
