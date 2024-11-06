@@ -1,7 +1,6 @@
 import javafx.scene.Node;
 
-public abstract class ViewComponent
-{
+public abstract class ViewComponent {
     private int id;
     private int[] xyCords;
     private int orderRank;
@@ -9,20 +8,20 @@ public abstract class ViewComponent
     private int numChildren;
     private int componentCapacity;
 
-    ViewComponent()
-    {
-        //initialize
+    public ViewComponent() {
+        // initialize
         componentCapacity = 8;
         components = new ViewComponent[componentCapacity];
         numChildren = 0;
         xyCords = new int[4];
-        for(int i=0; i<4; i++)
-        {
+        for (int i = 0; i < 4; i++) {
             xyCords[i] = 0;
         }
-        orderRank=0; 
-        //xyCords and orderRank intialized when added as a child to some other ViewComponent
-        //therefore in almost all cases, a ViewComponent should have a parent ViewComponent
+        orderRank = 0;
+        // xyCords and orderRank intialized when added as a child to some other
+        // ViewComponent
+        // therefore in almost all cases, a ViewComponent should have a parent
+        // ViewComponent
     }
 
     /*
@@ -30,29 +29,28 @@ public abstract class ViewComponent
      * the form of an int[] where [0]=xStart, [1]=xEnd, [2]=yStart
      * [3]=yEnd
      */
-    public int[] getXY()
-    {
+    public int[] getXY() {
         return xyCords;
     }
 
     /*
-     * the input is not relative to its parent by default, contrary to the typical convention
-     * the ViewComponents are supposed to use. This is in part because ViewComponent doesnt contain
-     * who its parents are. Instead, when putting the xyCordsNew into this method, they require preprocessing
+     * the input is not relative to its parent by default, contrary to the typical
+     * convention
+     * the ViewComponents are supposed to use. This is in part because ViewComponent
+     * doesnt contain
+     * who its parents are. Instead, when putting the xyCordsNew into this method,
+     * they require preprocessing
      * (making them relative to parent) to be correct.
      */
-    public void updateXY(int[] xyCordsNew)
-    {
+    public void updateXY(int[] xyCordsNew) {
         int xStartDiff = xyCordsNew[0] - xyCords[0];
         int xEndDiff = xyCordsNew[1] - xyCords[1];
         int yStartDiff = xyCordsNew[2] - xyCords[2];
         int yEndDiff = xyCordsNew[3] - xyCords[3];
-        
+
         int[] xyCordsComponent;
-        for(ViewComponent component : components)
-        {
-            if(component != null)
-            {
+        for (ViewComponent component : components) {
+            if (component != null) {
                 xyCordsComponent = component.getXY();
                 xyCordsComponent[0] += xStartDiff;
                 xyCordsComponent[1] += xEndDiff;
@@ -62,77 +60,78 @@ public abstract class ViewComponent
             }
         }
         xyCords = xyCordsNew;
-        
-        //private abstract method to be implemented by extensions
+
+        // private abstract method to be implemented by extensions
         updateXYHelper(xyCords);
     }
-    public int getOrderRank()
-    {
+
+    public int getOrderRank() {
         return orderRank;
     }
-    public void setOrderRank(int newRank)
-    {
-        int rankDifference = newRank-orderRank;
-        for(ViewComponent component : components)
-        {
-            component.setOrderRank(component.getOrderRank()+rankDifference);
+
+    public void setOrderRank(int newRank) {
+        int rankDifference = newRank - orderRank;
+        for (ViewComponent component : components) {
+            component.setOrderRank(component.getOrderRank() + rankDifference);
         }
         orderRank = newRank;
     }
-    //Instead of isHidden boolean, I should just literally hide or
-    //unhide
-    public void setHidden(boolean isHidden)
-    {
-        //Calls helper method implemented within this abstract classes extensions
+
+    // Instead of isHidden boolean, I should just literally hide or
+    // unhide
+    public void setHidden(boolean isHidden) {
+        // Calls helper method implemented within this abstract classes extensions
         setHiddenHelper(isHidden);
     }
-    public ViewComponent[] getComponents()
-    {
+
+    public ViewComponent[] getComponents() {
         return components;
     }
 
     /*
-     * Adds child ViewComponent to this ViewComponent. input xyCordsNew[] are relative to this ViewComponent's.
+     * Adds child ViewComponent to this ViewComponent. input xyCordsNew[] are
+     * relative to this ViewComponent's.
      */
-    public void addComponent(ViewComponent component, int[] xyCordsNew)
-    {
-        //Expand capacity if needed
-        //NEED TO ENSURE this works and whether it should be componentCapacity-1 or smt else
-        if(numChildren == componentCapacity-1)
-        {
-            int newCapacity = 2*componentCapacity;
+    public void addComponent(ViewComponent component, int[] xyCordsNew) {
+        // Expand capacity if needed
+        // NEED TO ENSURE this works and whether it should be componentCapacity-1 or smt
+        // else
+        if (numChildren == componentCapacity - 1) {
+            int newCapacity = 2 * componentCapacity;
             ViewComponent[] newComponents = new ViewComponent[newCapacity];
-            for(int i=0; i<componentCapacity; i++)
-            {
+            for (int i = 0; i < componentCapacity; i++) {
                 newComponents[i] = components[i];
             }
             components = newComponents;
             componentCapacity = newCapacity;
         }
-        
-        //set child components xy and orderRank
-        //calculate its xy cords
+
+        // set child components xy and orderRank
+        // calculate its xy cords
         xyCordsNew[0] += xyCords[0];
         xyCordsNew[1] += xyCords[1];
         xyCordsNew[2] += xyCords[2];
         xyCordsNew[3] += xyCords[3];
 
         component.updateXY(xyCordsNew);
-        component.setOrderRank(orderRank+1);
+        component.setOrderRank(orderRank + 1);
 
-        //Finish
+        // Finish
         components[numChildren] = component;
         numChildren++;
     }
-    public int getID()
-    {
+
+    public int getID() {
         return id;
     }
-    public void setID(int id)
-    {
+
+    public void setID(int id) {
         this.id = id;
     }
+
     protected abstract void updateXYHelper(int[] xyCords);
+
     protected abstract void setHiddenHelper(boolean isHidden);
+
     protected abstract Node getObject();
 }
