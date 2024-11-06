@@ -1,4 +1,5 @@
 import javafx.scene.text.Text;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextFlow;
 
@@ -23,8 +24,8 @@ public class TextComponent extends ViewComponent
     @Override
     protected void updateXYHelper(int[] xyCords)
     {
-        thisObject.setX(xyCords[0]);
-        thisObject.setY(xyCords[2]);
+        thisObject.setLayoutX(xyCords[0]);
+        thisObject.setLayoutY(xyCords[2]);
         thisObject.setPrefWidth(xyCords[1]-xyCords[0]);
         thisObject.setPrefHeight(xyCords[3]-xyCords[2]);
     }
@@ -33,7 +34,7 @@ public class TextComponent extends ViewComponent
     {
         this.text = text;
         Text newText = new Text(text);
-        TextFlow newObject = new TextFlow(text);
+        TextFlow newObject = new TextFlow(newText);
         thisObject = newObject;
     }
     public void setFont(Font font)
@@ -52,5 +53,10 @@ public class TextComponent extends ViewComponent
     public Font getFont()
     {
         return font;
+    }
+    @Override
+    public TextFlow getObject()
+    {
+        return thisObject;
     }
 }

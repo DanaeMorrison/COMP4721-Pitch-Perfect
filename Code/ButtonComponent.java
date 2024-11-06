@@ -4,14 +4,13 @@ public class ButtonComponent extends ViewComponent
 {
     private Button thisObject;
     private int id;
-    private int isClicked;
+    private boolean isClicked;
 
-    public ButtonComponent(int id)
+    public ButtonComponent()
     {
         //when clicked, controller will request button id and then
         //translate this buttons id to the action required when this
         //button is clicked
-        this.id=id;
         isClicked=false;
         thisObject = new Button();
 
@@ -47,5 +46,16 @@ public class ButtonComponent extends ViewComponent
     {
         isClicked = false;
         return id;
+    }
+    @Override
+    public void setID(int id)
+    {
+        this.id=id;
+        Button newButton = new Button(String.valueOf(id));
+    }
+    @Override
+    public Button getObject()
+    {
+        return thisObject;
     }
 }

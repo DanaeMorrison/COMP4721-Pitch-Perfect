@@ -1,15 +1,28 @@
 import java.util.HashMap;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class UI
 {
     private HashMap<Integer,ViewComponent> viewComponents;
     private int numComponents;
+    private Pane pane;
     //NOT YET IMPLEMENTED private AudioComponent audioComponent = new audioComponent;
 
-    public UI()
+    public UI(Stage primaryStage)
     {
-        viewComponents = new ArrayList();
+        viewComponents = new HashMap<>();
         numComponents = 0;
+
+        //javafx init
+        pane = new Pane();
+        Scene scene = new Scene(pane, 400, 300);
+
+        // Set up the Stage
+        primaryStage.setTitle("JavaFX Rectangle Display");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     /**
@@ -35,22 +48,18 @@ public class UI
      * 
      * returns the id of the created viewComponent
      */
-    public int createViewComponent(int parentID, String componentType)
+    public int createViewComponent(int parentID, String componentType, int[] cords)
     {
-        try{
-            ViewComponent parent = viewComponents.get(parentID);
-        } catch (Exception e)
-        {
-            throw new IllegalArgumentException("Requested parent does not exist");
-        }
+        ViewComponent parent = viewComponents.get(parentID);
         
         int newComponentID = createViewComponent(componentType);
         ViewComponent newComponent = viewComponents.get(newComponentID);
-        parent.addComponent(newComponent);
+        parent.addComponent(newComponent, cords);
         return newComponentID;
     }
     public int createViewComponent(String componentType)
     {
+        System.out.println("Finding constructor");
         // MUST CHANGE CONSTRUCTORS TO TAKE NO INPUT, INSTEAD MUST BUILD THEM
         ViewComponent newComponent;
         if(componentType.equals("text"))
@@ -61,15 +70,18 @@ public class UI
             newComponent = new ImageComponent();
         } else if(componentType.equals("rectangle"))
         {
+            System.out.println("HIT rectangle");
             newComponent = new RectangleComponent();
         } else if(componentType.equals("button"))
         {
             newComponent = new ButtonComponent();
-        } else if(componentType.equals("container"))
+            newComponent.setID(numComponents);
+        } else 
         {
-            newComponent = new ViewComponent();
+            throw new IllegalArgumentException("requested component type does not exist");
         }
 
+        pane.getChildren().add(newComponent.getObject());
         viewComponents.put(numComponents, newComponent);
         numComponents++;
         return numComponents-1;

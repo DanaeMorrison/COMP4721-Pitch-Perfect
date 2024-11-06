@@ -7,6 +7,7 @@ public class RectangleComponent extends ViewComponent
     public RectangleComponent()
     {
         thisObject = new Rectangle();
+        System.out.println("Rectangle created");
     }
     @Override
     protected void setHiddenHelper(boolean isHidden)
@@ -20,5 +21,10 @@ public class RectangleComponent extends ViewComponent
         thisObject.setY(xyCords[2]);
         thisObject.setWidth(xyCords[1]-xyCords[0]);
         thisObject.setHeight(xyCords[3]-xyCords[2]);
+    }
+    @Override
+    public Rectangle getObject()
+    {
+        return thisObject;
     }
 }

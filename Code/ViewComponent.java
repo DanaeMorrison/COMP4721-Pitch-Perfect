@@ -1,4 +1,4 @@
-
+import javafx.scene.Node;
 
 public abstract class ViewComponent
 {
@@ -15,7 +15,11 @@ public abstract class ViewComponent
         componentCapacity = 8;
         components = new ViewComponent[componentCapacity];
         numChildren = 0;
-        xyCords = new int[4]{0,0,0,0};
+        xyCords = new int[4];
+        for(int i=0; i<4; i++)
+        {
+            xyCords[i] = 0;
+        }
         orderRank=0; 
         //xyCords and orderRank intialized when added as a child to some other ViewComponent
         //therefore in almost all cases, a ViewComponent should have a parent ViewComponent
@@ -47,12 +51,15 @@ public abstract class ViewComponent
         int[] xyCordsComponent;
         for(ViewComponent component : components)
         {
-            xyCordsComponent = component.getXY();
-            xyCordsComponent[0] += xStartDiff;
-            xyCordsComponent[1] += xEndDiff;
-            xyCordsComponent[2] += yStartDiff;
-            xyCordsComponent[3] += yEndDiff;
-            component.updateXY(xyCordsComponent);
+            if(component != null)
+            {
+                xyCordsComponent = component.getXY();
+                xyCordsComponent[0] += xStartDiff;
+                xyCordsComponent[1] += xEndDiff;
+                xyCordsComponent[2] += yStartDiff;
+                xyCordsComponent[3] += yEndDiff;
+                component.updateXY(xyCordsComponent);
+            }
         }
         xyCords = xyCordsNew;
         
@@ -119,6 +126,15 @@ public abstract class ViewComponent
         components[numChildren] = component;
         numChildren++;
     }
+    public int getID()
+    {
+        return id;
+    }
+    public void setID(int id)
+    {
+        this.id = id;
+    }
     protected abstract void updateXYHelper(int[] xyCords);
     protected abstract void setHiddenHelper(boolean isHidden);
+    protected abstract Node getObject();
 }
