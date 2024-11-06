@@ -1,3 +1,7 @@
+import Model.Lesson;
+import Model.Model;
+import Model.Unit;
+
 /**
  * @author Danae Morrison
  * @version 1.0
