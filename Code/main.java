@@ -13,5 +13,5 @@ public class Main extends Application
     {
         System.out.println("Running");
         Controller controller = new Controller(primaryStage);
-    }
+    }   
 }

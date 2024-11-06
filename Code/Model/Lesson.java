@@ -1,9 +1,9 @@
 package Model;
+
 /**
  * @author Danae Morrison
  * @version 1.0
  **/
-
 
 public class Lesson {
     private int lessonID;
