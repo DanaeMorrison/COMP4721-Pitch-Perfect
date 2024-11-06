@@ -1,9 +1,10 @@
-This code is for a music application to teach sight reading to musicians of various experience levels.
+# Music Application for Sight Reading
 
-Link to staffs for flashcards:
-https://www.canva.com/design/DAGVd-HgqAc/9f9J9VIvMNzelB4t8IOmng/edit?utm_content=DAGVd-HgqAc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+This code is for a music application designed to teach sight reading to musicians of various experience levels.
 
-Link to whole note component:
-https://www.canva.com/design/DAGVd-HgqAc/9f9J9VIvMNzelB4t8IOmng/edit?utm_content=DAGVd-HgqAc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+## Resources
 
-Will get Canva Pro soon so we can obtain transparent versions of the graphics.
+- [Staffs for Flashcards](https://www.canva.com/design/DAGVd-HgqAc/9f9J9VIvMNzelB4t8IOmng/edit?utm_content=DAGVd-HgqAc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+- [Whole Note Component](https://www.canva.com/design/DAGVd-HgqAc/9f9J9VIvMNzelB4t8IOmng/edit?utm_content=DAGVd-HgqAc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+We will get Canva Pro soon to obtain transparent versions of the graphics.
