@@ -75,12 +75,12 @@ public class UI
         } else if(componentType.equals("button"))
         {
             newComponent = new ButtonComponent();
-            newComponent.setID(numComponents);
         } else 
         {
             throw new IllegalArgumentException("requested component type does not exist");
         }
 
+        newComponent.setID(numComponents);
         pane.getChildren().add(newComponent.getObject());
         viewComponents.put(numComponents, newComponent);
         numComponents++;
