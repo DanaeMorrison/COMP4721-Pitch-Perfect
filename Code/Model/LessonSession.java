@@ -69,6 +69,10 @@ public class LessonSession {
         }
         // controller gets alert that lesson is complete
         String lessonComplete = lesson.lessonComplete();
+        // resets all flashcards' isCorrect values to false.
+        // potentially not needed if lesson's flashcards were not
+        // changed through use of the lessonFlashcards variable assignment
+        resetFlashcardsFalse(lessonFlashcards);
     }
 
     private static boolean isSubmissionCorrect(int keyboardInput, int flashcardAnswer) {
