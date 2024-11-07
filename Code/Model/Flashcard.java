@@ -38,4 +38,16 @@ public class Flashcard {
     public int getPointValue() {
         return pointValue;
     }
+
+    public void setFalse() {
+        this.isCorrect = false;
+    }
+
+    public void setTrue() {
+        this.isCorrect = true;
+    }
+
+    public boolean isCorrect() {
+        return isCorrect;
+    }
 }
