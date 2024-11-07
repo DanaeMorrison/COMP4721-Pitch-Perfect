@@ -24,8 +24,12 @@ public class Checker {
     }
     // if we want to return the name of the note that is played, for some reason, this method is here as well. 
     public String returnNoteName(int note){
-        int moddedNote = note % 12;
+        int moddedNote = modNote(note);
         return allnotes.get(moddedNote);
+    }
+    // returns the modded note.(0-11)
+    public int modNote(int userInput){
+        return userInput % 12;
     }
    
 }
