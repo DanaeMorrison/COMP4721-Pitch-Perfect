@@ -27,4 +27,16 @@ public class Lesson {
     public int getLessonID() {
         return lessonID;
     }
+
+    public String incorrectSubmission() {
+        return "Your answer is incorrect. Try again";
+    }
+
+    public String correctSubmission() {
+        return "Your answer is correct";
+    }
+
+    public String lessonComplete() {
+        return "You have completed the lesson";
+    }
 }
