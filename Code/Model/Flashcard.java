@@ -10,6 +10,10 @@ public class Flashcard {
     private int imageID;
     private int answer;
     private int pointValue;
+
+    // will be used during lessons and drills to determine
+    // if a user has answered the flashcard correctly
+    private boolean isCorrect;
     // potentially a float value with the specific location
     // on an image component the whole note should be placed?
     // Or have the controller translate the answer value of the

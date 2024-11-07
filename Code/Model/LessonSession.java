@@ -80,4 +80,10 @@ public class LessonSession {
     private static boolean isSubmissionCorrect(int keyboardInput, int flashcardAnswer) {
         return keyboardInput == flashcardAnswer;
     }
+
+    private static void resetFlashcardsFalse(Flashcard[] lessonFlashcards) {
+        for (int i = 0; i < lessonFlashcards.length; i++) {
+            lessonFlashcards[i].setFalse();
+        }
+    }
 }
