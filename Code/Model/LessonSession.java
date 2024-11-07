@@ -1,3 +1,5 @@
+package Model;
+
 /**
  * @author Danae Morrison
  * @version 1.0
