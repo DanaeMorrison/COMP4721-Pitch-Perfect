@@ -1,3 +1,5 @@
+package View;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 // Removed invalid import statement

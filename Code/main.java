@@ -1,18 +1,22 @@
 import Controller.Controller;
+import Controller.CommandParser;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import java.io.File;
+import java.io.IOException;
 
-public class Main extends Application
+public class main extends Application
 {
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage)
+    public void start(Stage primaryStage) throws IOException
     {
         System.out.println("Running");
-        Controller controller = new Controller(primaryStage);
+        File stateFile = new File("./input.txt");
+        Controller controller = new Controller(primaryStage, stateFile);
         CommandParser commandParser = controller.getParser();
         Thread commandParserThread = new Thread(commandParser);
         commandParserThread.setDaemon(true);

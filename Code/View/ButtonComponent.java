@@ -1,3 +1,5 @@
+package View;
+
 import javafx.scene.control.Button;
 
 public class ButtonComponent extends ViewComponent
@@ -5,6 +7,7 @@ public class ButtonComponent extends ViewComponent
     private Button thisObject;
     private int id;
     private boolean isClicked;
+    private String message;
 
     public ButtonComponent()
     {
@@ -14,11 +17,9 @@ public class ButtonComponent extends ViewComponent
         isClicked=false;
         thisObject = new Button();
 
+        message = "";
         // Buttons action on click
         thisObject.setOnAction(event -> {
-            //MUST check if button is on topmost rank at its location.
-            //will probably make components which arent topmost rank at their location
-            //be hidden so keep that in mind.
             isClicked = true;
         });
     }
@@ -42,16 +43,14 @@ public class ButtonComponent extends ViewComponent
     {
         return isClicked;
     }
-    public int getMessage()
+    public String getMessage()
     {
         isClicked = false;
-        return id;
+        return message;
     }
-    @Override
-    public void setID(int id)
+    public void setMessage(String message)
     {
-        this.id=id;
-        Button newButton = new Button(String.valueOf(id));
+        this.message = message;
     }
     @Override
     public Button getObject()

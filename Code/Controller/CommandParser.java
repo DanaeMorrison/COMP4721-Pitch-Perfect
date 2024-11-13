@@ -1,6 +1,7 @@
+package Controller;
 import java.util.ArrayList;
 import View.UI;
-import View.Button;
+import View.ButtonComponent;
 
 import View.UI;
 import javafx.scene.web.HTMLEditorSkin.Command;
@@ -21,11 +22,11 @@ public class CommandParser implements Runnable{
 
     @Override
     public void run() {
-        Button button;
+        ButtonComponent button;
         String input;
         while (running) {
             for (int id : inputIDs) {
-                button = ui.getViewComponent(id);
+                button = (ButtonComponent) ui.getViewComponent(id);
                 if (button.hasMessage()) {
                     input = button.getMessage();
                     parse(input);

@@ -1,3 +1,5 @@
+package View;
+
 import javafx.scene.shape.Rectangle;
 
 public class RectangleComponent extends ViewComponent

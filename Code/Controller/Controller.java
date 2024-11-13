@@ -3,6 +3,10 @@ import View.UI;
 import View.ViewComponent;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
 
 /**
  * For now, making this very bare bones to work with UI
@@ -12,12 +16,26 @@ public class Controller
     private UI ui;
     CommandParser commandParser;
 
-    public Controller(Stage primaryStage)
+    public Controller(Stage primaryStage, File stateFile) throws IOException
     {
         System.out.println("Controller created. Creating UI...");
         ui = new UI(primaryStage);
         commandParser = new CommandParser(this, ui);
-        //createKeyboard();
+        createKeyboard();
+    }
+    private void initState(File stateFile) throws IOException
+    {
+        //Intended to later include reloading state of users progress, not
+        //worrying about this for now and will just get it to init model and
+        //some viewComponents
+        
+        BufferedReader input = new BufferedReader(stateFile);
+        String currLine = input.readLine();
+        //assumes stateFile ends with "EOF"
+        while(currLine != "EOF")
+        {
+            
+        }
     }
 
     public UI getUI()
