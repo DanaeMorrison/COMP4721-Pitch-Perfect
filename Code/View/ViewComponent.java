@@ -8,6 +8,7 @@ public abstract class ViewComponent {
     private ViewComponent[] components;
     private int numChildren;
     private int componentCapacity;
+    private boolean isHidden;
 
     public ViewComponent() {
         // initialize
@@ -19,6 +20,7 @@ public abstract class ViewComponent {
             xyCords[i] = 0;
         }
         orderRank = 0;
+        isHidden = true;
         // xyCords and orderRank intialized when added as a child to some other
         // ViewComponent
         // therefore in almost all cases, a ViewComponent should have a parent
@@ -78,11 +80,21 @@ public abstract class ViewComponent {
         orderRank = newRank;
     }
 
+    public void toFront()
+    {
+        getObject().toFront();
+    }
+
     // Instead of isHidden boolean, I should just literally hide or
     // unhide
     public void setHidden(boolean isHidden) {
         // Calls helper method implemented within this abstract classes extensions
+        this.isHidden = isHidden;
         setHiddenHelper(isHidden);
+    }
+    public boolean getHidden()
+    {
+        return isHidden;
     }
 
     public ViewComponent[] getComponents() {

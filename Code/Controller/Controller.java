@@ -15,7 +15,7 @@ public class Controller
     {
         System.out.println("Controller created. Creating UI...");
         ui = new UI(primaryStage);
-        createKeyboard();;
+        createKeyboard();
     }
 
     private void createUIObjects()

@@ -1,6 +1,6 @@
 package View;
 import java.util.HashMap;
-
+import java.util.ArrayList;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -87,5 +87,32 @@ public class UI
         viewComponents.put(numComponents, newComponent);
         numComponents++;
         return numComponents-1;
+    }
+
+    /*
+     * with current datastructure I'm using, i must do more to ensure that the maximum orderRank is never
+     * more than numComponents
+     */
+    public void sortViewOrder()
+    {
+        ArrayList<Integer>[] sortedComponents = new ArrayList[numComponents];
+        for(int i=0; i<numComponents; i++)
+        {
+            sortedComponents[i] = new ArrayList<Integer>();
+        }
+        for(ViewComponent component : viewComponents.values())
+        {
+            if(!component.getHidden())
+            {
+                sortedComponents[component.getOrderRank()].add(component.getID());
+            }
+        }
+        for(int i=0; i<numComponents; i++)
+        {
+            for(int id : sortedComponents[i])
+            {
+                getViewComponent(id).toFront();               
+            }
+        }
     }
 }
