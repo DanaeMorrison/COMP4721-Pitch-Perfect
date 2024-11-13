@@ -11,7 +11,7 @@ public class ImageComponent extends ViewComponent
     public ImageComponent()
     {
         //setting image to empty path is temporary and should be changed
-        thisObject = new ImageView(new Image(""));
+        thisObject = new ImageView(new Image("Assets/wholeNote.png"));
     }
     @Override
     protected void setHiddenHelper(boolean isHidden)
@@ -31,9 +31,8 @@ public class ImageComponent extends ViewComponent
     {
         return thisObject;
     }
-    public void changeImage(String url)
-    {
-        ImageView newObject = new ImageView(new Image(getClass().getResource(url).toExternalForm()));
-        this.thisObject = newObject;
+    public void changeImage(String url) {
+        // Load the new image and set it on the existing ImageView
+        thisObject.setImage(new Image(getClass().getResource(url).toExternalForm()));
     }
 }
