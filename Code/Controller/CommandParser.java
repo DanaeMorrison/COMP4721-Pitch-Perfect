@@ -18,28 +18,43 @@ public class CommandParser implements Runnable{
         this.controller = controller;
         this.ui = ui;
         inputIDs = new ArrayList<>();
+        System.out.println("Parser created");
     }
 
     @Override
     public void run() {
+        System.out.println("Searching for input)");
         ButtonComponent button;
         String input;
+        int updateIterations = 50;
+        int index = 0;
+        inputIDs = ui.getParsables();
         while (running) {
+            //every updateIterations checks for inputIDs, update the list of inputIDs
+            if(index == updateIterations)
+            {
+                System.out.println("updating inputIDs");
+                index = 0;
+                inputIDs = ui.getParsables();
+            }
             for (int id : inputIDs) {
                 button = (ButtonComponent) ui.getViewComponent(id);
                 if (button.hasMessage()) {
                     input = button.getMessage();
+                    System.out.println("Received message: "+input);
                     parse(input);
                 }
             }
 
             try {
                 // Sleep briefly to prevent excessive CPU usage in the loop
-                Thread.sleep(50); 
+                Thread.sleep(100); 
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt(); // Restore interrupted status
             }
+            index++;
         }
+        System.out.println("No longer receiving input");
     }
 
     public void stop()
@@ -64,6 +79,12 @@ public class CommandParser implements Runnable{
         } else if(args[0].equals("playNote"))
         {
             //implement
+            int[] notes = new int[args.length-1];
+            for(int i=0; i<args.length-1; i++)
+            {
+                notes[i] = Integer.valueOf(args[i+1]);
+            }
+            controller.playNote(notes);
         } else
         {
             //commnd not recognized, find some standard way to handle appropriately.
