@@ -8,7 +8,7 @@ package Model;
 public class Flashcard {
     private int flashcardID;
     private int[] answer;
-    private String clef;
+    private char clef;
     private char hand;
 
     // will be used during lessons and drills to determine
@@ -19,7 +19,7 @@ public class Flashcard {
     // flashcard to a float value that the image component can use
     // for placement?
 
-    public Flashcard(int flashcardID, int[] answer, String clef, char hand) {
+    public Flashcard(int flashcardID, int[] answer, char clef, char hand) {
         this.flashcardID = flashcardID;
         this.answer = answer;
         this.clef = clef;
@@ -38,7 +38,7 @@ public class Flashcard {
         return answer;
     }
 
-    public String getClef() {
+    public char getClef() {
         return clef;
     }
 }
