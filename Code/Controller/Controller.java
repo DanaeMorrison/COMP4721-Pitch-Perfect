@@ -66,7 +66,7 @@ public class Controller
         backgroundCords[3]=totalHeight;
         int backGroundID = ui.createViewComponent("rectangle");
         ui.getViewComponent(backGroundID).updateXY(backgroundCords);
-
+    
         int[] keyCords = new int[4];
         keyCords[0]=startX;
         keyCords[1]=keyWidth;
@@ -80,16 +80,49 @@ public class Controller
             keyCords[0]+=keyWidth;
             keyCords[1]+=keyWidth;
         }
-    }
+    }    
     private void createLessonView(/*Lesson lesson*/){
         // Setting up flashcard
+        
+        // Setting up clef
         int[] clefChords = {10, 1030, 10, 910};
         int clefID = ui.createViewComponent("image");
         ui.getViewComponent(clefID).updateXY(clefChords);
         ImageComponent clef = (ImageComponent) ui.getViewComponent(clefID);
         
+        // Setting up hands
+        int[] leftHandChords = {100, 250, 600, 750};
+        int leftHandID = ui.createViewComponent("image");
+        ui.getViewComponent(leftHandID).updateXY(leftHandChords);
+        ImageComponent leftHand = (ImageComponent) ui.getViewComponent(leftHandID);
+        
+        int[] rightHandChords = {1000, 1150, 700, 750};
+        int rightHandID = ui.createViewComponent("image");
+        ui.getViewComponent(rightHandID).updateXY(rightHandChords);
+        ImageComponent rightHand = (ImageComponent) ui.getViewComponent(rightHandID);
+        
+        // Setting up notes
+        int[] noteChords= {300, 400, 300, 400};
+        int[] noteIDs = new int[4];
+        noteIDs[0] = ui.createViewComponent(clefID, "image", noteChords);
+        ImageComponent note1 = (ImageComponent) ui.getViewComponent(noteIDs[0]);
+        note1.changeImage("/Assets/wholeNote");
+        
+        noteIDs[1] = ui.createViewComponent(clefID, "image", noteChords);
+        ImageComponent note2 = (ImageComponent) ui.getViewComponent(noteIDs[1]);
+        note2.changeImage("/Assets/wholeNote");
+        
+        noteIDs[2] = ui.createViewComponent(clefID, "image", noteChords);
+        ImageComponent note3 = (ImageComponent) ui.getViewComponent(noteIDs[2]);
+        note3.changeImage("/Assets/wholeNote");
+        
+        noteIDs[3] = ui.createViewComponent(clefID, "image", noteChords);
+        ImageComponent note4 = (ImageComponent) ui.getViewComponent(noteIDs[3]);
+        note4.changeImage("/Assets/wholeNote");
+        
         Flashcard f1 = new Flashcard(1, new int[] {60}, 'B', 'L');
-        loadFlashcard(clef, f1);
+        loadFlashcard(clef, leftHand, rightHand, f1);
+        
         
         
 
@@ -97,12 +130,25 @@ public class Controller
         
     }
         
-    private void loadFlashcard(ImageComponent image, Flashcard flashcard){
+    private void loadFlashcard(ImageComponent clef, ImageComponent leftHand, ImageComponent rightHand, Flashcard flashcard){
         if (flashcard.getClef() == 'T'){
-            image.changeImage("/Assets/trebleStaff.png");
+            clef.changeImage("/Assets/trebleStaff.png");
         } 
         if (flashcard.getClef() == 'B'){
-            image.changeImage("/Assets/bassStaff.png");
+            clef.changeImage("/Assets/bassStaff.png");
+        }
+        
+        if (flashcard.getHand() == 'L'){
+            leftHand.changeImage("/Assets/leftHandFilled.png");
+            rightHand.changeImage("/Assets/rightHandBlank.png");
+        }
+        if (flashcard.getHand() == 'R'){
+            leftHand.changeImage("/Assets/leftHandBlank.png");
+            rightHand.changeImage("/Assets/rightHandFilled.png");
+        }
+        
+        for (int note : flashcard.getAnswer()){
+            
         }
     }
 }
