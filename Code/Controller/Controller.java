@@ -8,6 +8,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
+
+
 /**
  * For now, making this very bare bones to work with UI
  */
@@ -16,12 +18,12 @@ public class Controller
     private UI ui;
     CommandParser commandParser;
 
-    public Controller(Stage primaryStage, File stateFile) throws IOException
+    public Controller(Stage primaryStage) throws IOException
     {
         System.out.println("Controller created. Creating UI...");
         ui = new UI(primaryStage);
-        //commandParser = new CommandParser(this, ui);
-        createKeyboard();
+        commandParser = new CommandParser(this, ui);
+        createLessonView();
     }
     /**
     private void initState(File stateFile) throws IOException
@@ -80,31 +82,27 @@ public class Controller
         }
     }    
     private void createLessonView(/*Lesson lesson*/){
-        // Setting up background
-        int[] backgroundCords = {0,1200,0,1000}; 
-        int backGroundID = ui.createViewComponent("rectangle");
-        ui.getViewComponent(backGroundID).updateXY(backgroundCords);
-        
         // Setting up flashcard
-        int[] clefChords = {0, 1020, 0, 900};
+        int[] clefChords = {10, 1030, 10, 910};
         int clefID = ui.createViewComponent("image");
         ui.getViewComponent(clefID).updateXY(clefChords);
         ImageComponent clef = (ImageComponent) ui.getViewComponent(clefID);
         
-        Flashcard f1 = new Flashcard(1, new int[] {60}, 'T', 'L');
+        Flashcard f1 = new Flashcard(1, new int[] {60}, 'B', 'L');
         loadFlashcard(clef, f1);
         
         
+
         
         
     }
         
     private void loadFlashcard(ImageComponent image, Flashcard flashcard){
         if (flashcard.getClef() == 'T'){
-            image.changeImage("Team-1/Code/Assets/trebleStaff.png");
+            image.changeImage("/Assets/trebleStaff.png");
         } 
         if (flashcard.getClef() == 'B'){
-            image.changeImage("Team-1/Code/Assets/bassStaff.png");
+            image.changeImage("/Assets/bassStaff.png");
         }
     }
 }
