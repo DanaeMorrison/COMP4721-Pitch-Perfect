@@ -10,12 +10,23 @@ import javafx.stage.Stage;
 public class Controller
 {
     private UI ui;
+    CommandParser commandParser;
 
     public Controller(Stage primaryStage)
     {
         System.out.println("Controller created. Creating UI...");
         ui = new UI(primaryStage);
-        createKeyboard();
+        commandParser = new CommandParser(this, ui);
+        //createKeyboard();
+    }
+
+    public UI getUI()
+    {
+        return ui;
+    }
+    public CommandParser getParser()
+    {
+        return commandParser;
     }
 
     private void createUIObjects()

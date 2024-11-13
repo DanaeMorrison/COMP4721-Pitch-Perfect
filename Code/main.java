@@ -13,5 +13,12 @@ public class Main extends Application
     {
         System.out.println("Running");
         Controller controller = new Controller(primaryStage);
+        CommandParser commandParser = controller.getParser();
+        Thread commandParserThread = new Thread(commandParser);
+        commandParserThread.setDaemon(true);
+        commandParserThread.start();
+
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> commandParser.stop()));
     }   
 }

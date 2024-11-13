@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 public class UI
 {
     private HashMap<Integer,ViewComponent> viewComponents;
+    private ArrayList<Integer> parsables;
     private int numComponents;
     private Pane pane;
     //NOT YET IMPLEMENTED private AudioComponent audioComponent = new audioComponent;
@@ -15,6 +16,7 @@ public class UI
     public UI(Stage primaryStage)
     {
         viewComponents = new HashMap<>();
+        parsables = new ArrayList<>();
         numComponents = 0;
 
         //javafx init
@@ -40,6 +42,10 @@ public class UI
     public ViewComponent getViewComponent(int viewComponentID)
     {
         return viewComponents.get(viewComponentID);
+    }
+    public ArrayList<Integer> getParsables()
+    {
+        return parsables;
     }
 
     /**
