@@ -20,7 +20,9 @@ public class main extends Application
         CommandParser commandParser = controller.getParser();
         Thread commandParserThread = new Thread(commandParser);
         commandParserThread.setDaemon(true);
+        System.out.println("Starting thread:");
         commandParserThread.start();
+        System.out.println("should be started");
 
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> commandParser.stop()));
