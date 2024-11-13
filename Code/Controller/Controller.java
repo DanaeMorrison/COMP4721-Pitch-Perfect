@@ -66,7 +66,7 @@ public class Controller
         backgroundCords[3]=totalHeight;
         int backGroundID = ui.createViewComponent("rectangle");
         ui.getViewComponent(backGroundID).updateXY(backgroundCords);
-    
+
         int[] keyCords = new int[4];
         keyCords[0]=startX;
         keyCords[1]=keyWidth;
@@ -80,7 +80,7 @@ public class Controller
             keyCords[0]+=keyWidth;
             keyCords[1]+=keyWidth;
         }
-    }    
+    }
     private void createLessonView(/*Lesson lesson*/){
         // Setting up flashcard
         int[] clefChords = {10, 1030, 10, 910};
