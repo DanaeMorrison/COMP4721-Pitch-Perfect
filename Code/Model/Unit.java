@@ -1,17 +1,20 @@
 package Model;
+
 /**
  * @author Danae Morrison
- * @version 1.0
+ * @version 1.1
  **/
 
 public class Unit {
     private int unitID;
-    private Lesson[] lessonList;
     private String courseInfo;
+    private Lesson[] lessonList;
+    private Drill[] drillList;
 
-    public Unit(int unitID, Lesson[] lessonList, String courseInfo) {
+    public Unit(int unitID, String courseInfo, Lesson[] lessonList, Drill[] drillList) {
         this.unitID = unitID;
         this.lessonList = lessonList;
+        this.drillList = drillList;
         this.courseInfo = courseInfo;
     }
 
@@ -21,6 +24,10 @@ public class Unit {
 
     public Lesson[] getLessons() {
         return lessonList;
+    }
+
+    public Drill[] getDrills() {
+        return drillList;
     }
 
     public int getUnitID() {

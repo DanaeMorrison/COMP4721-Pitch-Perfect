@@ -2,18 +2,20 @@ package Model;
 
 /**
  * @author Danae Morrison
- * @version 1.0
+ * @version 1.1
  **/
 
 public class Lesson {
     private int lessonID;
     private String lessonInfo;
     private Flashcard[] flashcardList;
+    private int lessonSize = 0;
 
     public Lesson(int lessonID, String lessonInfo, Flashcard[] flashcardList) {
         this.lessonID = lessonID;
         this.lessonInfo = lessonInfo;
         this.flashcardList = flashcardList;
+        lessonSize = flashcardList.length;
     }
 
     public String getInfo() {
@@ -28,15 +30,7 @@ public class Lesson {
         return lessonID;
     }
 
-    public String incorrectSubmission() {
-        return "Your answer is incorrect. Try again";
-    }
-
-    public String correctSubmission() {
-        return "Your answer is correct";
-    }
-
-    public String lessonComplete() {
-        return "You have completed the lesson";
+    public int getLessonSize() {
+        return lessonSize;
     }
 }
