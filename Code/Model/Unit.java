@@ -1,29 +1,32 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
 package Model;
-/**
- * @author Danae Morrison
- * @version 1.0
- **/
 
 public class Unit {
-    private int unitID;
-    private Lesson[] lessonList;
-    private String courseInfo;
+   private int unitID;
+   private String courseInfo;
+   private Lesson[] lessonList;
+   private Drill[] drillList;
 
-    public Unit(int unitID, Lesson[] lessonList, String courseInfo) {
-        this.unitID = unitID;
-        this.lessonList = lessonList;
-        this.courseInfo = courseInfo;
-    }
+   public Unit(int unitID, String courseInfo, Lesson[] lessonList, Drill[] drillList) {
+      this.unitID = unitID;
+      this.lessonList = lessonList;
+      this.drillList = drillList;
+      this.courseInfo = courseInfo;
+   }
 
-    public String getInfo() {
-        return courseInfo;
-    }
+   public String getInfo() {
+      return this.courseInfo;
+   }
 
-    public Lesson[] getLessons() {
-        return lessonList;
-    }
+   public Lesson[] getLessons() {
+      return this.lessonList;
+   }
 
-    public int getUnitID() {
-        return unitID;
-    }
+   public Drill[] getDrills() {
+      return this.drillList;
+   }
+
+   public int getUnitID() {
+      return this.unitID;
+   }
 }
