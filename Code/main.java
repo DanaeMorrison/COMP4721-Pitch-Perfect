@@ -15,7 +15,7 @@ public class main extends Application
     public void start(Stage primaryStage) throws IOException
     {
         System.out.println("Running");
-        File stateFile = new File("./input.txt");
+        File stateFile = new File("../input.txt");
         Controller controller = new Controller(primaryStage, stateFile);
         CommandParser commandParser = controller.getParser();
         Thread commandParserThread = new Thread(commandParser);
