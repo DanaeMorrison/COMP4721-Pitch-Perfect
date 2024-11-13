@@ -83,6 +83,7 @@ public class UI
         } else if(componentType.equals("button"))
         {
             newComponent = new ButtonComponent();
+            parsables.add(numComponents);
         } else 
         {
             throw new IllegalArgumentException("requested component type does not exist");
