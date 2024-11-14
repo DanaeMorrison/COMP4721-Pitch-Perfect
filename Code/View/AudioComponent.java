@@ -59,7 +59,7 @@ public class AudioComponent {
             channels[i].noteOn(currentNote, VELOCITY);
         }
         try {
-            Thread.sleep(1800); //this might not be what I want. I want a delay of
+            Thread.sleep(100); //this might not be what I want. I want a delay of
             //1.5 seconds that allows the note to play for that long
         }
         catch(InterruptedException ex) {

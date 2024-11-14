@@ -26,7 +26,7 @@ public class CommandParser implements Runnable{
         System.out.println("Searching for input)");
         ButtonComponent button;
         String input;
-        int updateIterations = 50;
+        int updateIterations = 500;
         int index = 0;
         inputIDs = ui.getParsables();
         while (running) {
@@ -48,7 +48,7 @@ public class CommandParser implements Runnable{
 
             try {
                 // Sleep briefly to prevent excessive CPU usage in the loop
-                Thread.sleep(100); 
+                Thread.sleep(1); 
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt(); // Restore interrupted status
             }

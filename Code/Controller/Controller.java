@@ -22,7 +22,8 @@ public class Controller {
         System.out.println("Controller created. Creating UI...");
         ui = new UI(primaryStage);
         commandParser = new CommandParser(this, ui);
-        createLessonView();
+        //createLessonView();
+        createKeyboard();
         audio = ui.getAudioComponent();
     }
 
@@ -72,9 +73,12 @@ public class Controller {
         keyCords[2] = startY;
         keyCords[3] = totalHeight;
         int[] keyIDs = new int[12];
+        ButtonComponent button;
         for (int i = 0; i < 12; i++) {
             keyIDs[i] = ui.createViewComponent("button");
-            ui.getViewComponent(keyIDs[i]).updateXY(keyCords);
+            button = (ButtonComponent)ui.getViewComponent(keyIDs[i]);
+            button.updateXY(keyCords);
+            button.setMessage("playNote "+String.valueOf(i));
             keyCords[0] += keyWidth;
             keyCords[1] += keyWidth;
         }
