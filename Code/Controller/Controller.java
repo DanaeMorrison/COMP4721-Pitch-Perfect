@@ -88,49 +88,47 @@ public class Controller
         // Setting up flashcard
         
         // Setting up clef
-        int[] clefChords = {10, 1030, 10, 910};
+        int[] clefChords = {170, 1190, 0, 800};
         int clefID = ui.createViewComponent("image");
         ui.getViewComponent(clefID).updateXY(clefChords);
         ImageComponent clef = (ImageComponent) ui.getViewComponent(clefID);
         
         // Setting up hands
-        int[] leftHandChords = {100, 250, 600, 750};
+        int[] leftHandChords = {155, 355, 600, 800};
         int leftHandID = ui.createViewComponent("image");
         ui.getViewComponent(leftHandID).updateXY(leftHandChords);
         ImageComponent leftHand = (ImageComponent) ui.getViewComponent(leftHandID);
         
-        int[] rightHandChords = {1000, 1150, 700, 750};
+        int[] rightHandChords = {995, 1195, 600, 800};
         int rightHandID = ui.createViewComponent("image");
         ui.getViewComponent(rightHandID).updateXY(rightHandChords);
         ImageComponent rightHand = (ImageComponent) ui.getViewComponent(rightHandID);
         
+        
         // Setting up notes
         int[] noteChords= {300, 400, 300, 400};
         int[] noteIDs = new int[4];
-        noteIDs[0] = ui.createViewComponent(clefID, "image", noteChords);
+        noteIDs[0] = ui.createViewComponent("image");
         ImageComponent note1 = (ImageComponent) ui.getViewComponent(noteIDs[0]);
         note1.changeImage("/Assets/wholeNote");
         
-        noteIDs[1] = ui.createViewComponent(clefID, "image", noteChords);
+        
+        noteIDs[1] = ui.createViewComponent("image");
         ImageComponent note2 = (ImageComponent) ui.getViewComponent(noteIDs[1]);
         note2.changeImage("/Assets/wholeNote");
         
-        noteIDs[2] = ui.createViewComponent(clefID, "image", noteChords);
+        noteIDs[2] = ui.createViewComponent("image");
         ImageComponent note3 = (ImageComponent) ui.getViewComponent(noteIDs[2]);
         note3.changeImage("/Assets/wholeNote");
         
-        noteIDs[3] = ui.createViewComponent(clefID, "image", noteChords);
+        noteIDs[3] = ui.createViewComponent("image");
         ImageComponent note4 = (ImageComponent) ui.getViewComponent(noteIDs[3]);
         note4.changeImage("/Assets/wholeNote");
         
+       
         Flashcard f1 = new Flashcard(1, new int[] {60}, 'B', 'L');
         loadFlashcard(clef, leftHand, rightHand, f1);
-        
-        
-        
-
-        
-        
+              
     }
         
     private void loadFlashcard(ImageComponent clef, ImageComponent leftHand, ImageComponent rightHand, Flashcard flashcard){
