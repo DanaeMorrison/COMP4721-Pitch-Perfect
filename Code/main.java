@@ -17,20 +17,17 @@ public class main extends Application
         System.out.println("Running");
         File stateFile = new File("../input.txt");
         try{
-            Controller controller = new Controller(primaryStage);    
-            
+            Controller controller = new Controller(primaryStage);
             CommandParser commandParser = controller.getParser();
             Thread commandParserThread = new Thread(commandParser);
             commandParserThread.setDaemon(true);
             System.out.println("Starting thread:");
             commandParserThread.start();
             System.out.println("should be started");
-    
-    
             Runtime.getRuntime().addShutdownHook(new Thread(() -> commandParser.stop()));
-        } catch (Exception e)
-        {
-            
+        }
+        catch(Exception exception){
+            System.out.println("whomp whomp");            
         }
     }   
 }
