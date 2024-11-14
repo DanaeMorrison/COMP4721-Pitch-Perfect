@@ -155,7 +155,7 @@ public class Controller
         }
     }
 
-    private void playNote(int[] notes) {
+    public void playNote(int[] notes) {
         audio.playSound(notes);
     }
 }
