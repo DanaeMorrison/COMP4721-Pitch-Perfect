@@ -75,7 +75,10 @@ public abstract class ViewComponent {
     public void setOrderRank(int newRank) {
         int rankDifference = newRank - orderRank;
         for (ViewComponent component : components) {
-            component.setOrderRank(component.getOrderRank() + rankDifference);
+            if (component != null)
+            {
+                component.setOrderRank(component.getOrderRank() + rankDifference);
+            }
         }
         orderRank = newRank;
     }
