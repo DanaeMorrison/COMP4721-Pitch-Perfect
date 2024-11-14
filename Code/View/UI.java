@@ -30,12 +30,14 @@ public class UI
         numComponents = 0;
 
         //javafx init
+        //javafx init
         pane = new Pane();
-        Scene scene = new Scene(pane, 400, 300);
+        Scene scene = new Scene(pane, 1350, 760);
 
         // Set up the Stage
         primaryStage.setTitle("JavaFX Rectangle Display");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
