@@ -1,5 +1,8 @@
 package View;
 import java.util.HashMap;
+
+import javax.sound.midi.MidiUnavailableException;
+
 import java.util.ArrayList;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -11,10 +14,17 @@ public class UI
     private ArrayList<Integer> parsables;
     private int numComponents;
     private Pane pane;
-    //NOT YET IMPLEMENTED private AudioComponent audioComponent = new audioComponent;
+    private AudioComponent audioComponent;
 
-    public UI(Stage primaryStage)
+    public UI(Stage primaryStage) throws MidiUnavailableException
     {
+        try {
+            audioComponent = new AudioComponent();
+        } catch (MidiUnavailableException e) {
+            System.err.println("Failed to open synthesizer: " + e.getMessage());
+            throw e;
+        }
+        
         viewComponents = new HashMap<>();
         parsables = new ArrayList<>();
         numComponents = 0;
@@ -46,6 +56,10 @@ public class UI
     public ArrayList<Integer> getParsables()
     {
         return parsables;
+    }
+
+    public AudioComponent getAudioComponent() {
+        return audioComponent;
     }
 
     /**

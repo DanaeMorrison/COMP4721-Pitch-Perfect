@@ -3,6 +3,13 @@
 	"configurations": [
 		{
 			"type": "java",
+			"name": "AudioComponentTest",
+			"request": "launch",
+			"mainClass": "AudioComponentTest",
+			"projectName": "Team-1_5e262262"
+		},
+		{
+			"type": "java",
 			"name": "Unit",
 			"request": "launch",
 			"mainClass": "Model.Unit",

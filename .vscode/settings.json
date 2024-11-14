@@ -1,7 +1,15 @@
 {
     // Add JavaFX SDK to the classpath for all projects
     "java.project.referencedLibraries": [
-        "C:/Users/dunca/Downloads/openjfx-23.0.1_windows-x64_bin-sdk/javafx-sdk-23.0.1/lib/*.jar"
+        "C:/Users/dunca/Downloads/openjfx-23.0.1_windows-x64_bin-sdk/javafx-sdk-23.0.1/lib/*.jar",
+        "c:\\Java\\Javafx\\javafx-sdk-18\\lib\\javafx.base.jar",
+        "c:\\Java\\Javafx\\javafx-sdk-18\\lib\\javafx.controls.jar",
+        "c:\\Java\\Javafx\\javafx-sdk-18\\lib\\javafx.fxml.jar",
+        "c:\\Java\\Javafx\\javafx-sdk-18\\lib\\javafx.graphics.jar",
+        "c:\\Java\\Javafx\\javafx-sdk-18\\lib\\javafx.media.jar",
+        "c:\\Java\\Javafx\\javafx-sdk-18\\lib\\javafx.swing.jar",
+        "c:\\Java\\Javafx\\javafx-sdk-18\\lib\\javafx.web.jar",
+        "c:\\Java\\Javafx\\javafx-sdk-18\\lib\\javafx-swt.jar"
     ],
 
     // Optional: Specify the path to your JDK if needed

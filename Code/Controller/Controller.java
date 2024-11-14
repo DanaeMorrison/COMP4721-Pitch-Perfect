@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import javax.sound.midi.*;
 
 
 
@@ -17,13 +18,15 @@ public class Controller
 {
     private UI ui;
     CommandParser commandParser;
+    private AudioComponent audio;
 
-    public Controller(Stage primaryStage) throws IOException
+    public Controller(Stage primaryStage) throws IOException, MidiUnavailableException
     {
         System.out.println("Controller created. Creating UI...");
         ui = new UI(primaryStage);
         commandParser = new CommandParser(this, ui);
         createLessonView();
+        audio = ui.getAudioComponent();
     }
     /**
     private void initState(File stateFile) throws IOException
@@ -150,5 +153,9 @@ public class Controller
         for (int note : flashcard.getAnswer()){
             
         }
+    }
+
+    private void playNote(int[] notes) {
+        audio.playSound(notes);
     }
 }
