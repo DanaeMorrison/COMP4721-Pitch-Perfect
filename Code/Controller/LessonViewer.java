@@ -89,16 +89,17 @@ public class LessonViewer {
     }
 
     public void loadFeedback(Flashcard flashcard, int[] input, Boolean answer) {
-        for (int i = 0; i < input.length; i++) {
-            int[] noteCoordsArray = noteCoords.getNotePosition(input[i], flashcard.getClef());
-            notes[i + 4].updateXY(new int[] {noteCoordsArray[0]+200, noteCoordsArray[1]+200, noteCoordsArray[2], noteCoordsArray[3]});
-            notes[i + 4].setHidden(false);
+        if (input.length <=4){
+            for (int i = 0; i < input.length; i++) {
+                int[] noteCoordsArray = noteCoords.getNotePosition(input[i], flashcard.getClef());
+                notes[i + 4].updateXY(new int[] {noteCoordsArray[0]+200, noteCoordsArray[1]+200, noteCoordsArray[2], noteCoordsArray[3]});
+                notes[i + 4].setHidden(false);
+            }
         }
-
         if (answer) {
-            feedback.changeImage("/Assets/leftHandFilled.png");
+            feedback.changeImage("/Assets/check.png");
         } else {
-            feedback.changeImage("/Assets/leftHandBlank.png");
+            feedback.changeImage("/Assets/cross.png");
         }
         
         feedback.setHidden(false);
