@@ -1,4 +1,3 @@
-// Source code is decompiled from a .class file using FernFlower decompiler.
 package Controller;
 
 import Model.AnswerProcessor;
