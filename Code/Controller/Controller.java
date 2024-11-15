@@ -1,3 +1,4 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
 package Controller;
 
 import Model.AnswerProcessor;
@@ -39,16 +40,20 @@ public class Controller {
 
         Drill l1 = new Drill(1, "Basic Lesson", new Flashcard[] { f1, f2, f3 }, 120);
         
+        lessonViewer.initializeLesson();
+        lessonViewer.close();
+        drillViewer.initializeDrill();
+        drillViewer.close();
+        
         
         startDrill(l1);
     }
 
-    private void startLesson(Lesson lesson){
+    private void startLesson(Lesson lesson){        
         flashcards = lesson.getFlashcards();
         currentFlashcardIndex = 0;
         
         activity = "Lesson";
-        lessonViewer.initializeLesson();
         answerProcessor.setFlashcard(flashcards[currentFlashcardIndex]);
         lessonViewer.loadFlashcard(flashcards[currentFlashcardIndex]);
     }
@@ -56,11 +61,9 @@ public class Controller {
     private void startDrill(Drill drill){
         flashcards = drill.getFlashcards();
         currentFlashcardIndex = 0;
-        
-        
+    
         activity = "Drill";
         incorrectAnswers = new ArrayList<Flashcard>();
-        drillViewer.initializeDrill();
         drillViewer.startTimer(drill.getTimeLim());
         answerProcessor.setFlashcard(flashcards[currentFlashcardIndex]);
         drillViewer.loadFlashcard(flashcards[currentFlashcardIndex]);
@@ -124,11 +127,19 @@ public class Controller {
         } else {
             if (activity.equals("Lesson")){
                 System.out.println("Lesson Complete!");
-                lessonViewer.closeFlashcard();
+                lessonViewer.close();
             }
             if (activity.equals("Drill")){
                 System.out.println("Drill Complete!");
-                drillViewer.closeFlashcard();
+                drillViewer.close();
+                if (!incorrectAnswers.isEmpty()){
+                    Flashcard[] wrongAnswers = new Flashcard[incorrectAnswers.size()];
+                    for (int i=0; i< incorrectAnswers.size(); i++){
+                        wrongAnswers[i] = incorrectAnswers.get(i);
+                    }
+                    Lesson review = new Lesson(1, "Review Session", wrongAnswers);
+                    startLesson(review);
+                }
             }
         }
     }
