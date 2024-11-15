@@ -38,10 +38,10 @@ public class Controller {
         Flashcard f2 = new Flashcard(2, new int[] { 64, 67 }, 'T', 'R');
         Flashcard f3 = new Flashcard(3, new int[] { 48 }, 'B', 'L');
 
-        Lesson l1 = new Lesson(1, "Basic Lesson", new Flashcard[] { f1, f2, f3 });
+        Drill l1 = new Drill(1, "Basic Lesson", new Flashcard[] { f1, f2, f3 }, 120);
         
         
-        startLesson(l1);
+        startDrill(l1);
     }
 
     private void startLesson(Lesson lesson){
@@ -58,10 +58,13 @@ public class Controller {
         flashcards = drill.getFlashcards();
         currentFlashcardIndex = 0;
         
+        
         activity = "Drill";
-        lessonViewer.initializeLesson();
+        incorrectAnswers = new ArrayList<Flashcard>();
+        drillViewer.initializeDrill();
+        drillViewer.startTimer(drill.getTimeLim());
         answerProcessor.setFlashcard(flashcards[currentFlashcardIndex]);
-        lessonViewer.loadFlashcard(flashcards[currentFlashcardIndex]);
+        drillViewer.loadFlashcard(flashcards[currentFlashcardIndex]);
     }
     
     public void stop() {
@@ -120,9 +123,14 @@ public class Controller {
                 drillViewer.loadFlashcard(flashcards[currentFlashcardIndex]);
             }
         } else {
-            System.out.println("Lesson Complete!");
-            answerProcessor.setFlashcard(null);
-            lessonViewer.closeFlashcard();
+            if (activity.equals("Lesson")){
+                System.out.println("Lesson Complete!");
+                lessonViewer.closeFlashcard();
+            }
+            if (activity.equals("Drill")){
+                System.out.println("Drill Complete!");
+                drillViewer.closeFlashcard();
+            }
         }
     }
 }
