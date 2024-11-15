@@ -39,10 +39,9 @@ public class AnswerProcessor {
     public boolean noteOff(int note) {
         currentNotes.remove(note);
         if (currentNotes.isEmpty()) {
-            return checkAnswer();
-        } else {
-            return false;
-        }
+            return true;
+        } 
+        return false;
     }
 
     // Check if the current notes match the flashcard answer
@@ -61,14 +60,15 @@ public class AnswerProcessor {
                 input.remove(note);
             }
         }
-
-        if (correct && input.isEmpty()) {
+        
+        boolean rightAnswer = (correct && input.isEmpty());
+        if (rightAnswer) {
             System.out.println("Correct Answer");
         } else {
             System.out.println("Incorrect Answer");
         }
         input.clear();
 
-        return correct;
+        return rightAnswer;
     }
 }
