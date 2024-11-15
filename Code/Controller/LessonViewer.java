@@ -23,7 +23,7 @@ public class LessonViewer {
         int clefID = ui.createViewComponent("image");
         ui.getViewComponent(clefID).updateXY(clefChords);
         clef = (ImageComponent) ui.getViewComponent(clefID);
-
+        
         int[] leftHandChords = { 155, 355, 600, 800 };
         int leftHandID = ui.createViewComponent("image");
         ui.getViewComponent(leftHandID).updateXY(leftHandChords);
@@ -77,7 +77,7 @@ public class LessonViewer {
         }
     }
 
-    public void closeFlashcard() {
+    public void close() {
         feedback.setHidden(true);
         clef.setHidden(true);
         leftHand.setHidden(true);
