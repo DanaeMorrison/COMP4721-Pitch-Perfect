@@ -170,6 +170,7 @@ public class Controller {
     }
 
     public void toggleKeys(int[] notes) {
+        
         audio.toggleNotes(notes);
     }
 }
