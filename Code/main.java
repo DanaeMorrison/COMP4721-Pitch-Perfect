@@ -27,7 +27,7 @@ public class main extends Application
             Runtime.getRuntime().addShutdownHook(new Thread(() -> commandParser.stop()));
         }
         catch(Exception exception){
-            System.out.println("whomp whomp");            
+            System.out.println(exception);            
         }
     }   
 }

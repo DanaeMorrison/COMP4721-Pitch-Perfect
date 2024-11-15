@@ -1,9 +1,9 @@
 package View;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 import javax.sound.midi.MidiUnavailableException;
 
-import java.util.ArrayList;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 public class UI
 {
     private HashMap<Integer,ViewComponent> viewComponents;
-    private ArrayList<Integer> parsables;
     private int numComponents;
     private Pane pane;
     private AudioComponent audioComponent;
@@ -26,7 +25,6 @@ public class UI
         }
         
         viewComponents = new HashMap<>();
-        parsables = new ArrayList<>();
         numComponents = 0;
 
         //javafx init
@@ -54,10 +52,6 @@ public class UI
     public ViewComponent getViewComponent(int viewComponentID)
     {
         return viewComponents.get(viewComponentID);
-    }
-    public ArrayList<Integer> getParsables()
-    {
-        return parsables;
     }
 
     public AudioComponent getAudioComponent() {
@@ -99,7 +93,6 @@ public class UI
         } else if(componentType.equals("button"))
         {
             newComponent = new ButtonComponent();
-            parsables.add(numComponents);
         } else 
         {
             throw new IllegalArgumentException("requested component type does not exist");

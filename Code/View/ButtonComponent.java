@@ -6,7 +6,7 @@ public class ButtonComponent extends ViewComponent
 {
     private Button thisObject;
     private int id;
-    private boolean isClicked;
+    private boolean hasMessage;
     private String message;
 
     public ButtonComponent()
@@ -14,13 +14,13 @@ public class ButtonComponent extends ViewComponent
         //when clicked, controller will request button id and then
         //translate this buttons id to the action required when this
         //button is clicked
-        isClicked=false;
+        hasMessage=false;
         thisObject = new Button();
 
         message = "";
         // Buttons action on click
         thisObject.setOnAction(event -> {
-            isClicked = true;
+            hasMessage = true;
         });
     }
     @Override
@@ -41,16 +41,20 @@ public class ButtonComponent extends ViewComponent
     //id to translate this message
     public boolean hasMessage()
     {
-        return isClicked;
+        return hasMessage;
     }
     public String getMessage()
     {
-        isClicked = false;
+        hasMessage = false;
         return message;
     }
     public void setMessage(String message)
     {
         this.message = message;
+    }
+    public void setStyle(String style)
+    {
+        thisObject.setStyle(style);
     }
     @Override
     public Button getObject()

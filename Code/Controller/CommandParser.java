@@ -1,6 +1,7 @@
 package Controller;
 import java.util.ArrayList;
 import View.UI;
+import View.Keyboard;
 import View.ButtonComponent;
 
 import View.UI;
@@ -11,6 +12,7 @@ public class CommandParser implements Runnable{
     Controller controller;
     UI ui;
     ArrayList<Integer> inputIDs;
+    ArrayList<Keyboard> keyboards;
     private volatile boolean running = true;
 
     public CommandParser(Controller controller, UI ui)
@@ -18,31 +20,40 @@ public class CommandParser implements Runnable{
         this.controller = controller;
         this.ui = ui;
         inputIDs = new ArrayList<>();
+        keyboards = new ArrayList<>();
         System.out.println("Parser created");
+    }
+    
+    public void updateInputIDs(ArrayList<Integer> parsables)
+    {
+        System.out.println("parsable added");
+        this.inputIDs = parsables;
+    }
+    public void addKeyboard(Keyboard keyboard)
+    {
+        System.out.println("Keyboard added");
+        keyboards.add(keyboard);
     }
 
     @Override
     public void run() {
-        System.out.println("Searching for input)");
+        System.out.println("Searching for input");
         ButtonComponent button;
         String input;
-        int updateIterations = 500;
-        int index = 0;
-        inputIDs = ui.getParsables();
         while (running) {
-            //every updateIterations checks for inputIDs, update the list of inputIDs
-            if(index == updateIterations)
-            {
-                System.out.println("updating inputIDs");
-                index = 0;
-                inputIDs = ui.getParsables();
-            }
             for (int id : inputIDs) {
                 button = (ButtonComponent) ui.getViewComponent(id);
                 if (button.hasMessage()) {
                     input = button.getMessage();
                     System.out.println("Received message: "+input);
                     parse(input);
+                }
+            }
+            for (Keyboard keyboard : keyboards)
+            {
+                if(keyboard.hasMessage())
+                {
+                    parse(keyboard.getMessage());
                 }
             }
 
@@ -52,7 +63,7 @@ public class CommandParser implements Runnable{
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt(); // Restore interrupted status
             }
-            index++;
+
         }
         System.out.println("No longer receiving input");
     }
@@ -76,15 +87,15 @@ public class CommandParser implements Runnable{
         } else if(args[0].equals("checkAnswer"))
         {
             //implement
-        } else if(args[0].equals("playNote"))
+        } else if(args[0].equals("toggleKeys"))
         {
-            //implement
+            //of format: playNote (followed by some number of notes to combine)
             int[] notes = new int[args.length-1];
             for(int i=0; i<args.length-1; i++)
             {
                 notes[i] = Integer.valueOf(args[i+1]);
             }
-            controller.playNote(notes);
+            controller.toggleKeys(notes);
         } else
         {
             //commnd not recognized, find some standard way to handle appropriately.

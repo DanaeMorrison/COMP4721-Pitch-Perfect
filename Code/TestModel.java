@@ -10,7 +10,7 @@ import Model.Unit;
 public class TestModel {
     public static void main(String[] args) {
         Model model = new Model();
-        model.initializeModel();
+        //model.initializeModel();
 
         //As though user selected Unit 1
         int currentUnitChoiceID = 1;

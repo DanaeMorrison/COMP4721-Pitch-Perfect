@@ -1,5 +1,4 @@
 package Controller;
-
 import Model.*;
 import View.*;
 import javafx.scene.image.Image;
@@ -9,22 +8,30 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import javax.sound.midi.*;
+import java.util.ArrayList;
 
 /**
  * For now, making this very bare bones to work with UI
  */
 public class Controller {
     private UI ui;
-    CommandParser commandParser;
+    private CommandParser commandParser;
     private AudioComponent audio;
-
+    private VirtualKeyboard virtualKeyboard;
+    private ArrayList<Integer> parsables; //id's of ButtonComponents which we send messages to commandParser
+    
     public Controller(Stage primaryStage) throws IOException, MidiUnavailableException {
         System.out.println("Controller created. Creating UI...");
         ui = new UI(primaryStage);
         commandParser = new CommandParser(this, ui);
-        //createLessonView();
-        createKeyboard();
         audio = ui.getAudioComponent();
+        parsables = new ArrayList<>();
+        //virtualKeyboard = new VirtualKeyboard(ui);
+        
+        //initialize some views
+        createLessonView();
+        commandParser.addKeyboard(new VirtualKeyboard(ui));
+        //createKeyboard();
     }
 
     /**
@@ -47,11 +54,7 @@ public class Controller {
     public UI getUI() {
         return ui;
     }
-
-    public CommandParser getParser() {
-        return commandParser;
-    }
-
+    
     private void createKeyboard() {
         int startX = 0;
         int startY = 0;
@@ -78,10 +81,22 @@ public class Controller {
             keyIDs[i] = ui.createViewComponent("button");
             button = (ButtonComponent)ui.getViewComponent(keyIDs[i]);
             button.updateXY(keyCords);
+            //have the message just be the number of the key
             button.setMessage("playNote "+String.valueOf(i));
+            addParsable(keyIDs[i]);
             keyCords[0] += keyWidth;
             keyCords[1] += keyWidth;
         }
+        System.out.println("virtual keyboard created");
+    }
+
+    public CommandParser getParser() {
+        return commandParser;
+    }
+    public void addParsable(int buttonID)
+    {
+        parsables.add(buttonID);
+        commandParser.updateInputIDs(parsables);
     }
 
     private void createLessonView(/* Lesson lesson */) {
@@ -154,7 +169,7 @@ public class Controller {
         }
     }
 
-    public void playNote(int[] notes) {
-        audio.playSound(notes);
+    public void toggleKeys(int[] notes) {
+        audio.toggleKeys(notes);
     }
 }
