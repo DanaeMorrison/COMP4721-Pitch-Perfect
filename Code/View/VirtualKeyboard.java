@@ -29,12 +29,12 @@ public class VirtualKeyboard implements Keyboard {
     }
             
     private void createKeyboard() {
-        int numMainKeys = 15;
+        int numMainKeys = 25;
         int startX = 0;
         int startY = 0;
-        int totalWidth = 600;
-        int totalHeight = 300;
-        int keyWidth = totalWidth / numMainKeys;
+        int totalWidth = 300;
+        int totalHeight = 200;
+        int keyWidth = 2*totalWidth / numMainKeys;
     
         int[] backgroundCords = {startX, totalWidth, startY, totalHeight};
         int backGroundID = ui.createViewComponent("rectangle");
@@ -54,33 +54,64 @@ public class VirtualKeyboard implements Keyboard {
         int skipListIndex = 0;
         //alternates between main and sharp
         boolean isMainKey = true;
-        for (int i = 0; i < numKeys; i++) {
-            //check if skip indices
-            if(i == skipIndices[skipListIndex])
-            {
-                skipListIndex++;
-                isMainKey=true;
-            }
+        // for (int i = 0; i < numKeys; i++) {
+            // //check if skip indices
+            // if(i == skipIndices[skipListIndex])
+            // {
+                // skipListIndex++;
+                // isMainKey=true;
+            // }
+            // ButtonComponent button = (ButtonComponent) ui.getViewComponent(ui.createViewComponent(backGroundID, "button", keyCords));
+            // if (!isMainKey) {
+                // keyCords[0] = xMain;
+                // keyCords[1] = keyWidth;
+                // keyCords[2] = startY;
+                // keyCords[3] = totalHeight;
+                // xMain += keyWidth;
+                // button.setStyle(styleMain);
+            // } else {
+                // xSharp = xMain - (sharpWidth / 2);//put sharp between last main key
+                // keyCords[0] = xSharp;
+                // keyCords[1] = sharpWidth;
+                // keyCords[2] = startY+sharpHeight;
+                // keyCords[3] = totalHeight;
+                // button.setStyle(styleSharp);
+                // isSharp[i] = true;
+            // }
+    
+            // button.setMessage(String.valueOf(i));
+            // keys.add(button);
+        // }
+        
+        for(int i=0; i<25; i++)
+        {
             ButtonComponent button = (ButtonComponent) ui.getViewComponent(ui.createViewComponent(backGroundID, "button", keyCords));
-            if (!isMainKey) {
-                keyCords[0] = xMain;
+            keyCords[0] += keyWidth/2;
+            //keyCords[1] += keyWidth;
+            if(i%2==0)
+            {
+                keyCords[1] = -keyWidth;
+                keyCords[2] = 0;
+                keyCords[3] = 100;
+                button.setStyle(styleMain);
+            } else
+            {
                 keyCords[1] = keyWidth;
                 keyCords[2] = startY;
-                keyCords[3] = totalHeight;
-                xMain += keyWidth;
-                button.setStyle(styleMain);
-            } else {
-                xSharp = xMain - (sharpWidth / 2);//put sharp between last main key
-                keyCords[0] = xSharp;
-                keyCords[1] = sharpWidth;
-                keyCords[2] = startY+sharpHeight;
                 keyCords[3] = totalHeight;
                 button.setStyle(styleSharp);
                 isSharp[i] = true;
             }
-    
             button.setMessage(String.valueOf(i));
             keys.add(button);
+        }
+        
+        for(ButtonComponent key : keys)
+        {
+            if(isSharp[Integer.valueOf(key.getMessage())])
+            {
+                key.toFront();
+            }
         }
     
         System.out.println("Virtual keyboard created");

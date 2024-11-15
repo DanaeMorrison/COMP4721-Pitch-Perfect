@@ -53,7 +53,9 @@ public class CommandParser implements Runnable{
             {
                 if(keyboard.hasMessage())
                 {
-                    parse(keyboard.getMessage());
+                    String message = keyboard.getMessage();
+                    System.out.println("Interpretting " + message);
+                    parse(message);
                 }
             }
 

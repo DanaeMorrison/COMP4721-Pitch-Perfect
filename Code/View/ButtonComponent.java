@@ -31,10 +31,10 @@ public class ButtonComponent extends ViewComponent
     @Override
     protected void updateXYHelper(int[] xyCords)
     {
+        thisObject.setPrefWidth(xyCords[1]);
+        thisObject.setPrefHeight(xyCords[3]);
         thisObject.setLayoutX(xyCords[0]);
         thisObject.setLayoutY(xyCords[2]);
-        thisObject.setPrefWidth(xyCords[1]-xyCords[0]);
-        thisObject.setPrefHeight(xyCords[3]-xyCords[2]);
     }
     //If clicked, then it has a message and once controller checks
     //if this button has a message to send, it will request this buttons

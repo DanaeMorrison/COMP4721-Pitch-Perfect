@@ -12,24 +12,38 @@ public class AudioComponent {
     private Synthesizer synthesizer;
     private MidiChannel[] channels;
 
-    private HashMap<Integer, Integer /** String*/> allnotes;
+    private HashMap<Integer, Integer> allnotes;
     private boolean noteStates[];
     
     public AudioComponent() throws MidiUnavailableException { 
-        noteStates = new boolean[12];
+        noteStates = new boolean[25];
         allnotes = new HashMap<>();
-        allnotes.put(0, 60/**"C"*/);
-        allnotes.put(1, 61/**"C#"*/);
-        allnotes.put(2, 62/**"D"*/);
-        allnotes.put(3, 63/**"D#"*/);
-        allnotes.put(4, 64/**"E"*/);
-        allnotes.put(5, 65/**"F"*/);
-        allnotes.put(6, 66/**"F#"*/);
-        allnotes.put(7, 67/**"G"*/);
-        allnotes.put(8, 68/**"G#"*/);
-        allnotes.put(9, 69/**"A"*/);
-        allnotes.put(10, 70/**"A#"*/);
-        allnotes.put(11, 71/**"B"*/);
+        allnotes.put(0, 60);  // C4
+        allnotes.put(1, 61);  // C#4
+        allnotes.put(2, 62);  // D4
+        allnotes.put(3, 63);  // D#4
+        allnotes.put(4, 64);  // E4
+        allnotes.put(5, 65);  // F4
+        allnotes.put(6, 66);  // F#4
+        allnotes.put(7, 67);  // G4
+        allnotes.put(8, 68);  // G#4
+        allnotes.put(9, 69);  // A4
+        allnotes.put(10, 70); // A#4
+        allnotes.put(11, 71); // B4
+        allnotes.put(12, 72); // C5
+        allnotes.put(13, 73); // C#5
+        allnotes.put(14, 74); // D5
+        allnotes.put(15, 75); // D#5
+        allnotes.put(16, 76); // E5
+        allnotes.put(17, 77); // F5
+        allnotes.put(18, 78); // F#5
+        allnotes.put(19, 79); // G5
+        allnotes.put(20, 80); // G#5
+        allnotes.put(21, 81); // A5
+        allnotes.put(22, 82); // A#5
+        allnotes.put(23, 83); // B5
+        allnotes.put(24, 84); // C6
+        
 
         initializeSynthesizer();
     }
@@ -56,7 +70,7 @@ public class AudioComponent {
 
     // maybe the different channels aren't necessary. Probably not- that might mean
     // expecting various outputs, like different speakers. I'll test it out
-    public void toggleKeys(int[] notes) {
+    public void toggleNotes(int[] notes) {
         int lengthNotes = notes.length;
         int currentNote;
         

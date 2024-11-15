@@ -51,14 +51,15 @@ public abstract class ViewComponent {
         int yStartDiff = xyCordsNew[2] - xyCords[2];
         int yEndDiff = xyCordsNew[3] - xyCords[3];
 
+        
         int[] xyCordsComponent;
         for (ViewComponent component : components) {
             if (component != null) {
                 xyCordsComponent = component.getXY();
                 xyCordsComponent[0] += xStartDiff;
-                xyCordsComponent[1] += xEndDiff;
+                //xyCordsComponent[1] += xEndDiff;
                 xyCordsComponent[2] += yStartDiff;
-                xyCordsComponent[3] += yEndDiff;
+                //xyCordsComponent[3] += yEndDiff;
                 component.updateXY(xyCordsComponent);
             }
         }
@@ -125,9 +126,9 @@ public abstract class ViewComponent {
         // set child components xy and orderRank
         // calculate its xy cords
         xyCordsNew[0] += xyCords[0];
-        xyCordsNew[1] += xyCords[1];
+        //xyCordsNew[1] += xyCords[1];
         xyCordsNew[2] += xyCords[2];
-        xyCordsNew[3] += xyCords[3];
+        //xyCordsNew[3] += xyCords[3];
 
         component.updateXY(xyCordsNew);
         component.setOrderRank(orderRank + 1);

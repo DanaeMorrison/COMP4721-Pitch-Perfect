@@ -30,6 +30,8 @@ public class UI
         //javafx init
         //javafx init
         pane = new Pane();
+        pane.setLayoutX(0);
+        pane.setLayoutY(0);
         Scene scene = new Scene(pane, 1350, 760);
 
         // Set up the Stage
