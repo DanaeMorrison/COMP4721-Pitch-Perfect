@@ -24,6 +24,7 @@ public class Controller {
     private CommandParser commandParser;
     private ArrayList<Integer> parsables;
     private MenuViewer menuViewer;
+    // private int unitSelectionID;
     private Model model;
 
     private boolean check;
@@ -36,7 +37,9 @@ public class Controller {
         audio = new AudioHandler();
         lessonViewer = new LessonViewer(ui);
         drillViewer = new DrillViewer(ui);
-        midiInputHandler = new MidiInputHandler(this);
+        // midiInputHandler = new MidiInputHandler(this);
+        model = new Model();
+        model.initModel();
         answerProcessor = new AnswerProcessor();
         System.out.println("Creating commandParser");
         commandParser = new CommandParser(this, ui);
@@ -51,13 +54,13 @@ public class Controller {
 
         Drill l1 = new Drill(1, "drill1", "Basic Lesson", new Flashcard[] { f1, f2, f3 }, 120);
         
-        lessonViewer.initializeLesson();
-        lessonViewer.close();
-        drillViewer.initializeDrill();
-        drillViewer.close();
+        /** lessonViewer.initializeLesson();
+        lessonViewer.close();*/
+        // drillViewer.initializeDrill();
+        // drillViewer.close();
         
         
-        startDrill(l1);
+        // startDrill(l1);
     }
         
     public void loadMenu(String command)

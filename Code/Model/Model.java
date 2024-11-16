@@ -12,7 +12,8 @@ package Model;
     public Model()
     {
         units = new ArrayList<>();
-        initModel();
+        //initModel();
+        //initModel();
     }
     public Unit getUnit(int unitID) {
         return units.get(unitID);
