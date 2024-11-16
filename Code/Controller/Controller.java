@@ -6,6 +6,7 @@ import Model.AudioHandler;
 import Model.Flashcard;
 import Model.Lesson;
 import Model.Drill;
+import Model.Model;
 import View.UI;
 import java.io.IOException;
 import javafx.stage.Stage;
@@ -48,7 +49,7 @@ public class Controller {
         Flashcard f2 = new Flashcard(2, new int[] { 64, 67 }, 'T', 'R');
         Flashcard f3 = new Flashcard(3, new int[] { 48 }, 'B', 'L');
 
-        Drill l1 = new Drill(1, "Basic Lesson", new Flashcard[] { f1, f2, f3 }, 120);
+        Drill l1 = new Drill(1, "drill1", "Basic Lesson", new Flashcard[] { f1, f2, f3 }, 120);
         
         lessonViewer.initializeLesson();
         lessonViewer.close();
@@ -164,7 +165,7 @@ public class Controller {
                     for (int i=0; i< incorrectAnswers.size(); i++){
                         wrongAnswers[i] = incorrectAnswers.get(i);
                     }
-                    Lesson review = new Lesson(1, "Review Session", wrongAnswers);
+                    Lesson review = new Lesson(1, "drillReview", "Review Session", wrongAnswers);
                     startLesson(review);
                 }
             }

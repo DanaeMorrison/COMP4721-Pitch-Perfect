@@ -4,7 +4,7 @@ public class Drill extends Lesson {
     private int timeLim;
 
     public Drill(int lessonID, String lessonName, String lessonInfo, Flashcard[] flashcardList, int timeLim) {
-        super(lessonID, lessonInfo, flashcardList);
+        super(lessonID, lessonName, lessonInfo, flashcardList);
         this.timeLim = timeLim;
     }
 

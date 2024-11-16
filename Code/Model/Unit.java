@@ -12,11 +12,12 @@ public class Unit {
     private Lesson[] lessonList;
     private Drill[] drillList;
 
-    public Unit(int unitID, String lessonInfo, Lesson[] lessonList, Drill[] drillList) {
+    public Unit(int unitID, String unitName, String unitInfo, Lesson[] lessonList, Drill[] drillList) {
         this.unitID = unitID;
         this.lessonList = lessonList;
         this.drillList = drillList;
-        this.lessonInfo = lessonInfo;
+        this.unitInfo = unitInfo;
+        this.unitName = unitName;
     }
 
     public String getName()
@@ -25,7 +26,7 @@ public class Unit {
     }
 
     public String getInfo() {
-        return lessonInfo;
+        return unitInfo;
     }
 
     public Lesson[] getLessons() {
