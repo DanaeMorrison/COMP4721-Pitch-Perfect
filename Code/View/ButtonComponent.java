@@ -56,6 +56,10 @@ public class ButtonComponent extends ViewComponent
     {
         thisObject.setStyle(style);
     }
+    public void setText(String text)
+    {
+        thisObject.setText(text);
+    }
     @Override
     public Button getObject()
     {
