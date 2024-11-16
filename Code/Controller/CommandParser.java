@@ -98,6 +98,9 @@ public class CommandParser implements Runnable{
                 notes[i] = Integer.valueOf(args[i+1]);
             }
             controller.toggleKeys(notes);
+        } else if(args[0].equals("showUnitSelection") || args[0].equals("showLessonSelection"))
+        {
+          controller.loadMenu(command);
         } else
         {
             //commnd not recognized, find some standard way to handle appropriately.
