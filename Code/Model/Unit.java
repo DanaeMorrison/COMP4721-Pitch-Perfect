@@ -7,19 +7,25 @@ package Model;
 
 public class Unit {
     private int unitID;
-    private String courseInfo;
+    private String unitName;
+    private String unitInfo;
     private Lesson[] lessonList;
     private Drill[] drillList;
 
-    public Unit(int unitID, String courseInfo, Lesson[] lessonList, Drill[] drillList) {
+    public Unit(int unitID, String lessonInfo, Lesson[] lessonList, Drill[] drillList) {
         this.unitID = unitID;
         this.lessonList = lessonList;
         this.drillList = drillList;
-        this.courseInfo = courseInfo;
+        this.lessonInfo = lessonInfo;
+    }
+
+    public String getName()
+    {
+        return unitName;
     }
 
     public String getInfo() {
-        return courseInfo;
+        return lessonInfo;
     }
 
     public Lesson[] getLessons() {
@@ -32,5 +38,15 @@ public class Unit {
 
     public int getUnitID() {
         return unitID;
+    }
+        
+    public int getNumLessons()
+    {
+        return lessonList.length;
+    }
+    
+    public int getNumDrills()
+    {
+        return drillList.length;
     }
 }
