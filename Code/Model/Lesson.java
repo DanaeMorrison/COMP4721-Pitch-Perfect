@@ -10,12 +10,19 @@ public class Lesson {
     private String lessonInfo;
     private Flashcard[] flashcardList;
     private int lessonSize = 0;
+    private String lessonName;
 
-    public Lesson(int lessonID, String lessonInfo, Flashcard[] flashcardList) {
+    public Lesson(int lessonID, String lessonName, String lessonInfo, Flashcard[] flashcardList) {
         this.lessonID = lessonID;
         this.lessonInfo = lessonInfo;
         this.flashcardList = flashcardList;
+        this.lessonName = lessonName;
         lessonSize = flashcardList.length;
+    }
+
+    public String getName()
+    {
+        return lessonName;
     }
 
     public String getInfo() {
