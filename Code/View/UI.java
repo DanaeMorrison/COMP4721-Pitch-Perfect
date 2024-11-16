@@ -14,6 +14,9 @@ public class UI
     private int numComponents;
     private Pane pane;
     private AudioComponent audioComponent;
+    private static final int screenWidth = 1350;
+    private static final int screenHeight = 750;
+
 
     public UI(Stage primaryStage) throws MidiUnavailableException
     {
@@ -32,7 +35,9 @@ public class UI
         pane = new Pane();
         pane.setLayoutX(0);
         pane.setLayoutY(0);
-        Scene scene = new Scene(pane, 1350, 760);
+        Scene scene = new Scene(pane, screenWidth, screenHeight);
+        pane.setPrefSize(screenWidth, screenHeight);
+
 
         // Set up the Stage
         primaryStage.setTitle("JavaFX Rectangle Display");
@@ -46,6 +51,15 @@ public class UI
      * their position is updated once their shown again. Must be careful and set in place rules for this behaviour as it can probably get 
      * undefined easily.
      */
+
+    public int getScreenWidth()
+    {
+        return screenWidth;
+    }
+    public int getScreenHeight()
+    {
+        return screenHeight;
+    }
 
     public HashMap<Integer,ViewComponent> getViewComponents()
     {
