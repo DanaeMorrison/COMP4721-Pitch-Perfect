@@ -20,6 +20,10 @@ public class Controller {
     private AnswerProcessor answerProcessor;
     private LessonViewer lessonViewer;
     private DrillViewer drillViewer;
+    private CommandParser commandParser;
+    private ArrayList<Integer> parsables;
+    private MenuViewer menuViewer;
+    private Model model;
 
     private boolean check;
     private int currentFlashcardIndex;
@@ -33,6 +37,12 @@ public class Controller {
         drillViewer = new DrillViewer(ui);
         midiInputHandler = new MidiInputHandler(this);
         answerProcessor = new AnswerProcessor();
+        System.out.println("Creating commandParser");
+        commandParser = new CommandParser(this, ui);
+        parsables = new ArrayList<>();
+        System.out.println("Creating menuViewer");
+        menuViewer = new MenuViewer(this, ui, model.getUnits());
+
 
         Flashcard f1 = new Flashcard(1, new int[] { 60 }, 'T', 'R');
         Flashcard f2 = new Flashcard(2, new int[] { 64, 67 }, 'T', 'R');
@@ -47,6 +57,23 @@ public class Controller {
         
         
         startDrill(l1);
+    }
+        
+    public void loadMenu(String command)
+    {
+        System.out.println("Controller sending command: "+command);
+        menuViewer.loadMenu(command);
+    }
+
+    public CommandParser getParser()
+    {
+        return commandParser;
+    }
+    
+    public void addParsable(int parsableID)
+    {
+        parsables.add(parsableID);
+        commandParser.updateInputIDs(parsables);
     }
 
     private void startLesson(Lesson lesson){        
