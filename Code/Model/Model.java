@@ -12,9 +12,14 @@ package Model;
     public Model()
     {
         units = new ArrayList<>();
+        initModel();
     }
     public Unit getUnit(int unitID) {
         return units.get(unitID);
+    }
+    public ArrayList<Unit> getUnits()
+    {
+        return units;
     }
 
     public void initModel()
@@ -25,7 +30,8 @@ package Model;
         flashcardList[0] = new Flashcard(0, new int[]{0}, 'T', 'R');
         flashcardList[1] = new Flashcard(0, new int[]{1}, 'T', 'R');
         flashcardList[2] = new Flashcard(0, new int[]{2}, 'T', 'R');
-        lessonList[0] = new Lesson(0, "LEEESSOSONNNN", flashcardList);
-        Unit unit0 = new Unit(0, "Im a unit, yipeeeee", lessonList, drillList);
+        lessonList[0] = new Lesson(0, "Lesson 1", "LEEESSOSONNNN", flashcardList);
+        Unit unit0 = new Unit(0, "Unit 1", "Im a unit, yipeeeee", lessonList, drillList);
+        units.add(unit0);
     }
  }
