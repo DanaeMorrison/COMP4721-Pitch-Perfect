@@ -3,7 +3,7 @@ package Model;
 public class Drill extends Lesson {
     private int timeLim;
 
-    public Drill(int lessonID, String lessonInfo, Flashcard[] flashcardList, int timeLim) {
+    public Drill(int lessonID, String lessonName, String lessonInfo, Flashcard[] flashcardList, int timeLim) {
         super(lessonID, lessonInfo, flashcardList);
         this.timeLim = timeLim;
     }
