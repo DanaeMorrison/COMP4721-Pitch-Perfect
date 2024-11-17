@@ -227,9 +227,14 @@ public class Controller {
                     for (int i = 0; i < incorrectAnswers.size(); i++) {
                         wrongAnswers[i] = incorrectAnswers.get(i);
                     }
-                    Lesson review = new Lesson(1, "drillReview", "Review Session", wrongAnswers);
-                    startLesson(review);
+                    Lesson review = new Lesson(1, "Review Drill", "Review Session", wrongAnswers);
+                    menuViewer.updateDrillCompleteScreen(review);
+                    //startLesson(review);
+                    menuViewer.loadMenu("showDrillComplete 0");
+                } else {
+                    menuViewer.loadMenu("showLessonComplete 0");
                 }
+                //menuViewer.loadMenu("showDrillComplete 0");
             }
         }
     }
