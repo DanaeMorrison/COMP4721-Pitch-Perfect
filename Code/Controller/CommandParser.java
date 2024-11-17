@@ -127,14 +127,14 @@ public class CommandParser implements Runnable {
             // implement
         } else if (args[0].equals("checkAnswer")) {
             // implement
-        } else if (args[0].equals("toggleKeys")) {
+        } /**else if (args[0].equals("toggleKeys")) {
             // of format: playNote (followed by some number of notes to combine)
             int[] notes = new int[args.length - 1];
             for (int i = 0; i < args.length - 1; i++) {
                 notes[i] = Integer.valueOf(args[i + 1]);
             }
-            // controller.toggleKeys(notes);
-        } else if (args[0].equals("showUnitSelection") || args[0].equals("showLessonSelection")) {
+            controller.toggleKeys(notes);
+        }*/ else if (args[0].equals("showUnitSelection") || args[0].equals("showLessonSelection")) {
             controller.loadMenu(command);
         } else if (args[0].equals("loadLesson")) {
             controller.close(Integer.parseInt(args[2]));

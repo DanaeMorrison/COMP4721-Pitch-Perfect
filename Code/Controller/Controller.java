@@ -46,7 +46,7 @@ public class Controller {
         audio = new AudioHandler();
         lessonViewer = new LessonViewer(ui);
         drillViewer = new DrillViewer(ui);
-        //midiInputHandler = new MidiInputHandler(this);
+        midiInputHandler = new MidiInputHandler(this);
         model = new Model();
         answerProcessor = new AnswerProcessor();
         System.out.println("Creating commandParser");
@@ -216,7 +216,8 @@ public class Controller {
             if (activity.equals("Lesson")) {
                 System.out.println("Lesson Complete!");
                 lessonViewer.close();
-                menuViewer.loadMenu("showUnitSelection 0");
+                //menuViewer.loadMenu("showUnitSelection 0");
+                menuViewer.loadMenu("showLessonComplete 0");
             }
             if (activity.equals("Drill")) {
                 System.out.println("Drill Complete!");

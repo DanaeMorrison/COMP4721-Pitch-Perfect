@@ -20,6 +20,7 @@ public class MenuViewer {
     private HashMap<Integer, ViewComponent> lessonSelection;
     private RectangleComponent unitSelection;
     private ViewComponent previousMenu;
+    private RectangleComponent lessonComplete;
     private final static int PADDING = 50;
 
     /**
@@ -147,6 +148,26 @@ public class MenuViewer {
                 close(currMenu);
             }
         }
+
+        // Screen for Lesson Completion
+        int lessonCompleteID = ui.createViewComponent("rectangle");
+        lessonComplete = (RectangleComponent) ui.getViewComponent(lessonCompleteID);
+        lessonComplete.updateXY(screenSize);
+        int returnButtonWidth = screenWidth - (PADDING + PADDING);
+        int[] returnXYCords = new int[] { PADDING, returnButtonWidth, 300, 100 };
+        // Add text to say that the lesson is complete
+        //Create button that brings user back to unit selection
+        buttonID = ui.createViewComponent(lessonCompleteID, "button", returnXYCords);
+        button = (ButtonComponent) ui.getViewComponent(buttonID);
+        button.setMessage("showUnitSelection " + unitSelectionID);
+        button.setText("Return to Menu");
+        controller.addParsable(buttonID);
+        button.setHidden(true);
+        lessonComplete.setHidden(false);
+        lessonComplete.getObject().toFront();
+        close(lessonComplete);
+
+
         System.out.println("Menu creation complete. loading unit selection");
         loadMenu(unitSelection);
         previousMenu = unitSelection;
@@ -168,6 +189,8 @@ public class MenuViewer {
         ViewComponent menu;
         if (args[0].equals("showUnitSelection")) {
             menu = unitSelection;
+        } else if (args[0].equals("showLessonComplete")) {
+            menu = lessonComplete;
         } else if (args[0].equals("showLessonSelection")) {
             menu = lessonSelection.get(Integer.parseInt(args[1]));
 

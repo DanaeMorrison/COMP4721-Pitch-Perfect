@@ -28,29 +28,46 @@ public class DrillViewer {
      */
     public void initializeDrill() {
         // Setting up the flashcard
-        int[] clefChords = { 170, 1190, 0, 800 };
+        // int[] clefChords = { 170, 1190, 0, 800 };
+        int[] clefChords = { 170, 0, 0, 0 };
+        System.out.println("Creating clef image");
         int clefID = ui.createViewComponent("image");
         ui.getViewComponent(clefID).updateXY(clefChords);
         clef = (ImageComponent) ui.getViewComponent(clefID);
+        clef.setHidden(true);
 
-        int[] leftHandChords = { 155, 355, 600, 800 };
+        // int[] leftHandChords = { 155, 355, 600, 800 };
+        int[] leftHandChords = { 155, 0, 600, 0 };
+        System.out.println("Creating left hand image");
         int leftHandID = ui.createViewComponent("image");
         ui.getViewComponent(leftHandID).updateXY(leftHandChords);
         leftHand = (ImageComponent) ui.getViewComponent(leftHandID);
+        leftHand.setHidden(true);
 
-        int[] rightHandChords = { 995, 1195, 600, 800 };
+        // int[] rightHandChords = { 995, 1195, 600, 800 };
+        int[] rightHandChords = { 995, 0, 600, 0 };
+        System.out.println("Creating right hand image");
         int rightHandID = ui.createViewComponent("image");
         ui.getViewComponent(rightHandID).updateXY(rightHandChords);
         rightHand = (ImageComponent) ui.getViewComponent(rightHandID);
+        rightHand.setHidden(true);
 
-        int[] timerChords = { 400, 800, 100, 150 };
+        //int[] timerChords = { 400, 800, 100, 150 };
+        int[] timerChords = { 400, 0, 100, 0 };
         int timerID = ui.createViewComponent("text"); // Timer text component
         ui.getViewComponent(timerID).updateXY(timerChords);
         timer = (TextComponent) ui.getViewComponent(timerID);
+        timer.setHidden(true);
 
         notes = new ImageComponent[4];
+        int[] notesCoords = { 0, 0, 0, 0 };
         for (int i = 0; i < notes.length; i++) {
-            notes[i] = (ImageComponent) ui.getViewComponent(ui.createViewComponent("image"));
+            System.out.println("Creating image for note");
+            int imageID = ui.createViewComponent("image");
+            //notes[i] = (ImageComponent) ui.getViewComponent(ui.createViewComponent("image"));
+            //notes[i].setHidden(true);
+            ui.getViewComponent(imageID).updateXY(notesCoords);
+            notes[i] = (ImageComponent) ui.getViewComponent(imageID);
             notes[i].setHidden(true);
         }
     }

@@ -75,8 +75,8 @@ public class LessonViewer {
         for (int i = 0; i < notes.length; i++) {
             System.out.println("Creating image for note");
             int imageID = ui.createViewComponent("image");
-            // notes[i] = (ImageComponent)
-            // ui.getViewComponent(ui.createViewComponent("image"));
+            //notes[i] = (ImageComponent) ui.getViewComponent(ui.createViewComponent("image"));
+            //notes[i].setHidden(true);
             ui.getViewComponent(imageID).updateXY(notesCoords);
             notes[i] = (ImageComponent) ui.getViewComponent(imageID);
             notes[i].setHidden(true);
@@ -92,6 +92,7 @@ public class LessonViewer {
         int[] feedbackChords = { 1050, 1205, 300, 500 };
         feedback.setXY(feedbackChords);
         feedback.setHidden(true);
+        
         int[] clefChords = { 170, 1190, 0, 800 };
         clef.setXY(clefChords);
 
