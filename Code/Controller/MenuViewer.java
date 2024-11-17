@@ -22,8 +22,10 @@ public class MenuViewer {
     private ViewComponent previousMenu;
     private RectangleComponent lessonComplete;
     private RectangleComponent drillComplete;
+    private RectangleComponent reviewDrillComplete;
     private int drillCompleteID;
     private final static int PADDING = 50;
+    private final static int FILLER = 0;
 
     /**
      * Constructs a MenuViewer object.
@@ -170,22 +172,41 @@ public class MenuViewer {
         lessonComplete.getObject().toFront();
         close(lessonComplete);
 
-        // Screen for Drill Completion
-        drillCompleteID = ui.createViewComponent("rectangle");
-        drillComplete = (RectangleComponent) ui.getViewComponent(drillCompleteID);
-        drillComplete.updateXY(screenSize);
+        // Screen for Drill Completion with review
+        int reviewDrillCompleteID = ui.createViewComponent("rectangle");
+        reviewDrillComplete = (RectangleComponent) ui.getViewComponent(reviewDrillCompleteID);
+        reviewDrillComplete.updateXY(screenSize);
         // Add text to say that the lesson is complete
 
         //Create button that brings user back to unit selection
-        buttonID = ui.createViewComponent(drillCompleteID, "button", returnXYCords);
+        buttonID = ui.createViewComponent(reviewDrillCompleteID, "button", returnXYCords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
         button.setMessage("showUnitSelection " + unitSelectionID);
         button.setText("Return to Menu");
         controller.addParsable(buttonID);
         button.setHidden(true);
-        drillComplete.setHidden(false);
-        drillComplete.getObject().toFront();
-        close(drillComplete);
+
+        //Create review button
+        int reviewButtonWidth = screenWidth - (PADDING + PADDING);
+        int[] reviewXYCords = new int[] { PADDING, reviewButtonWidth, 450, 100 };
+
+        buttonID = ui.createViewComponent(reviewDrillCompleteID, "button", reviewXYCords);
+        button = (ButtonComponent) ui.getViewComponent(buttonID);
+        // button.setMessage("loadLesson "+lessons[i].getLessonID());
+        //button.setMessage("loadLesson " + reviewLesson.getLessonID() + " " + reviewDrillCompleteID);
+        button.setText("Review Lesson");
+        controller.addParsable(buttonID);
+        button.getObject().toBack();
+        button.setHidden(true);
+
+        reviewDrillComplete.setHidden(false);
+        reviewDrillComplete.getObject().toFront();
+        close(reviewDrillComplete);
+
+
+        //drillComplete.setHidden(false);
+        //drillComplete.getObject().toFront();
+        //close(drillComplete);
 
         //Make a public method that can be called in controller if the activity is a drill,
         //where if there are incorrect answers from a drill the menuviewer will update
@@ -222,6 +243,8 @@ public class MenuViewer {
             menu = lessonComplete;
         } else if (args[0].equals("showDrillComplete")) {
             menu = drillComplete;
+        } else if (args[0].equals("showReviewDrillComplete")) {
+            menu = reviewDrillComplete;
         } else if (args[0].equals("showLessonSelection")) {
             menu = lessonSelection.get(Integer.parseInt(args[1]));
 
@@ -330,7 +353,51 @@ public class MenuViewer {
         button.setMessage("loadLesson " + reviewLesson.getLessonID() + " " + drillCompleteID);
         button.setText(reviewLesson.getName());
         controller.addParsable(buttonID);
+        drillComplete = (RectangleComponent) ui.getViewComponent(drillCompleteID);
         button.getObject().toBack();
         button.setHidden(true);
-}
+    }
+
+    public void createNewDrillCompleteScreen(Lesson reviewLesson) {
+        System.out.println("Creating complete screen with review lesson");
+        ButtonComponent button;
+        int buttonID;
+        //RectangleComponent currMenu;
+        int screenWidth = ui.getScreenWidth();
+        int screenHeight = ui.getScreenHeight();
+        int[] screenSize = new int[] { 0, screenWidth, 0, screenHeight };
+
+        int reviewDrillCompleteID = ui.createViewComponent("rectangle");
+        reviewDrillComplete = (RectangleComponent) ui.getViewComponent(drillCompleteID);
+        reviewDrillComplete.updateXY(screenSize);
+
+        int returnButtonWidth = screenWidth - (PADDING + PADDING);
+        int[] returnXYCords = new int[] { PADDING, returnButtonWidth, 300, 100 };
+        // Add text to say that the lesson is complete
+
+        //Create button that brings user back to unit selection
+        buttonID = ui.createViewComponent(reviewDrillCompleteID, "button", returnXYCords);
+        button = (ButtonComponent) ui.getViewComponent(buttonID);
+        button.setMessage("showUnitSelection " + FILLER);
+        button.setText("Return to Menu");
+        controller.addParsable(buttonID);
+        button.setHidden(true);
+
+        //Create review button
+        int reviewButtonWidth = screenWidth - (PADDING + PADDING);
+        int[] reviewXYCords = new int[] { PADDING, reviewButtonWidth, 450, 100 };
+
+        buttonID = ui.createViewComponent(reviewDrillCompleteID, "button", reviewXYCords);
+        button = (ButtonComponent) ui.getViewComponent(buttonID);
+        // button.setMessage("loadLesson "+lessons[i].getLessonID());
+        button.setMessage("loadLesson " + reviewLesson.getLessonID() + " " + reviewDrillCompleteID);
+        button.setText(reviewLesson.getName());
+        controller.addParsable(buttonID);
+        button.getObject().toBack();
+        button.setHidden(true);
+
+        reviewDrillComplete.setHidden(false);
+        reviewDrillComplete.getObject().toFront();
+        close(reviewDrillComplete);
+    }
 }

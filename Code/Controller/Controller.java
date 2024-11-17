@@ -45,7 +45,9 @@ public class Controller {
         ui = new UI(primaryStage);
         audio = new AudioHandler();
         lessonViewer = new LessonViewer(ui);
+        lessonViewer.initializeLesson();
         drillViewer = new DrillViewer(ui);
+        drillViewer.initializeDrill();
         midiInputHandler = new MidiInputHandler(this);
         model = new Model();
         answerProcessor = new AnswerProcessor();
@@ -103,7 +105,7 @@ public class Controller {
         currentFlashcardIndex = 0;
 
         activity = "Lesson";
-        lessonViewer.initializeLesson();
+        //lessonViewer.initializeLesson();
         answerProcessor.setFlashcard(flashcards[currentFlashcardIndex]);
         lessonViewer.loadFlashcard(flashcards[currentFlashcardIndex]);
     }
@@ -128,9 +130,9 @@ public class Controller {
         currentFlashcardIndex = 0;
 
         activity = "Drill";
-        drillViewer.initializeDrill();
+        //drillViewer.initializeDrill();
         incorrectAnswers = new ArrayList<Flashcard>();
-        drillViewer.startTimer(drill.getTimeLim());
+        //drillViewer.startTimer(drill.getTimeLim());
         answerProcessor.setFlashcard(flashcards[currentFlashcardIndex]);
         drillViewer.loadFlashcard(flashcards[currentFlashcardIndex]);
     }
@@ -228,9 +230,10 @@ public class Controller {
                         wrongAnswers[i] = incorrectAnswers.get(i);
                     }
                     Lesson review = new Lesson(1, "Review Drill", "Review Session", wrongAnswers);
-                    menuViewer.updateDrillCompleteScreen(review);
-                    //startLesson(review);
-                    menuViewer.loadMenu("showDrillComplete 0");
+                    //menuViewer.updateDrillCompleteScreen(review);
+                    //menuViewer.createNewDrillCompleteScreen(review);
+                    startLesson(review);
+                    //menuViewer.loadMenu("showReviewDrillComplete 0");
                 } else {
                     menuViewer.loadMenu("showLessonComplete 0");
                 }
