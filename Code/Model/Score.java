@@ -44,4 +44,13 @@ public class Score {
     public int getAttemptNumber() {
         return attemptNumber;
     }
+
+    /**
+     * Sets the attempt number.
+     * 
+     * @param attemptNumber the attempt number to set.
+     */
+    public void setAttemptNumber(int attemptNumber) {
+        this.attemptNumber = attemptNumber;
+    }
 }

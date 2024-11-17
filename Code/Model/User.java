@@ -99,4 +99,13 @@ public class User {
     public void increasePointsBy(int points) {
         this.points += points;
     }
+
+    /**
+     * Gets the total points.
+     * 
+     * @return the total points.
+     */
+    public int getPoints() {
+        return points;
+    }
 }
