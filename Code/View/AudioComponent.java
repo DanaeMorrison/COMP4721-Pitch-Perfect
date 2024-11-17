@@ -4,6 +4,10 @@ import java.io.File;
 import java.util.HashMap;
 import javax.sound.midi.*;
 
+/**
+ * The AudioComponent class is responsible for handling MIDI audio playback.
+ * It initializes a synthesizer and allows toggling of notes on and off.
+ */
 public class AudioComponent {
     private File soundFile;
 
@@ -15,6 +19,11 @@ public class AudioComponent {
     private HashMap<Integer, Integer> allnotes;
     private boolean noteStates[];
     
+    /**
+     * Constructs an AudioComponent and initializes the synthesizer.
+     * 
+     * @throws MidiUnavailableException if the synthesizer is unavailable.
+     */
     public AudioComponent() throws MidiUnavailableException { 
         noteStates = new boolean[25];
         allnotes = new HashMap<>();
@@ -68,8 +77,11 @@ public class AudioComponent {
         }
     }
 
-    // maybe the different channels aren't necessary. Probably not- that might mean
-    // expecting various outputs, like different speakers. I'll test it out
+    /**
+     * Toggles the specified notes on or off.
+     * 
+     * @param notes an array of note indices to toggle.
+     */
     public void toggleNotes(int[] notes) {
         int lengthNotes = notes.length;
         int currentNote;

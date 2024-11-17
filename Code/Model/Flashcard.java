@@ -26,8 +26,9 @@ public class Flashcard {
         this.clef = clef;
         this.hand = hand;
     }
-    // use this constructor if we want the answer in terms of both the midi values and
-    // the mod values
+
+    // use this constructor if we want the answer in terms of both the midi values
+    // and the mod values
     public Flashcard(int flashcardID, int[] answer, int[] answerMod, char clef, char hand) {
         this.flashcardID = flashcardID;
         this.answer = answer;
@@ -36,6 +37,7 @@ public class Flashcard {
         this.hand = hand;
     }
 
+    // getters
     public int getID() {
         return flashcardID;
     }

@@ -5,12 +5,28 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Main class that extends the JavaFX Application class.
+ * It serves as the entry point for the application.
+ */
 public class main extends Application
 {
+    /**
+     * The main method that launches the JavaFX application.
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * The start method is called after the application is launched.
+     * It initializes the primary stage and starts the command parser thread.
+     *
+     * @param primaryStage the primary stage for this application
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     public void start(Stage primaryStage) throws IOException
     {

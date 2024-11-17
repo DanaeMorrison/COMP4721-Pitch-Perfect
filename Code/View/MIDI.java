@@ -1,4 +1,5 @@
 package View;
+
 import javax.sound.midi.*;
 
 /**
@@ -7,9 +8,8 @@ import javax.sound.midi.*;
  * It listens for NOTE_ON and NOTE_OFF messages and keeps track of the last
  * pressed key.
  */
-//public class MIDI implements Keyboard {
+// public class MIDI implements Keyboard {
 public class MIDI {
-
 
     private static final int NOTE_ON = 0x90;
     private static final int NOTE_OFF = 0x80;
