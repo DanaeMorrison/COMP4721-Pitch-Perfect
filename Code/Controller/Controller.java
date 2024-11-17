@@ -46,7 +46,7 @@ public class Controller {
         audio = new AudioHandler();
         lessonViewer = new LessonViewer(ui);
         drillViewer = new DrillViewer(ui);
-        midiInputHandler = new MidiInputHandler(this);
+        //midiInputHandler = new MidiInputHandler(this);
         model = new Model();
         answerProcessor = new AnswerProcessor();
         System.out.println("Creating commandParser");
@@ -109,6 +109,16 @@ public class Controller {
     }
 
     /**
+     * Retrieves a drill by its ID and starts the lesson.
+     *
+     * @param lessonID the ID of the drill to retrieve
+     */
+    public void getDrill(int drillID) {
+        Drill currentDrill = model.getDrill(drillID);
+        startDrill(currentDrill);
+    }
+
+    /**
      * Starts a drill activity with the given drill.
      *
      * @param drill the drill to start
@@ -118,6 +128,7 @@ public class Controller {
         currentFlashcardIndex = 0;
 
         activity = "Drill";
+        drillViewer.initializeDrill();
         incorrectAnswers = new ArrayList<Flashcard>();
         drillViewer.startTimer(drill.getTimeLim());
         answerProcessor.setFlashcard(flashcards[currentFlashcardIndex]);

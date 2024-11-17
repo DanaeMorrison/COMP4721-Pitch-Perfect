@@ -124,6 +124,21 @@ public class MenuViewer {
                     button.getObject().toBack();
                     button.setHidden(true);
                 }
+
+                System.out.println("Making drill");
+                buttonID = ui.createViewComponent(menuID, "button", lessonXYCords);
+                button = (ButtonComponent) ui.getViewComponent(buttonID);
+                // button.setMessage("loadLesson "+lessons[i].getLessonID());
+                button.setMessage("loadDrill " + unit.getDrills()[0].getLessonID() + " " + menuID);
+                button.setText(unit.getDrills()[0].getName());
+                controller.addParsable(buttonID);
+                // lessonXYCords[0] += lessonButtonWidth;
+                lessonXYCords[0] += lessonButtonWidth + PADDING + PADDING;
+                // lessonXYCords[1] += lessonButtonWidth;
+                button.getObject().toBack();
+                button.setHidden(true);
+
+
                 lessonSelection.put(unit.getUnitID(), currMenu);
                 System.out.println("lesson selection size is: " + Integer.toString(lessonSelection.size()));
                 System.out.println("Current unit ID is: " + Integer.toString(unit.getUnitID()));

@@ -65,6 +65,25 @@ public class Model {
     }
 
     /**
+     * Retrieves a drill by its ID.
+     * 
+     * @param drillID the ID of the lesson to retrieve
+     * @return the Drill object with the specified ID
+     */
+    public Drill getDrill(int drillID) {
+        return drills.get(drillID);
+    }
+
+    /**
+     * Retrieves the list of all drills.
+     * 
+     * @return an ArrayList of Drill objects
+     */
+    public ArrayList<Drill> getDrills() {
+        return drills;
+    }
+
+    /**
      * Initializes the model by setting up units and their respective lessons and
      * drills.
      */
