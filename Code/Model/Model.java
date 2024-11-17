@@ -46,6 +46,15 @@ public class Model {
     }
 
     /**
+     * Gets the total number of units.
+     * 
+     * @return the total number of units.
+     */
+    public int getTotalUnits() {
+        return units.size();
+    }
+
+    /**
      * Retrieves a lesson by its ID.
      * 
      * @param lessonID the ID of the lesson to retrieve
