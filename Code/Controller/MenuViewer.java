@@ -176,7 +176,7 @@ public class MenuViewer {
             for(ViewComponent component : menu.getComponents()) {
                 if(component != null) {
                     component.setHidden(false);
-                    component.toFront();
+                    //component.toFront();
                 }
             }
         
