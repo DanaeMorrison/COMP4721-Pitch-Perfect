@@ -101,6 +101,9 @@ public class CommandParser implements Runnable{
         } else if(args[0].equals("showUnitSelection") || args[0].equals("showLessonSelection"))
         {
           controller.loadMenu(command);
+        } else if (args[0].equals("loadLesson")) {
+            controller.close(Integer.parseInt(args[2]));
+            controller.getLesson(Integer.parseInt(args[1]));
         } else
         {
             //commnd not recognized, find some standard way to handle appropriately.

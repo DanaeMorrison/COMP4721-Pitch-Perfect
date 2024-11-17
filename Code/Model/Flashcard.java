@@ -8,6 +8,7 @@ package Model;
 public class Flashcard {
     private int flashcardID;
     private int[] answer;
+    private int[] answerMod;
     private char clef;
     private char hand;
 
@@ -25,6 +26,15 @@ public class Flashcard {
         this.clef = clef;
         this.hand = hand;
     }
+    // use this constructor if we want the answer in terms of both the midi values and
+    // the mod values
+    public Flashcard(int flashcardID, int[] answer, int[] answerMod, char clef, char hand) {
+        this.flashcardID = flashcardID;
+        this.answer = answer;
+        this.answerMod = answerMod;
+        this.clef = clef;
+        this.hand = hand;
+    }
 
     public int getID() {
         return flashcardID;
@@ -36,6 +46,10 @@ public class Flashcard {
 
     public int[] getAnswer() {
         return answer;
+    }
+
+    public int[] getAnswerMod() {
+        return answerMod;
     }
 
     public char getClef() {

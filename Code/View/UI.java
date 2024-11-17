@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.sound.midi.MidiUnavailableException;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -115,7 +116,11 @@ public class UI
         }
 
         newComponent.setID(numComponents);
-        pane.getChildren().add(newComponent.getObject());
+        //pane.getChildren().add(newComponent.getObject());
+
+        Platform.runLater(()-> {
+            pane.getChildren().add(newComponent.getObject());
+        });
         viewComponents.put(numComponents, newComponent);
         numComponents++;
         return numComponents-1;

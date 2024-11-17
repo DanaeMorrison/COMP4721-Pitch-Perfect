@@ -68,6 +68,13 @@ public abstract class ViewComponent {
         // private abstract method to be implemented by extensions
         updateXYHelper(xyCords);
     }
+    /**
+     * This method sets the coordinates of a view component to int[] passed to it
+     * @param xyCordsNew the coordinates that the component will be set to
+     */
+    public void setXY(int[] xyCordsNew) {
+        updateXYHelper(xyCordsNew);
+    }
 
     public int getOrderRank() {
         return orderRank;

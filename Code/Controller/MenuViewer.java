@@ -86,7 +86,8 @@ public class MenuViewer {
                     System.out.println("Making lesson: "+i);
                     buttonID = ui.createViewComponent(menuID, "button", lessonXYCords);
                     button = (ButtonComponent)ui.getViewComponent(buttonID);
-                    button.setMessage("loadLesson "+lessons[i].getLessonID());
+                    //button.setMessage("loadLesson "+lessons[i].getLessonID());
+                    button.setMessage("loadLesson "+lessons[i].getLessonID() + " " + menuID);
                     button.setText(lessons[i].getName());
                     controller.addParsable(buttonID);
                     //lessonXYCords[0] += lessonButtonWidth;

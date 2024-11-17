@@ -8,10 +8,13 @@ import Model.Lesson;
 import Model.Drill;
 import Model.Model;
 import View.UI;
+import View.ViewComponent;
+
 import java.io.IOException;
 import javafx.stage.Stage;
 import javax.sound.midi.MidiUnavailableException;
 import java.util.ArrayList;
+
 
 public class Controller {
     private String activity;
@@ -54,8 +57,8 @@ public class Controller {
 
         Drill l1 = new Drill(1, "drill1", "Basic Lesson", new Flashcard[] { f1, f2, f3 }, 120);
         
-        /** lessonViewer.initializeLesson();
-        lessonViewer.close();*/
+        // lessonViewer.initializeLesson();
+        // lessonViewer.close();
         // drillViewer.initializeDrill();
         // drillViewer.close();
         
@@ -80,11 +83,17 @@ public class Controller {
         commandParser.updateInputIDs(parsables);
     }
 
+    public void getLesson(int lessonID) {
+        Lesson currentLesson = model.getLesson(lessonID);
+        startLesson(currentLesson);
+    }
+    
     private void startLesson(Lesson lesson){        
         flashcards = lesson.getFlashcards();
         currentFlashcardIndex = 0;
         
         activity = "Lesson";
+        lessonViewer.initializeLesson();
         answerProcessor.setFlashcard(flashcards[currentFlashcardIndex]);
         lessonViewer.loadFlashcard(flashcards[currentFlashcardIndex]);
     }
@@ -173,5 +182,31 @@ public class Controller {
                 }
             }
         }
+    }
+
+    public boolean close(int viewComponentID) {
+        ViewComponent obj = ui.getViewComponent(viewComponentID);
+        boolean hidden = closeHelper(obj);
+        return hidden;
+    }
+
+    private boolean closeHelper(ViewComponent obj) {
+        if(obj == null)
+        {
+            return true; 
+        }
+        ViewComponent[] components = obj.getComponents();
+        boolean allHidden = true;
+        for(ViewComponent component : components)
+        {
+            if(!closeHelper(component))
+            {
+                allHidden = false;
+            }
+        }
+        if(allHidden){
+            obj.setHidden(true);
+        }
+        return obj.getHidden();
     }
 }
