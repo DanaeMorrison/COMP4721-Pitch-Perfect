@@ -54,19 +54,6 @@ public class Controller {
         parsables = new ArrayList<>();
         System.out.println("Creating menuViewer");
         menuViewer = new MenuViewer(this, ui, model.getUnits());
-
-        Flashcard f1 = new Flashcard(1, new int[] { 60 }, 'T', 'R');
-        Flashcard f2 = new Flashcard(2, new int[] { 64, 67 }, 'T', 'R');
-        Flashcard f3 = new Flashcard(3, new int[] { 48 }, 'B', 'L');
-
-        Drill l1 = new Drill(1, "drill1", "Basic Lesson", new Flashcard[] { f1, f2, f3 }, 120);
-
-        // lessonViewer.initializeLesson();
-        // lessonViewer.close();
-        // drillViewer.initializeDrill();
-        // drillViewer.close();
-
-        // startDrill(l1);
     }
 
     /**
@@ -218,7 +205,7 @@ public class Controller {
             if (activity.equals("Lesson")) {
                 System.out.println("Lesson Complete!");
                 lessonViewer.close();
-                // menuViewer.showEndMenu();
+                menuViewer.loadMenu("showUnitSelection 0");
             }
             if (activity.equals("Drill")) {
                 System.out.println("Drill Complete!");
