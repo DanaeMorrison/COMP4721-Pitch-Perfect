@@ -14,7 +14,7 @@ public class ImageComponent extends ViewComponent {
      */
     public ImageComponent() {
         // setting image to empty path is temporary and should be changed
-        thisObject = new ImageView(new Image("Assets/wholeNote.png"));
+        thisObject = new ImageView(new Image("/Assets/Ledger Line.png"));
     }
 
     /**
