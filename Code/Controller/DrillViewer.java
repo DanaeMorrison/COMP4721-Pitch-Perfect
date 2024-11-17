@@ -5,7 +5,7 @@ import View.*;
 
 public class DrillViewer {
     private UI ui;
-    private NotePositioning noteCoords;
+    private NoteMapping noteCoords;
     private ImageComponent clef;
     private ImageComponent leftHand;
     private ImageComponent rightHand;
@@ -14,7 +14,7 @@ public class DrillViewer {
     private DrillTimer drillTimer; // Private timer class for this DrillViewer
 
     public DrillViewer(UI ui) {
-        noteCoords = new NotePositioning();
+        noteCoords = new NoteMapping();
         this.ui = ui;
     }
 
@@ -48,25 +48,39 @@ public class DrillViewer {
     }
 
     public void loadFlashcard(Flashcard flashcard) {
-        clef.setHidden(false);
-        leftHand.setHidden(false);
-        rightHand.setHidden(false);
+        int[] clefChords = { 170, 1190, 0, 800 };
+        clef.setXY(clefChords);
+        
+        int[] leftHandChords = { 155, 355, 600, 800 };
+        leftHand.setXY(leftHandChords);
+        
+        int[] rightHandChords = { 995, 1195, 600, 800 };
+        rightHand.setXY(rightHandChords);
+        
 
         for (int i = 0; i < notes.length; i++) {
             notes[i].setHidden(true);
         }
 
         for (int i = 0; i < flashcard.getAnswer().length; i++) {
-            int[] noteCoordsArray = noteCoords.getNotePosition(flashcard.getAnswer()[i], flashcard.getClef());
-            notes[i].updateXY(noteCoordsArray);
+            int[] noteCoordsArray = noteCoords.getCoordinates(flashcard.getAnswer()[i], flashcard.getClef());
+            //notes[i].updateXY(noteCoordsArray);
+            notes[i].setXY(noteCoordsArray);
+            //check to see if the note needs a ledger line
+            //we'll need some class/method that does this check against maybe a hashmap
+            //with values that need a ledger line
+            
+            String path = noteCoords.getImagePath(flashcard.getAnswer()[i], flashcard.getClef());
+            notes[i].changeImage(path);
+            
             notes[i].setHidden(false);
         }
-
         if (flashcard.getClef() == 'T') {
             clef.changeImage("/Assets/trebleStaff.png");
         } else if (flashcard.getClef() == 'B') {
             clef.changeImage("/Assets/bassStaff.png");
         }
+        clef.setHidden(false);
 
         if (flashcard.getHand() == 'L') {
             leftHand.changeImage("/Assets/leftHandFilled.png");
@@ -75,6 +89,8 @@ public class DrillViewer {
             leftHand.changeImage("/Assets/leftHandBlank.png");
             rightHand.changeImage("/Assets/rightHandFilled.png");
         }
+        leftHand.setHidden(false);
+        rightHand.setHidden(false);
     }
 
     public void close() {

@@ -5,7 +5,7 @@ import View.*;
 
 public class LessonViewer {
     private UI ui;
-    private NotePositioning noteCoords;
+    private NoteMapping noteCoords;
     private ImageComponent clef;
     private ImageComponent leftHand;
     private ImageComponent rightHand;
@@ -14,7 +14,7 @@ public class LessonViewer {
 
 
     public LessonViewer(UI ui) {
-        noteCoords = new NotePositioning();
+        noteCoords = new NoteMapping();
         this.ui = ui;
     }
 
@@ -84,15 +84,16 @@ public class LessonViewer {
         }
 
         for (int i = 0; i < flashcard.getAnswer().length; i++) {
-            int[] noteCoordsArray = noteCoords.getNotePosition(flashcard.getAnswer()[i], flashcard.getClef());
+            int[] noteCoordsArray = noteCoords.getCoordinates(flashcard.getAnswer()[i], flashcard.getClef());
             //notes[i].updateXY(noteCoordsArray);
             notes[i].setXY(noteCoordsArray);
             //check to see if the note needs a ledger line
             //we'll need some class/method that does this check against maybe a hashmap
             //with values that need a ledger line
-            if (flashcard.getAnswer()[i] == 60) {
-                notes[i].changeImage("/Assets/wholeNoteLedgerLine.png");
-            }
+            
+            String path = noteCoords.getImagePath(flashcard.getAnswer()[i], flashcard.getClef());
+            notes[i].changeImage(path);
+            
             notes[i].setHidden(false);
         }
         if (flashcard.getClef() == 'T') {
@@ -127,9 +128,13 @@ public class LessonViewer {
     public void loadFeedback(Flashcard flashcard, int[] input, Boolean answer) {
         if (input.length <=4){
             for (int i = 0; i < input.length; i++) {
-                int[] noteCoordsArray = noteCoords.getNotePosition(input[i], flashcard.getClef());
-                notes[i + 4].updateXY(new int[] {noteCoordsArray[0]+200, noteCoordsArray[1]+200, noteCoordsArray[2], noteCoordsArray[3]});
-                notes[i + 4].setHidden(false);
+                int[] noteCoordsArray = noteCoords.getCoordinates(input[i], flashcard.getClef());
+                if (noteCoordsArray != null){
+                    notes[i + 4].updateXY(new int[] {noteCoordsArray[0]+200, noteCoordsArray[1]+200, noteCoordsArray[2], noteCoordsArray[3]});
+                    String path = noteCoords.getImagePath(input[i], flashcard.getClef());
+                    notes[i + 4].changeImage(path);
+                    notes[i + 4].setHidden(false);
+                }
             }
         }
         if (answer) {
