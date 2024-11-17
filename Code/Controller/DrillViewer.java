@@ -13,11 +13,19 @@ public class DrillViewer {
     private TextComponent timer;
     private DrillTimer drillTimer; // Private timer class for this DrillViewer
 
+    /**
+     * Initializes the DrillViewer with the given UI.
+     *
+     * @param ui The UI instance to be used by the DrillViewer.
+     */
     public DrillViewer(UI ui) {
         noteCoords = new NoteMapping();
         this.ui = ui;
     }
 
+    /**
+     * Initializes the drill by setting up the flashcard components.
+     */
     public void initializeDrill() {
         // Setting up the flashcard
         int[] clefChords = { 170, 1190, 0, 800 };
@@ -47,16 +55,20 @@ public class DrillViewer {
         }
     }
 
+    /**
+     * Loads the given flashcard into the DrillViewer.
+     *
+     * @param flashcard The flashcard to be loaded.
+     */
     public void loadFlashcard(Flashcard flashcard) {
         int[] clefChords = { 170, 1190, 0, 800 };
         clef.setXY(clefChords);
-        
+
         int[] leftHandChords = { 155, 355, 600, 800 };
         leftHand.setXY(leftHandChords);
-        
+
         int[] rightHandChords = { 995, 1195, 600, 800 };
         rightHand.setXY(rightHandChords);
-        
 
         for (int i = 0; i < notes.length; i++) {
             notes[i].setHidden(true);
@@ -64,15 +76,15 @@ public class DrillViewer {
 
         for (int i = 0; i < flashcard.getAnswer().length; i++) {
             int[] noteCoordsArray = noteCoords.getCoordinates(flashcard.getAnswer()[i], flashcard.getClef());
-            //notes[i].updateXY(noteCoordsArray);
+            // notes[i].updateXY(noteCoordsArray);
             notes[i].setXY(noteCoordsArray);
-            //check to see if the note needs a ledger line
-            //we'll need some class/method that does this check against maybe a hashmap
-            //with values that need a ledger line
-            
+            // check to see if the note needs a ledger line
+            // we'll need some class/method that does this check against maybe a hashmap
+            // with values that need a ledger line
+
             String path = noteCoords.getImagePath(flashcard.getAnswer()[i], flashcard.getClef());
             notes[i].changeImage(path);
-            
+
             notes[i].setHidden(false);
         }
         if (flashcard.getClef() == 'T') {
@@ -93,6 +105,9 @@ public class DrillViewer {
         rightHand.setHidden(false);
     }
 
+    /**
+     * Closes the DrillViewer by hiding all components.
+     */
     public void close() {
         clef.setHidden(true);
         leftHand.setHidden(true);
@@ -103,6 +118,11 @@ public class DrillViewer {
         }
     }
 
+    /**
+     * Starts the timer with the given start time.
+     *
+     * @param startTime The initial time for the timer in seconds.
+     */
     public void startTimer(int startTime) {
         if (drillTimer != null) {
             drillTimer.stop();
@@ -112,6 +132,11 @@ public class DrillViewer {
         drillTimer.start();
     }
 
+    /**
+     * Starts the timer with the given start time.
+     *
+     * @param startTime The initial time for the timer in seconds.
+     */
     public void stopTimer() {
         if (drillTimer != null) {
             drillTimer.stop();
@@ -119,16 +144,29 @@ public class DrillViewer {
         closeTimer();
     }
 
+    /**
+     * Updates the timer display with the specified time and makes it visible.
+     *
+     * @param time the time to be displayed on the timer
+     */
     private void loadTimer(int time) {
         timer.setText(String.valueOf(time));
         timer.setHidden(false);
     }
 
+    /**
+     * Hides the timer by setting its visibility to hidden.
+     */
     private void closeTimer() {
         timer.setHidden(true);
     }
 
-    // Inner DrillTimer class
+    /**
+     * DrillTimer is a private inner class that extends Thread to create a countdown
+     * timer.
+     * The timer starts from a specified time and decrements every second until it
+     * reaches zero or is stopped.
+     */
     private class DrillTimer extends Thread {
         private int time;
         private volatile boolean running = true;

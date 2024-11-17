@@ -1,4 +1,5 @@
 package Controller;
+
 import java.util.HashMap;
 
 /*
@@ -13,6 +14,14 @@ public class NotePositioning {
     private HashMap<Integer, int[]> trebleClef = new HashMap<>();
     private HashMap<Integer, int[]> bassClef = new HashMap<>();
 
+    /**
+     * Constructs a NotePositioning object and initializes the MIDI positions
+     * for notes in both the Treble Clef and Bass Clef.
+     * 
+     * The positions are stored in two maps: trebleClef and bassClef.
+     * Each map associates a MIDI note number with an array of integer positions.
+     * 
+     */
     public NotePositioning() {
         // Treble Clef MIDI Positions
         trebleClef.put(60, new int[] { 615, 745, 528, 658 }); // C4
@@ -46,6 +55,14 @@ public class NotePositioning {
         // Add additional notes as needed
     }
 
+    /**
+     * Returns the position of the given MIDI note value on the staff.
+     * 
+     * @param midiValue the MIDI note value to get the position for
+     * @param clef      the clef to get the position for ('T' for Treble, 'B' for
+     *                  Bass)
+     * @return an array of integer positions for the note on the staff
+     */
     public int[] getNotePosition(int midiValue, char clef) {
         if (clef == 'T') {
             return trebleClef.get(midiValue);
