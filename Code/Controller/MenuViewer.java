@@ -80,6 +80,7 @@ public class MenuViewer {
                 //lessonXYCords = new int[]{0, lessonButtonWidth, 0, screenHeight};
                 lessonXYCords = new int[]{PADDING, lessonButtonWidth, 300, 100};
                 Lesson[] lessons = unit.getLessons();
+                System.out.println("For " + unit.getName() + ", there are " + Integer.toString(unit.getNumLessons()) + " lessons.");
                 for(int i=0; i<unit.getNumLessons(); i++)
                 {
                     System.out.println("Making lesson: "+i);
@@ -95,9 +96,11 @@ public class MenuViewer {
                     button.setHidden(true);
                 }
                 lessonSelection.put(unit.getUnitID(), currMenu);
-                currMenu.setHidden(true);
-                currMenu.getObject().toBack();
-                close(currMenu);   
+                System.out.println("lesson selection size is: " + Integer.toString(lessonSelection.size()));
+                System.out.println("Current unit ID is: " + Integer.toString(unit.getUnitID()));
+                currMenu.setHidden(false);
+                currMenu.getObject().toFront();
+                close(currMenu);
             }
         }
         System.out.println("Menu creation complete. loading unit selection");
@@ -110,6 +113,7 @@ public class MenuViewer {
      */
     public void loadMenu(String menuID)
     {
+        System.out.println("MenuID: "+ menuID);
         if(previousMenu != null)
         {
             close(previousMenu);
@@ -125,23 +129,27 @@ public class MenuViewer {
             menu = unitSelection;
         } else if(args[0].equals("showLessonSelection"))
         {
-            menu = lessonSelection.get(args[1]);
-            System.out.println("Lesson "+args[1]+" selected");
+            menu = lessonSelection.get(Integer.parseInt(args[1]));
             
-            // if(menu == null)
-            // {
-                // System.out.println("FAILED");
-                // throw new IllegalArgumentException("Not a valid menu");
-            // }
+            //menu = unitSelection.getComponents()
+            System.out.println("UnitID "+args[1]+" selected");
+            
+             if(menu == null)
+             {
+                 System.out.println("FAILED");
+                 throw new IllegalArgumentException("Not a valid menu");
+             }
         } else
         {
             throw new IllegalArgumentException("Not a valid menu");
         }
+        System.out.println("Menu children components: " + Integer.toString(menu.getNumChildren()));
         System.out.println("calling loadMenu");
         loadMenu(menu);
         previousMenu = menu;
     }
     private void loadMenu(ViewComponent menu) {
+        System.out.println("Menu children components: " + Integer.toString(menu.getNumChildren()));
         System.out.println("Loading menu");
         /**Queue<ViewComponent> queue = new LinkedList<>();
         HashSet<ViewComponent> visited = new HashSet<>();

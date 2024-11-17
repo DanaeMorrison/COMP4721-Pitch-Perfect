@@ -146,6 +146,10 @@ public abstract class ViewComponent {
         this.id = id;
     }
 
+    public int getNumChildren() {
+        return numChildren;
+    }
+
     protected abstract void updateXYHelper(int[] xyCords);
 
     protected abstract void setHiddenHelper(boolean isHidden);
