@@ -82,6 +82,19 @@ public class MidiInputHandler {
     }
 
     /**
+     * Changes the MIDI input device to a new device.
+     *
+     * @param newDevice the new MIDI device to connect to
+     * @throws MidiUnavailableException if the new MIDI device is unavailable
+     */
+    public void changeMidiDevice(MidiDevice newDevice) throws MidiUnavailableException {
+        if (midiDevice != null && midiDevice.isOpen()) {
+            midiDevice.close();
+        }
+        tryConnectToDevice(newDevice, newDevice.getDeviceInfo());
+    }
+
+    /**
      * Closes the MIDI input handler and releases resources.
      */
     public void close() {
