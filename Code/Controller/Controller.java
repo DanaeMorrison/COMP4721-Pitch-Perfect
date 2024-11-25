@@ -31,6 +31,7 @@ public class Controller {
 
     private boolean check;
     private int currentFlashcardIndex;
+    private int totalDrillFlashcards;
     private Flashcard[] flashcards;
     private ArrayList<Flashcard> incorrectAnswers;
 
@@ -128,7 +129,7 @@ public class Controller {
     private void startDrill(Drill drill) {
         flashcards = drill.getFlashcards();
         currentFlashcardIndex = 0;
-
+        totalDrillFlashcards = drill.getLessonSize();
         activity = "Drill";
         //drillViewer.initializeDrill();
         incorrectAnswers = new ArrayList<Flashcard>();
@@ -230,8 +231,8 @@ public class Controller {
                         wrongAnswers[i] = incorrectAnswers.get(i);
                     }
                     Lesson review = new Lesson(1, "Review Drill", "Review Session", wrongAnswers);
-                    //menuViewer.updateDrillCompleteScreen(review);
-                    //menuViewer.createNewDrillCompleteScreen(review);
+                    //menuViewer.updateDrillCompleteScreen(review, totalDrillFlashcards, totalDrillFlashcards-incorrectAnswers.size());
+                    //menuViewer.createNewDrillCompleteScreen(review, totalDrillFlashcards-incorrectAnswers.size());
                     startLesson(review);
                     //menuViewer.loadMenu("showReviewDrillComplete 0");
                 } else {
