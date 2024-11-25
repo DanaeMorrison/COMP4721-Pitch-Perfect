@@ -109,7 +109,7 @@ public class Model {
         Flashcard[] u1_l1 = new Flashcard[15];
         Flashcard[] u1_l2 = new Flashcard[15];
         Flashcard[] u1_l3 = new Flashcard[20];
-        Flashcard[] u1_d1 = new Flashcard[6];
+        Flashcard[] u1_d1 = new Flashcard[20];
 
         Lesson[] unit1Lessons = new Lesson[3];
         Drill[] unit1Drills = new Drill[1];
@@ -156,7 +156,7 @@ public class Model {
 
         // Lesson 3: Mixed Treble and Bass Clef Notes
         u1_l3[0] = new Flashcard(0, new int[] { 60 }, new int[] { 0 }, 'T', 'R'); // Middle C (Treble)
-        u1_l3[1] = new Flashcard(1, new int[] { 57 }, new int[] { 0 }, 'T', 'R'); // A (Treble)
+        u1_l3[1] = new Flashcard(1, new int[] { 69 }, new int[] { 0 }, 'T', 'R'); // A (Treble)
         u1_l3[2] = new Flashcard(2, new int[] { 52 }, new int[] { 4 }, 'B', 'L'); // E (Bass)
         u1_l3[3] = new Flashcard(3, new int[] { 47 }, new int[] { 3 }, 'B', 'L'); // B (Bass)
         u1_l3[4] = new Flashcard(4, new int[] { 65 }, new int[] { 7 }, 'T', 'R'); // F (Treble)
@@ -165,12 +165,12 @@ public class Model {
         u1_l3[7] = new Flashcard(7, new int[] { 45 }, new int[] { 0 }, 'B', 'L'); // A (Bass)
         u1_l3[8] = new Flashcard(8, new int[] { 76 }, new int[] { 4 }, 'T', 'R'); // E (Treble)
         u1_l3[9] = new Flashcard(9, new int[] { 79 }, new int[] { 3 }, 'T', 'R'); // G (Treble)
-        u1_l3[10] = new Flashcard(10, new int[] { 59 }, new int[] { 7 }, 'T', 'R'); // B (Bass)
+        u1_l3[10] = new Flashcard(10, new int[] { 59 }, new int[] { 7 }, 'B', 'L'); // B (Bass)
         u1_l3[11] = new Flashcard(11, new int[] { 40 }, new int[] { 5 }, 'B', 'L'); // E (Bass)
         u1_l3[12] = new Flashcard(12, new int[] { 60 }, new int[] { 0 }, 'T', 'R'); // Middle C (Treble)
         u1_l3[13] = new Flashcard(13, new int[] { 43 }, new int[] { 0 }, 'B', 'L'); // F (Bass)
         u1_l3[14] = new Flashcard(14, new int[] { 64 }, new int[] { 4 }, 'T', 'R'); // E (Treble)
-        u1_l3[15] = new Flashcard(15, new int[] { 46 }, new int[] { 3 }, 'B', 'L'); // A (Bass)
+        u1_l3[15] = new Flashcard(15, new int[] { 47 }, new int[] { 3 }, 'B', 'L'); // A (Bass)
         u1_l3[16] = new Flashcard(16, new int[] { 67 }, new int[] { 7 }, 'T', 'R'); // G (Treble)
         u1_l3[17] = new Flashcard(17, new int[] { 48 }, new int[] { 5 }, 'B', 'L'); // C (Bass)
         u1_l3[18] = new Flashcard(18, new int[] { 60 }, new int[] { 0 }, 'T', 'R'); // Middle C (Treble)
@@ -179,13 +179,31 @@ public class Model {
         unit1Lessons[2] = new Lesson(2, "Lesson 3", "Mixed Treble and Bass Clef Notes", u1_l3);
         lessons.add(unit1Lessons[2]);
 
-        // Drill 1: Mixed Clefs
-        u1_d1[0] = new Flashcard(0, new int[] { 60 }, new int[] { 0 }, 'T', 'R'); // Middle C
-        u1_d1[1] = new Flashcard(0, new int[] { 64 }, new int[] { 4 }, 'T', 'R'); // E
-        u1_d1[2] = new Flashcard(0, new int[] { 67 }, new int[] { 7 }, 'T', 'R'); // G
-        u1_d1[3] = new Flashcard(0, new int[] { 43 }, new int[] { 0 }, 'B', 'L'); // F
-        u1_d1[4] = new Flashcard(0, new int[] { 46 }, new int[] { 3 }, 'B', 'L'); // A
-        u1_d1[5] = new Flashcard(0, new int[] { 48 }, new int[] { 5 }, 'B', 'L'); // C
+        unit1Lessons[2] = new Lesson(2, "Lesson 3", "Mixed Treble and Bass Clef Notes", u1_l3);
+        lessons.add(unit1Lessons[2]);
+
+        // Drill 1: Mixed Clefs - Manually assigning flashcards
+        u1_d1[0] = u1_l1[0]; // Middle C (Treble)
+        u1_d1[1] = u1_l1[2]; // E (Treble)
+        u1_d1[2] = u1_l1[4]; // G (Treble)
+        u1_d1[3] = u1_l1[5]; // High C (Treble)
+        u1_d1[4] = u1_l1[8]; // A (Treble)
+        u1_d1[5] = u1_l2[0]; // F (Bass)
+        u1_d1[6] = u1_l2[1]; // G (Bass)
+        u1_d1[7] = u1_l2[3]; // B (Bass)
+        u1_d1[8] = u1_l2[6]; // E (Bass)
+        u1_d1[9] = u1_l2[8]; // D (Bass)
+        u1_d1[10] = u1_l3[1]; // A (Mixed - Treble)
+        u1_d1[11] = u1_l3[3]; // B (Mixed - Bass)
+        u1_d1[12] = u1_l3[4]; // F (Mixed - Treble)
+        u1_d1[13] = u1_l3[6]; // Middle C (Mixed - Bass)
+        u1_d1[14] = u1_l3[8]; // E (Mixed - Treble)
+        u1_d1[15] = u1_l3[10]; // B (Mixed - Treble)
+        u1_d1[16] = u1_l3[12]; // Middle C (Mixed - Treble)
+        u1_d1[17] = u1_l3[14]; // E (Mixed - Treble)
+        u1_d1[18] = u1_l3[16]; // G (Mixed - Treble)
+        u1_d1[19] = u1_l3[19]; // F (Mixed - Bass)
+
         unit1Drills[0] = new Drill(0, "Drill 1", "Mixed Clef Drill", u1_d1, 180);
         drills.add(unit1Drills[0]);
 
@@ -197,43 +215,69 @@ public class Model {
      * Initializes Unit 2 with its lessons and drills.
      */
     private void initializeUnit2() {
-        // UNIT 2: Chord Identification
-        Flashcard[] u2_l1 = new Flashcard[3];
-        Flashcard[] u2_l2 = new Flashcard[3];
-        Flashcard[] u2_l3 = new Flashcard[4];
-        Flashcard[] u2_d1 = new Flashcard[4];
+        // UNIT 2: Introduction to chord Identification
+        Flashcard[] u2_l1 = new Flashcard[15]; // Lesson 1: 2 note Interval of 3rds
+        Flashcard[] u2_l2 = new Flashcard[15]; // Lesson 2: 3 note Triads
+        Flashcard[] u2_l3 = new Flashcard[10]; // Lesson 3: 3 note Triads with inversions
+        Flashcard[] u2_d1 = new Flashcard[15]; // Combination of problems from all
 
         Lesson[] unit2Lessons = new Lesson[3];
         Drill[] unit2Drills = new Drill[1];
 
-        // Lesson 1: Major Chord Identification
-        u2_l1[0] = new Flashcard(0, new int[] { 60, 64, 67 }, new int[] { 0, 4, 7 }, 'T', 'R'); // C Major
-        u2_l1[1] = new Flashcard(0, new int[] { 65, 69, 72 }, new int[] { 5, 9, 0 }, 'T', 'R'); // F Major
-        u2_l1[2] = new Flashcard(0, new int[] { 62, 66, 69 }, new int[] { 2, 6, 9 }, 'T', 'R'); // D Major
-        unit2Lessons[0] = new Lesson(3, "Lesson 1", "Major Chord Identification", u2_l1);
+        // Lesson 1: 2 note Interval of 3rds
+        u2_l1[0] = new Flashcard(0, new int[] { 60, 64 }, new int[] { 0, 0 }, 'T', 'R'); // C Major
+        u2_l1[1] = new Flashcard(0, new int[] { 65, 69 }, new int[] { 0, 0 }, 'T', 'R'); // F Major
+        u2_l1[2] = new Flashcard(0, new int[] { 62, 66 }, new int[] { 0, 0 }, 'T', 'R'); // G Major
+        u2_l1[3] = new Flashcard(0, new int[] { 48, 52 }, new int[] { 0, 0 }, 'B', 'L'); // C Major
+        u2_l1[4] = new Flashcard(0, new int[] { 50, 54 }, new int[] { 0, 0 }, 'B', 'L'); // D Major
+        u2_l1[5] = new Flashcard(0, new int[] { 53, 57 }, new int[] { 0, 0 }, 'B', 'L'); // F Major
+        u2_l1[6] = new Flashcard(0, new int[] { 55, 59 }, new int[] { 0, 0 }, 'T', 'L'); // G Major
+        u2_l1[7] = new Flashcard(0, new int[] { 58, 62 }, new int[] { 0, 0 }, 'T', 'L'); // A Minor
+        u2_l1[8] = new Flashcard(0, new int[] { 72, 76 }, new int[] { 0, 0 }, 'T', 'R'); // C Major (High)
+        u2_l1[9] = new Flashcard(0, new int[] { 40, 44 }, new int[] { 0, 0 }, 'B', 'L'); // E Minor
+        u2_l1[10] = new Flashcard(0, new int[] { 43, 47 }, new int[] { 0, 0 }, 'B', 'L'); // A Minor
+        u2_l1[11] = new Flashcard(0, new int[] { 45, 49 }, new int[] { 0, 0 }, 'B', 'L'); // B Diminished
+        u2_l1[12] = new Flashcard(0, new int[] { 62, 65 }, new int[] { 0, 0 }, 'T', 'R'); // D Minor
+        u2_l1[13] = new Flashcard(0, new int[] { 67, 71 }, new int[] { 0, 0 }, 'T', 'R'); // G Major (High)
+        u2_l1[14] = new Flashcard(0, new int[] { 53, 57 }, new int[] { 0, 0 }, 'B', 'R'); // F Major
+
+        unit2Lessons[0] = new Lesson(3, "Lesson 1", "Identifying 3rds", u2_l1);
         lessons.add(unit2Lessons[0]);
 
-        // Lesson 2: Minor Chord Identification
-        u2_l2[0] = new Flashcard(0, new int[] { 60, 63, 67 }, new int[] { 0, 3, 7 }, 'T', 'R'); // C Minor
-        u2_l2[1] = new Flashcard(0, new int[] { 65, 68, 72 }, new int[] { 5, 8, 0 }, 'T', 'R'); // F Minor
+        // Lesson 2: 3 note Triads
+        u2_l2[0] = new Flashcard(0, new int[] { 60, 64, 67 }, new int[] { 0, 4, 7 }, 'T', 'R'); // C Major
+        u2_l2[1] = new Flashcard(0, new int[] { 65, 69, 72 }, new int[] { 5, 9, 0 }, 'T', 'R'); // F Major
         u2_l2[2] = new Flashcard(0, new int[] { 62, 65, 69 }, new int[] { 2, 5, 9 }, 'T', 'R'); // D Minor
-        unit2Lessons[1] = new Lesson(4, "Lesson 2", "Minor Chord Identification", u2_l2);
+        u2_l2[3] = new Flashcard(0, new int[] { 48, 52, 55 }, new int[] { 0, 4, 7 }, 'B', 'L'); // C Major
+        u2_l2[4] = new Flashcard(0, new int[] { 50, 53, 57 }, new int[] { 2, 5, 9 }, 'B', 'L'); // D Minor
+        u2_l2[5] = new Flashcard(0, new int[] { 53, 57, 60 }, new int[] { 5, 9, 0 }, 'B', 'L'); // F Major
+        u2_l2[6] = new Flashcard(0, new int[] { 55, 59, 62 }, new int[] { 7, 11, 2 }, 'T', 'R'); // G Major
+        u2_l2[7] = new Flashcard(0, new int[] { 58, 62, 65 }, new int[] { 10, 2, 5 }, 'T', 'L'); // A Minor
+        u2_l2[8] = new Flashcard(0, new int[] { 40, 43, 47 }, new int[] { 0, 3, 7 }, 'B', 'L'); // E Minor
+        u2_l2[9] = new Flashcard(0, new int[] { 43, 47, 50 }, new int[] { 3, 7, 10 }, 'B', 'L'); // A Minor
+        u2_l2[10] = new Flashcard(0, new int[] { 45, 48, 52 }, new int[] { 5, 9, 0 }, 'B', 'L'); // B Diminished
+        u2_l2[11] = new Flashcard(0, new int[] { 60, 63, 67 }, new int[] { 0, 3, 7 }, 'T', 'R'); // C Minor
+        u2_l2[12] = new Flashcard(0, new int[] { 62, 65, 69 }, new int[] { 2, 5, 9 }, 'T', 'L'); // D Minor
+        u2_l2[13] = new Flashcard(0, new int[] { 67, 71, 74 }, new int[] { 7, 11, 14 }, 'T', 'R'); // G Major (High)
+        u2_l2[14] = new Flashcard(0, new int[] { 53, 57, 60 }, new int[] { 5, 9, 0 }, 'B', 'R'); // F Major
+
+        unit2Lessons[1] = new Lesson(4, "Lesson 2", "Triad Identification", u2_l2);
         lessons.add(unit2Lessons[1]);
 
-        // Lesson 3: Mixed Chords
-        u2_l3[0] = u2_l1[0]; // C Major
-        u2_l3[1] = u2_l2[0]; // C Minor
-        u2_l3[2] = u2_l1[1]; // F Major
-        u2_l3[3] = u2_l2[1]; // F Minor
-        unit2Lessons[2] = new Lesson(5, "Lesson 3", "Mixed Chords", u2_l3);
+        // Lesson 3: 3 note Triads with inversions
+        u2_l3[0] = new Flashcard(0, new int[] { 60, 64, 67 }, new int[] { 0, 4, 7 }, 'T', 'R'); // C Major
+        u2_l3[1] = new Flashcard(0, new int[] { 64, 67, 72 }, new int[] { 4, 7, 12 }, 'T', 'R'); // C Major
+
+        unit2Lessons[2] = new Lesson(5, "Lesson 3", "Introduction to inversions", u2_l3);
         lessons.add(unit2Lessons[2]);
 
-        // Drill 1: Mixed Major and Minor Chords
+        // Drill 1: Combination of problems from the lessons
         u2_d1[0] = u2_l1[0];
         u2_d1[1] = u2_l2[0];
         u2_d1[2] = u2_l1[1];
         u2_d1[3] = u2_l2[1];
-        unit2Drills[0] = new Drill(1, "Drill 1", "Mixed Chord Drill", u2_d1, 180);
+
+        unit2Drills[0] = new Drill(1, "Drill 1", "Triads and inversions", u2_d1, 180);
         drills.add(unit2Drills[0]);
 
         Unit unit2 = new Unit(2, "Unit 2", "Chord Identification", unit2Lessons, unit2Drills);
