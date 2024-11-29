@@ -159,8 +159,13 @@ public class Controller {
      * @param velocity the velocity of the note
      */
     public void onNoteOn(int note, int velocity) {
-        audio.noteOn(note, velocity);
-        answerProcessor.noteOn(note);
+        if (activity != null && activity != "") {
+            System.out.println("Activity: " + activity);
+            audio.noteOn(note, velocity);
+            answerProcessor.noteOn(note);
+        }
+        //audio.noteOn(note, velocity);
+        //answerProcessor.noteOn(note);
     }
 
     /**
@@ -169,7 +174,36 @@ public class Controller {
      * @param note the MIDI note number
      */
     public void onNoteOff(int note) {
-        audio.noteOff(note);
+        if (activity != null && activity != "") {
+            System.out.println("Activity: " + activity);
+            audio.noteOff(note);
+            check = answerProcessor.noteOff(note);
+            if (check) {
+                if (activity.equals("Lesson")) {
+                    int[] input = answerProcessor.getInput();
+                    boolean answer = answerProcessor.checkAnswer();
+                    lessonViewer.loadFeedback(flashcards[currentFlashcardIndex], input, answer);
+                    try {
+                        Thread.sleep(500);
+                    } catch (Exception e) {
+                        System.out.println("Error");
+                    }
+                    lessonViewer.closeFeedback();
+                    if (answer) {
+                        moveToNextFlashcard();
+                    }
+                }
+
+                if (activity.equals("Drill")) {
+                    boolean answer = answerProcessor.checkAnswer();
+                    if (!answer) {
+                        incorrectAnswers.add(flashcards[currentFlashcardIndex]);
+                    }
+                    moveToNextFlashcard();
+                }
+            }
+        }
+        /**audio.noteOff(note);
         check = answerProcessor.noteOff(note);
         if (check) {
             if (activity.equals("Lesson")) {
@@ -194,7 +228,7 @@ public class Controller {
                 }
                 moveToNextFlashcard();
             }
-        }
+        }*/
     }
 
     /**
@@ -206,7 +240,51 @@ public class Controller {
      * are any incorrect answers, it will start a review session with those flashcards.
      */
     private void moveToNextFlashcard() {
-        if (currentFlashcardIndex < flashcards.length - 1) {
+        if (activity != null && activity != "") {
+            System.out.println("Activity: " + activity);
+            if (currentFlashcardIndex < flashcards.length - 1) {
+                currentFlashcardIndex++;
+                answerProcessor.setFlashcard(flashcards[currentFlashcardIndex]);
+                if (activity.equals("Lesson")) {
+                    lessonViewer.loadFlashcard(flashcards[currentFlashcardIndex]);
+                }
+                if (activity.equals("Drill")) {
+                    drillViewer.loadFlashcard(flashcards[currentFlashcardIndex]);
+                }
+            } else {
+                if (activity.equals("Lesson")) {
+                    activity = "";
+                    //activity = null;
+                    System.out.println("Lesson Complete!");
+                    lessonViewer.close();
+                    //menuViewer.loadMenu("showUnitSelection 0");
+                    menuViewer.loadMenu("showLessonComplete 0");
+                }
+                if (activity.equals("Drill")) {
+                    activity = "";
+                    //activity = null;
+                    System.out.println("Drill Complete!");
+                    drillViewer.close();
+                    if (!incorrectAnswers.isEmpty()) {
+                        Flashcard[] wrongAnswers = new Flashcard[incorrectAnswers.size()];
+                        for (int i = 0; i < incorrectAnswers.size(); i++) {
+                            wrongAnswers[i] = incorrectAnswers.get(i);
+                        }
+                        Lesson review = new Lesson(1, "Review Drill", "Review Session", wrongAnswers);
+                        //menuViewer.updateDrillCompleteScreen(review, totalDrillFlashcards, totalDrillFlashcards-incorrectAnswers.size());
+                        menuViewer.createNewDrillCompleteScreen(review, totalDrillFlashcards, totalDrillFlashcards-incorrectAnswers.size());
+                        menuViewer.loadMenu("showReviewDrillComplete 0");
+                        //startLesson(review);
+                        //menuViewer.loadMenu("showReviewDrillComplete 0");
+                    } else {
+                        //menuViewer.loadMenu("showLessonComplete 0");
+                        menuViewer.loadMenu("showDrillComplete 0");
+                    }
+                    //menuViewer.loadMenu("showDrillComplete 0");
+                }
+            }
+        }
+        /**if (currentFlashcardIndex < flashcards.length - 1) {
             currentFlashcardIndex++;
             answerProcessor.setFlashcard(flashcards[currentFlashcardIndex]);
             if (activity.equals("Lesson")) {
@@ -217,12 +295,16 @@ public class Controller {
             }
         } else {
             if (activity.equals("Lesson")) {
+                //activity = "";
+                activity = null;
                 System.out.println("Lesson Complete!");
                 lessonViewer.close();
                 //menuViewer.loadMenu("showUnitSelection 0");
                 menuViewer.loadMenu("showLessonComplete 0");
             }
             if (activity.equals("Drill")) {
+                //activity = "";
+                activity = null;
                 System.out.println("Drill Complete!");
                 drillViewer.close();
                 if (!incorrectAnswers.isEmpty()) {
@@ -232,15 +314,16 @@ public class Controller {
                     }
                     Lesson review = new Lesson(1, "Review Drill", "Review Session", wrongAnswers);
                     //menuViewer.updateDrillCompleteScreen(review, totalDrillFlashcards, totalDrillFlashcards-incorrectAnswers.size());
-                    //menuViewer.createNewDrillCompleteScreen(review, totalDrillFlashcards-incorrectAnswers.size());
-                    startLesson(review);
+                    menuViewer.createNewDrillCompleteScreen(review, totalDrillFlashcards, totalDrillFlashcards-incorrectAnswers.size());
+                    menuViewer.loadMenu("showReviewDrillComplete 0");
+                    //startLesson(review);
                     //menuViewer.loadMenu("showReviewDrillComplete 0");
                 } else {
                     menuViewer.loadMenu("showLessonComplete 0");
                 }
                 //menuViewer.loadMenu("showDrillComplete 0");
             }
-        }
+        }*/
     }
 
     
