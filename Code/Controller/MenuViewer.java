@@ -231,8 +231,8 @@ public class MenuViewer {
         //review lesson
 
         System.out.println("Menu creation complete. loading unit selection");
-        loadMenu(unitSelection);
-        previousMenu = unitSelection;
+        loadMenu(homePage);
+        previousMenu = homePage;
         System.out.println("Unit selection displayed");
 
         
