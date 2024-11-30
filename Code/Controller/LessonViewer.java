@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Flashcard;
 import View.*;
+import javafx.scene.paint.Color;
 
 /**
  * The LessonViewer class is responsible for managing the visual components of a
@@ -19,6 +20,12 @@ public class LessonViewer {
     private ImageComponent rightHand;
     private ImageComponent[] notes;
     private ImageComponent feedback;
+    private RectangleComponent progressbarBackground;
+    private RectangleComponent progressbar;
+    
+    //change to appropriate value
+    private int[] menuSize;
+    private int numFlashcardsInLesson;
 
     /**
      * Constructs a LessonViewer object.
@@ -28,6 +35,8 @@ public class LessonViewer {
     public LessonViewer(UI ui) {
         noteCoords = new NoteMapping();
         this.ui = ui;
+        menuSize = new int[]{0, ui.getScreenWidth(), 0, ui.getScreenHeight()};
+        numFlashcardsInLesson = 0;
     }
 
     /**
@@ -69,6 +78,24 @@ public class LessonViewer {
         ui.getViewComponent(feedbackID).updateXY(feedbackChords);
         feedback = (ImageComponent) ui.getViewComponent(feedbackID);
         feedback.setHidden(true);
+        
+        //progressbar background
+        int[] progressbarBackgroundChords = {menuSize[0]+100,menuSize[1]-200,menuSize[2]-100,100};
+        System.out.println("Creating progressbar background");
+        int progressbarBackgroundID = ui.createViewComponent("rectangle");
+        ui.getViewComponent(progressbarBackgroundID).updateXY(progressbarBackgroundChords);
+        progressbarBackground = (RectangleComponent) ui.getViewComponent(progressbarBackgroundID);
+        progressbarBackground.setColor(Color.GREY);
+        progressbarBackground.setHidden(true);
+        
+        //progressbar
+        int[] progressbarChords = {menuSize[0]+100,0,menuSize[2]-100,100};
+        System.out.println("Creating progressbar");
+        int progressbarID = ui.createViewComponent("rectangle");
+        ui.getViewComponent(progressbarID).updateXY(progressbarChords);
+        progressbar = (RectangleComponent) ui.getViewComponent(progressbarID);
+        progressbar.setColor(Color.GREEN);
+        progressbar.setHidden(true);
 
         notes = new ImageComponent[8];
         int[] notesCoords = { 0, 0, 0, 0 };
@@ -135,6 +162,34 @@ public class LessonViewer {
         }
         leftHand.setHidden(false);
         rightHand.setHidden(false);
+        progressbarBackground.setHidden(false);
+        progressbar.setHidden(false);
+    }
+    
+    public void resetProgressbar(int numFlashCards)
+    {
+        System.out.println("Resetting progress bar");
+        //set to default
+        int[] progressbarChords = {menuSize[0]+100,0,menuSize[2]-100,100};
+        progressbar.updateXY(progressbarChords);
+        numFlashcardsInLesson = numFlashCards;
+    }
+    
+    public void increaseProgressbar()
+    {
+        int[] progressbarChords = progressbar.getXY();
+        int desiredStart = menuSize[0]+100;
+        int desiredEnd = menuSize[1]-100;
+        int lengthIncrease = (desiredEnd-desiredStart)/numFlashcardsInLesson;
+        if((progressbarChords[1]+lengthIncrease)>(desiredEnd-desiredStart))
+        {
+            progressbarChords[1] = desiredEnd-desiredStart;
+        } else
+        {
+            progressbarChords[1] += lengthIncrease;
+        }
+        System.out.println("Resizing progress bar by :"+String.valueOf(progressbarChords[1]));
+        progressbar.updateXY(progressbarChords);
     }
 
     /**
@@ -147,6 +202,8 @@ public class LessonViewer {
         clef.setHidden(true);
         leftHand.setHidden(true);
         rightHand.setHidden(true);
+        progressbarBackground.setHidden(true);
+        progressbar.setHidden(true);
 
         for (ImageComponent note : notes) {
             note.setHidden(true);
@@ -177,6 +234,7 @@ public class LessonViewer {
             }
         }
         if (answer) {
+            increaseProgressbar();
             feedback.changeImage("/Assets/check.png");
         } else {
             feedback.changeImage("/Assets/cross.png");

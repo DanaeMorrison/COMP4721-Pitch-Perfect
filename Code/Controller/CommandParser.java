@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import View.UI;
 import View.Keyboard;
 import View.ButtonComponent;
+import Model.Lesson;
 
 import View.UI;
 import javafx.scene.web.HTMLEditorSkin.Command;
@@ -138,7 +139,8 @@ public class CommandParser implements Runnable {
             controller.loadMenu(command);
         } else if (args[0].equals("loadLesson")) {
             controller.close(Integer.parseInt(args[2]));
-            controller.getLesson(Integer.parseInt(args[1]));
+            Lesson lesson = controller.getLesson(Integer.parseInt(args[1]));
+            controller.resetProgressbar(lesson.getLessonSize());
         } else if (args[0].equals("loadDrill")) {
             controller.close(Integer.parseInt(args[2]));
             controller.getDrill(Integer.parseInt(args[1]));

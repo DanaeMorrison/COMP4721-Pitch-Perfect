@@ -92,9 +92,10 @@ public class Controller {
      *
      * @param lessonID the ID of the lesson to retrieve
      */
-    public void getLesson(int lessonID) {
+    public Lesson getLesson(int lessonID) {
         Lesson currentLesson = model.getLesson(lessonID);
         startLesson(currentLesson);
+        return currentLesson;
     }
 
     /**
@@ -247,6 +248,7 @@ public class Controller {
                         //menuViewer.updateDrillCompleteScreen(review);
                         //menuViewer.createNewDrillCompleteScreen(review);
                         //menuViewer.loadMenu("showReviewDrillComplete 0");
+                        resetProgressbar(review.getLessonSize());
                         startLesson(review);
                         //menuViewer.loadMenu("showReviewDrillComplete 0");
                     } else {
@@ -294,4 +296,8 @@ public class Controller {
         }
         return obj.getHidden();
     }
+
+    public void resetProgressbar(int size)
+    {
+        lessonViewer.resetProgressbar(size);
 }
