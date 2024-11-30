@@ -1,6 +1,7 @@
 package View;
 
 import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
 
 /**
  * A component that represents a rectangle in the view.
@@ -14,6 +15,11 @@ public class RectangleComponent extends ViewComponent {
     public RectangleComponent() {
         thisObject = new Rectangle();
         System.out.println("Rectangle created");
+    }
+    
+    public void setColor(Color color)
+    {
+        thisObject.setFill(color);
     }
 
     /**
