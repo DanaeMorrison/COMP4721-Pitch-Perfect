@@ -20,6 +20,8 @@ public class MenuViewer {
     private HashMap<Integer, ViewComponent> lessonSelection;
     private RectangleComponent unitSelection;
     private ViewComponent previousMenu;
+    private RectangleComponent homePage;
+    private ImageComponent homePageImage;
     private RectangleComponent lessonComplete;
     private RectangleComponent drillComplete;
     private RectangleComponent reviewDrillComplete;
@@ -156,17 +158,22 @@ public class MenuViewer {
         int homePageID = ui.createViewComponent("rectangle");
         homePage = (RectangleComponent) ui.getViewComponent(homePageID);
         homePage.updateXY(screenSize);
-        int returnButtonWidth = screenWidth - (PADDING + PADDING);
-        int[] returnXYCords = new int[] { PADDING, returnButtonWidth, 300, 100 };
+        
+        int homePageImageID = ui.createViewComponent(homePageID, "image", screenSize);
+        homePageImage = (ImageComponent) ui.getViewComponent(homePageImageID);
+        homePageImage.changeImage("/Assets/homePage.png");
+        homePageImage.updateXY(screenSize);
+        
+        int[] startButtonXYCords = new int[] { 600, 150, 450, 50 };
         
         //Create button that brings users to unit selection
-        buttonID = ui.createViewComponent(homePageID, "button", returnXYCords);
+        buttonID = ui.createViewComponent(homePageID, "button", startButtonXYCords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
         button.setMessage("showUnitSelection " + unitSelectionID);
         button.setText("Start");
         controller.addParsable(buttonID);
         button.setHidden(true);
-        homePage.setHidden(false);
+        homePage.setHidden(true);
         homePage.getObject().toFront();
         close(homePage);
 
