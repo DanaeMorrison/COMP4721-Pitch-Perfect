@@ -134,7 +134,7 @@ public class CommandParser implements Runnable {
                 notes[i] = Integer.valueOf(args[i + 1]);
             }
             controller.toggleKeys(notes);
-        }*/ else if (args[0].equals("showUnitSelection") || args[0].equals("showLessonSelection")) {
+        }*/ else if (args[0].equals("showUnitSelection") || args[0].equals("showLessonSelection") || args[0].equals("showHomePage")) {
             controller.loadMenu(command);
         } else if (args[0].equals("loadLesson")) {
             controller.close(Integer.parseInt(args[2]));
