@@ -152,6 +152,23 @@ public class MenuViewer {
                 close(currMenu);
             }
         }
+        // Home page
+        int homePageID = ui.createViewComponent("rectangle");
+        homePage = (RectangleComponent) ui.getViewComponent(homePageID);
+        homePage.updateXY(screenSize);
+        int returnButtonWidth = screenWidth - (PADDING + PADDING);
+        int[] returnXYCords = new int[] { PADDING, returnButtonWidth, 300, 100 };
+        
+        //Create button that brings users to unit selection
+        buttonID = ui.createViewComponent(homePageID, "button", returnXYCords);
+        button = (ButtonComponent) ui.getViewComponent(buttonID);
+        button.setMessage("showUnitSelection " + unitSelectionID);
+        button.setText("Start");
+        controller.addParsable(buttonID);
+        button.setHidden(true);
+        homePage.setHidden(false);
+        homePage.getObject().toFront();
+        close(homePage);
 
         // Screen for Lesson Completion
         int lessonCompleteID = ui.createViewComponent("rectangle");
@@ -237,7 +254,9 @@ public class MenuViewer {
             throw new IllegalArgumentException("Cant load menu, command doesnt have the correct number of arguments");
         }
         ViewComponent menu;
-        if (args[0].equals("showUnitSelection")) {
+        if (args[0].equals("showHomePage")) {
+            menu = homePage;
+        } else if (args[0].equals("showUnitSelection")) {
             menu = unitSelection;
         } else if (args[0].equals("showLessonComplete")) {
             menu = lessonComplete;
