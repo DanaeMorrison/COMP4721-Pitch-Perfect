@@ -300,4 +300,5 @@ public class Controller {
     public void resetProgressbar(int size)
     {
         lessonViewer.resetProgressbar(size);
+    }
 }
