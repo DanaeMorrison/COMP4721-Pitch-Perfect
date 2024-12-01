@@ -22,8 +22,8 @@ public class LessonViewer {
     private ImageComponent feedback;
     private RectangleComponent progressbarBackground;
     private RectangleComponent progressbar;
-    
-    //change to appropriate value
+
+    // change to appropriate value
     private int[] menuSize;
     private int numFlashcardsInLesson;
 
@@ -35,7 +35,7 @@ public class LessonViewer {
     public LessonViewer(UI ui) {
         noteCoords = new NoteMapping();
         this.ui = ui;
-        menuSize = new int[]{0, ui.getScreenWidth(), 0, ui.getScreenHeight()};
+        menuSize = new int[] { 0, ui.getScreenWidth(), 0, ui.getScreenHeight() };
         numFlashcardsInLesson = 0;
     }
 
@@ -45,69 +45,48 @@ public class LessonViewer {
      * positioned, and initially hidden.
      */
     public void initializeLesson() {
-        // Setting up the flashcard
-
-        // int[] clefChords = { 170, 1190, 0, 800 };
-        int[] clefChords = { 170, 0, 0, 0 };
-        System.out.println("Creating clef image");
-        int clefID = ui.createViewComponent("image");
-        ui.getViewComponent(clefID).updateXY(clefChords);
-        clef = (ImageComponent) ui.getViewComponent(clefID);
-        clef.setHidden(true);
-
-        // int[] leftHandChords = { 155, 355, 600, 800 };
-        int[] leftHandChords = { 155, 0, 600, 0 };
-        System.out.println("Creating left hand image");
-        int leftHandID = ui.createViewComponent("image");
-        ui.getViewComponent(leftHandID).updateXY(leftHandChords);
-        leftHand = (ImageComponent) ui.getViewComponent(leftHandID);
-        leftHand.setHidden(true);
-
-        // int[] rightHandChords = { 995, 1195, 600, 800 };
-        int[] rightHandChords = { 995, 0, 600, 0 };
-        System.out.println("Creating right hand image");
-        int rightHandID = ui.createViewComponent("image");
-        ui.getViewComponent(rightHandID).updateXY(rightHandChords);
-        rightHand = (ImageComponent) ui.getViewComponent(rightHandID);
-        rightHand.setHidden(true);
-
-        // int[] feedbackChords = { 1050, 1205, 300, 500 };
-        int[] feedbackChords = { 1050, 0, 300, 0 };
-        System.out.println("Creating feedback image");
-        int feedbackID = ui.createViewComponent("image");
-        ui.getViewComponent(feedbackID).updateXY(feedbackChords);
-        feedback = (ImageComponent) ui.getViewComponent(feedbackID);
-        feedback.setHidden(true);
-        
-        //progressbar background
-        int[] progressbarBackgroundChords = {menuSize[0]+100,menuSize[1]-200,menuSize[2]-100,100};
-        System.out.println("Creating progressbar background");
-        int progressbarBackgroundID = ui.createViewComponent("rectangle");
-        ui.getViewComponent(progressbarBackgroundID).updateXY(progressbarBackgroundChords);
-        progressbarBackground = (RectangleComponent) ui.getViewComponent(progressbarBackgroundID);
-        progressbarBackground.setColor(Color.GREY);
-        progressbarBackground.setHidden(true);
-        
-        //progressbar
-        int[] progressbarChords = {menuSize[0]+100,0,menuSize[2]-100,100};
-        System.out.println("Creating progressbar");
-        int progressbarID = ui.createViewComponent("rectangle");
-        ui.getViewComponent(progressbarID).updateXY(progressbarChords);
-        progressbar = (RectangleComponent) ui.getViewComponent(progressbarID);
-        progressbar.setColor(Color.GREEN);
-        progressbar.setHidden(true);
+        clef = createImageComponent(new int[] { 170, 0, 0, 0 });
+        leftHand = createImageComponent(new int[] { 155, 0, 600, 0 });
+        rightHand = createImageComponent(new int[] { 995, 0, 600, 0 });
+        feedback = createImageComponent(new int[] { 1050, 0, 300, 0 });
+        progressbarBackground = createRectangleComponent(
+                new int[] { menuSize[0] + 100, menuSize[1] - 200, menuSize[2] - 100, 100 }, Color.GREY);
+        progressbar = createRectangleComponent(new int[] { menuSize[0] + 100, 0, menuSize[2] - 100, 100 }, Color.GREEN);
 
         notes = new ImageComponent[8];
-        int[] notesCoords = { 0, 0, 0, 0 };
         for (int i = 0; i < notes.length; i++) {
-            System.out.println("Creating image for note");
-            int imageID = ui.createViewComponent("image");
-            //notes[i] = (ImageComponent) ui.getViewComponent(ui.createViewComponent("image"));
-            //notes[i].setHidden(true);
-            ui.getViewComponent(imageID).updateXY(notesCoords);
-            notes[i] = (ImageComponent) ui.getViewComponent(imageID);
-            notes[i].setHidden(true);
+            notes[i] = createImageComponent(new int[] { 0, 0, 0, 0 });
         }
+    }
+
+    /**
+     * Creates an ImageComponent with the specified coordinates.
+     *
+     * @param coords the coordinates for the ImageComponent
+     * @return the created ImageComponent
+     */
+    private ImageComponent createImageComponent(int[] coords) {
+        int id = ui.createViewComponent("image");
+        ui.getViewComponent(id).updateXY(coords);
+        ImageComponent component = (ImageComponent) ui.getViewComponent(id);
+        component.setHidden(true);
+        return component;
+    }
+
+    /**
+     * Creates a RectangleComponent with the specified coordinates and color.
+     *
+     * @param coords the coordinates for the RectangleComponent
+     * @param color  the color for the RectangleComponent
+     * @return the created RectangleComponent
+     */
+    private RectangleComponent createRectangleComponent(int[] coords, Color color) {
+        int id = ui.createViewComponent("rectangle");
+        ui.getViewComponent(id).updateXY(coords);
+        RectangleComponent component = (RectangleComponent) ui.getViewComponent(id);
+        component.setColor(color);
+        component.setHidden(true);
+        return component;
     }
 
     /**
@@ -119,7 +98,7 @@ public class LessonViewer {
         int[] feedbackChords = { 1050, 1205, 300, 500 };
         feedback.setXY(feedbackChords);
         feedback.setHidden(true);
-        
+
         int[] clefChords = { 170, 1190, 0, 800 };
         clef.setXY(clefChords);
 
@@ -165,30 +144,34 @@ public class LessonViewer {
         progressbarBackground.setHidden(false);
         progressbar.setHidden(false);
     }
-    
-    public void resetProgressbar(int numFlashCards)
-    {
+
+    /**
+     * Resets the progress bar to its default state.
+     *
+     * @param numFlashCards the number of flashcards in the lesson
+     */
+    public void resetProgressbar(int numFlashCards) {
         System.out.println("Resetting progress bar");
-        //set to default
-        int[] progressbarChords = {menuSize[0]+100,0,menuSize[2]-100,100};
+        // set to default
+        int[] progressbarChords = { menuSize[0] + 100, 0, menuSize[2] - 100, 100 };
         progressbar.updateXY(progressbarChords);
         numFlashcardsInLesson = numFlashCards;
     }
-    
-    public void increaseProgressbar()
-    {
+
+    /**
+     * Increases the progress bar based on the number of flashcards in the lesson.
+     */
+    public void increaseProgressbar() {
         int[] progressbarChords = progressbar.getXY();
-        int desiredStart = menuSize[0]+100;
-        int desiredEnd = menuSize[1]-100;
-        int lengthIncrease = (desiredEnd-desiredStart)/numFlashcardsInLesson;
-        if((progressbarChords[1]+lengthIncrease)>(desiredEnd-desiredStart))
-        {
-            progressbarChords[1] = desiredEnd-desiredStart;
-        } else
-        {
+        int desiredStart = menuSize[0] + 100;
+        int desiredEnd = menuSize[1] - 100;
+        int lengthIncrease = (desiredEnd - desiredStart) / numFlashcardsInLesson;
+        if ((progressbarChords[1] + lengthIncrease) > (desiredEnd - desiredStart)) {
+            progressbarChords[1] = desiredEnd - desiredStart;
+        } else {
             progressbarChords[1] += lengthIncrease;
         }
-        System.out.println("Resizing progress bar by :"+String.valueOf(progressbarChords[1]));
+        System.out.println("Resizing progress bar by :" + String.valueOf(progressbarChords[1]));
         progressbar.updateXY(progressbarChords);
     }
 

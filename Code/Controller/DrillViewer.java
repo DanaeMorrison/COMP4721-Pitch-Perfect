@@ -3,6 +3,16 @@ package Controller;
 import Model.Flashcard;
 import View.*;
 
+/**
+ * The DrillViewer class is responsible for managing the visual components of a
+ * drill session.
+ * It initializes and controls the display of musical elements such as clefs,
+ * hands, notes, and a timer.
+ * The class interacts with the UI to create and update these components based
+ * on the provided flashcards.
+ * It also includes a private inner class, DrillTimer, to handle countdown
+ * timing for the drill session.
+ */
 public class DrillViewer {
     private UI ui;
     private NoteMapping noteCoords;
@@ -27,49 +37,43 @@ public class DrillViewer {
      * Initializes the drill by setting up the flashcard components.
      */
     public void initializeDrill() {
-        // Setting up the flashcard
-        // int[] clefChords = { 170, 1190, 0, 800 };
-        int[] clefChords = { 170, 0, 0, 0 };
-        System.out.println("Creating clef image");
-        int clefID = ui.createViewComponent("image");
-        ui.getViewComponent(clefID).updateXY(clefChords);
-        clef = (ImageComponent) ui.getViewComponent(clefID);
-        clef.setHidden(true);
-
-        // int[] leftHandChords = { 155, 355, 600, 800 };
-        int[] leftHandChords = { 155, 0, 600, 0 };
-        System.out.println("Creating left hand image");
-        int leftHandID = ui.createViewComponent("image");
-        ui.getViewComponent(leftHandID).updateXY(leftHandChords);
-        leftHand = (ImageComponent) ui.getViewComponent(leftHandID);
-        leftHand.setHidden(true);
-
-        // int[] rightHandChords = { 995, 1195, 600, 800 };
-        int[] rightHandChords = { 995, 0, 600, 0 };
-        System.out.println("Creating right hand image");
-        int rightHandID = ui.createViewComponent("image");
-        ui.getViewComponent(rightHandID).updateXY(rightHandChords);
-        rightHand = (ImageComponent) ui.getViewComponent(rightHandID);
-        rightHand.setHidden(true);
-
-        //int[] timerChords = { 400, 800, 100, 150 };
-        int[] timerChords = { 400, 0, 100, 0 };
-        int timerID = ui.createViewComponent("text"); // Timer text component
-        ui.getViewComponent(timerID).updateXY(timerChords);
-        timer = (TextComponent) ui.getViewComponent(timerID);
-        timer.setHidden(true);
+        clef = createImageComponent(new int[] { 170, 0, 0, 0 });
+        leftHand = createImageComponent(new int[] { 155, 0, 600, 0 });
+        rightHand = createImageComponent(new int[] { 995, 0, 600, 0 });
+        timer = createTextComponent(new int[] { 400, 0, 100, 0 });
 
         notes = new ImageComponent[4];
-        int[] notesCoords = { 0, 0, 0, 0 };
         for (int i = 0; i < notes.length; i++) {
-            System.out.println("Creating image for note");
-            int imageID = ui.createViewComponent("image");
-            //notes[i] = (ImageComponent) ui.getViewComponent(ui.createViewComponent("image"));
-            //notes[i].setHidden(true);
-            ui.getViewComponent(imageID).updateXY(notesCoords);
-            notes[i] = (ImageComponent) ui.getViewComponent(imageID);
-            notes[i].setHidden(true);
+            notes[i] = createImageComponent(new int[] { 0, 0, 0, 0 });
         }
+    }
+
+    /**
+     * Creates an ImageComponent with the specified coordinates.
+     *
+     * @param coords The coordinates for the ImageComponent.
+     * @return The created ImageComponent.
+     */
+    private ImageComponent createImageComponent(int[] coords) {
+        int id = ui.createViewComponent("image");
+        ui.getViewComponent(id).updateXY(coords);
+        ImageComponent component = (ImageComponent) ui.getViewComponent(id);
+        component.setHidden(true);
+        return component;
+    }
+
+    /**
+     * Creates a TextComponent with the specified coordinates.
+     *
+     * @param coords The coordinates for the TextComponent.
+     * @return The created TextComponent.
+     */
+    private TextComponent createTextComponent(int[] coords) {
+        int id = ui.createViewComponent("text");
+        ui.getViewComponent(id).updateXY(coords);
+        TextComponent component = (TextComponent) ui.getViewComponent(id);
+        component.setHidden(true);
+        return component;
     }
 
     /**
@@ -150,9 +154,7 @@ public class DrillViewer {
     }
 
     /**
-     * Starts the timer with the given start time.
-     *
-     * @param startTime The initial time for the timer in seconds.
+     * Stops the timer.
      */
     public void stopTimer() {
         if (drillTimer != null) {
@@ -164,7 +166,7 @@ public class DrillViewer {
     /**
      * Updates the timer display with the specified time and makes it visible.
      *
-     * @param time the time to be displayed on the timer
+     * @param time The time to be displayed on the timer.
      */
     private void loadTimer(int time) {
         timer.setText(String.valueOf(time));
@@ -188,6 +190,11 @@ public class DrillViewer {
         private int time;
         private volatile boolean running = true;
 
+        /**
+         * Constructs a DrillTimer with the specified start time.
+         *
+         * @param startTime The initial time for the timer in seconds.
+         */
         public DrillTimer(int startTime) {
             this.time = startTime;
         }
@@ -209,6 +216,9 @@ public class DrillViewer {
             }
         }
 
+        /**
+         * Stops the timer.
+         */
         public void stopTimer() {
             running = false;
             this.interrupt();
