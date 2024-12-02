@@ -1,5 +1,6 @@
 package View;
 
+import javafx.application.Platform;
 import javafx.scene.Node;
 
 /**
@@ -108,7 +109,10 @@ public abstract class ViewComponent {
      * Brings this component to the front of the view.
      */
     public void toFront() {
-        getObject().toFront();
+        Platform.runLater(() -> {
+            getObject().toFront();
+        });
+        
     }
 
     /**

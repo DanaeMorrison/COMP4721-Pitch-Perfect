@@ -47,7 +47,7 @@ public class UI {
         pane.setPrefSize(screenWidth, screenHeight);
 
         // Set up the Stage
-        primaryStage.setTitle("JavaFX Rectangle Display");
+        primaryStage.setTitle("Pitch Perfect");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
