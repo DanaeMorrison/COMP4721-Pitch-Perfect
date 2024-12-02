@@ -284,7 +284,6 @@ public class MenuViewer {
 
         System.out.println("Menu creation complete. loading unit selection");
         loadMainMenu();
-        previousMenu = unitSelection;
         System.out.println("Unit selection displayed");
 
         // Create button that brings user to review lesson if selected
@@ -516,7 +515,7 @@ public class MenuViewer {
     public void loadMainMenu()
     {
         close(previousMenu);
-        loadMenu(unitSelection);
+        loadMenu(homePage);
         previousMenu=unitSelection;
     }
 }

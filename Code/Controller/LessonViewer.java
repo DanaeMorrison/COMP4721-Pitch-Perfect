@@ -108,7 +108,7 @@ public class LessonViewer {
         backButton.updateXY(backButtonCords);
         backButton.setHidden(true);
         backButton.setMessage("back");
-        backButton.setText("Back");
+        backButton.setText("Main Menu");
         controller.addParsable(backButtonID);
         
         notes = new ImageComponent[8];
