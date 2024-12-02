@@ -1,11 +1,10 @@
 package Controller;
 
-import Model.AudioHandler;
 import javax.sound.midi.*;
 
 /**
  * MidiInputHandler listens to MIDI keyboard input and controls audio playback
- * via AudioHandler.
+ * via the Controller.
  */
 public class MidiInputHandler {
     private static final int NOTE_ON = 0x90;
@@ -19,7 +18,7 @@ public class MidiInputHandler {
     /**
      * Constructs a MidiInputHandler and connects to a MIDI keyboard.
      *
-     * @param audioHandler the AudioHandler to control audio playback.
+     * @param controller the Controller to control audio playback.
      * @throws MidiUnavailableException if no suitable MIDI device is available.
      */
     public MidiInputHandler(Controller controller) throws MidiUnavailableException {
@@ -84,8 +83,8 @@ public class MidiInputHandler {
     /**
      * Changes the MIDI input device to a new device.
      *
-     * @param newDevice the new MIDI device to connect to
-     * @throws MidiUnavailableException if the new MIDI device is unavailable
+     * @param newDevice the new MIDI device to connect to.
+     * @throws MidiUnavailableException if the new MIDI device is unavailable.
      */
     public void changeMidiDevice(MidiDevice newDevice) throws MidiUnavailableException {
         if (midiDevice != null && midiDevice.isOpen()) {
