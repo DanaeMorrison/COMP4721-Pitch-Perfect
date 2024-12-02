@@ -64,7 +64,7 @@ To run Pitch Perfect:
 
 2. Open the project in your Java IDE (e.g., IntelliJ, Eclipse).
 3. Connect your MIDI keyboard.
-4. Run the `main` class in the `\Code` folder to launch the application.
+4. Run the `Main` class in the `\src` folder to launch the application.
 
 When doing drills:
 
