@@ -199,7 +199,7 @@ public class MenuViewer {
         //Create button that brings user back to unit selection
         buttonID = ui.createViewComponent(lessonCompleteID, "button", returnXYCords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
-        button.setMessage("showUnitSelection " + unitSelectionID);
+        button.setMessage("back");
         button.setText("Return to Menu");
         controller.addParsable(buttonID);
         button.setHidden(true);
@@ -248,7 +248,7 @@ public class MenuViewer {
         //Create button that brings user back to unit selection
         buttonID = ui.createViewComponent(drillCompleteID, "button", returnXYCords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
-        button.setMessage("showUnitSelection " + unitSelectionID);
+        button.setMessage("back");
         button.setText("Return to Menu");
         controller.addParsable(buttonID);
         button.setHidden(true);
@@ -481,7 +481,7 @@ public class MenuViewer {
         //Create button that brings user back to unit selection
         buttonID = ui.createViewComponent(reviewDrillCompleteID, "button", returnXYCords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
-        button.setMessage("showUnitSelection " + FILLER);
+        button.setMessage("back");
         button.setText("Return to Menu");
         controller.addParsable(buttonID);
         button.setHidden(true);
@@ -516,6 +516,6 @@ public class MenuViewer {
     {
         close(previousMenu);
         loadMenu(homePage);
-        previousMenu=unitSelection;
+        previousMenu=homePage;
     }
 }
