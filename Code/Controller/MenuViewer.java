@@ -23,6 +23,8 @@ public class MenuViewer {
     private HashMap<Integer, ViewComponent> lessonSelection;
     private RectangleComponent unitSelection;
     private ViewComponent previousMenu;
+    private RectangleComponent homePage;
+    private ImageComponent homePageImage;
     private RectangleComponent lessonComplete;
     private RectangleComponent drillComplete;
     private RectangleComponent reviewDrillComplete;
@@ -37,8 +39,8 @@ public class MenuViewer {
      * Constructs a MenuViewer object.
      *
      * @param controller the controller to manage the menu interactions
-     * @param ui the user interface to display the menu
-     * @param units the list of units to be used for initializing menus
+     * @param ui         the user interface to display the menu
+     * @param units      the list of units to be used for initializing menus
      */
     public MenuViewer(Controller controller, UI ui, ArrayList<Unit> units) {
         this.controller = controller;
@@ -49,21 +51,25 @@ public class MenuViewer {
     }
 
     /**
-     * Initializes the menus for unit selection and lesson selection.
-     *
-     * @param units An ArrayList of Unit objects representing the units to be displayed.
-     * 
-     * This method sets up the unit selection menu and creates buttons for each unit.
-     * It also creates menus for each unit's lessons and drills, setting up buttons for each lesson.
-     * The method handles the layout and positioning of these buttons and menus on the screen.
+     * This method sets up the unit selection menu and creates buttons
+     * for each unit.
+     * It also creates menus for each unit's lessons and drills,
+     * setting up buttons for each lesson.
+     * The method handles the layout and positioning of these buttons
+     * and menus on the screen.
      * 
      * The method performs the following steps:
      * 1. Retrieves the screen width and height from the UI.
      * 2. Sets up the unit selection menu with buttons for each unit.
-     * 3. For each unit, creates a menu for its lessons and drills, and sets up buttons for each lesson.
+     * 3. For each unit, creates a menu for its lessons and drills, and
+     * sets up buttons for each lesson.
      * 4. Adds the created buttons and menus to the UI and controller.
-     * 5. Hides the buttons and menus initially, and sets up their positions on the screen.
+     * 5. Hides the buttons and menus initially, and sets up their
+     * positions on the screen.
      * 6. Displays the unit selection menu.
+     * 
+     * @param units An ArrayList of Unit objects representing the units to be
+     *              displayed.
      */
     public void initializeMenus(ArrayList<Unit> units) {
         System.out.println("Initializing menus");
@@ -149,7 +155,6 @@ public class MenuViewer {
                 button.getObject().toBack();
                 button.setHidden(true);
 
-
                 lessonSelection.put(unit.getUnitID(), currMenu);
                 System.out.println("lesson selection size is: " + Integer.toString(lessonSelection.size()));
                 System.out.println("Current unit ID is: " + Integer.toString(unit.getUnitID()));
@@ -158,6 +163,28 @@ public class MenuViewer {
                 close(currMenu);
             }
         }
+        // Home page
+        int homePageID = ui.createViewComponent("rectangle");
+        homePage = (RectangleComponent) ui.getViewComponent(homePageID);
+        homePage.updateXY(screenSize);
+        
+        int homePageImageID = ui.createViewComponent(homePageID, "image", screenSize);
+        homePageImage = (ImageComponent) ui.getViewComponent(homePageImageID);
+        homePageImage.changeImage("/Assets/homePage.png");
+        homePageImage.updateXY(screenSize);
+        
+        int[] startButtonXYCords = new int[] { 600, 150, 450, 50 };
+        
+        //Create button that brings users to unit selection
+        buttonID = ui.createViewComponent(homePageID, "button", startButtonXYCords);
+        button = (ButtonComponent) ui.getViewComponent(buttonID);
+        button.setMessage("showUnitSelection " + unitSelectionID);
+        button.setText("Start");
+        controller.addParsable(buttonID);
+        button.setHidden(true);
+        homePage.setHidden(true);
+        homePage.getObject().toFront();
+        close(homePage);
 
         // Screen for Lesson Completion
         int lessonCompleteID = ui.createViewComponent("rectangle");
@@ -237,7 +264,8 @@ public class MenuViewer {
         buttonID = ui.createViewComponent(reviewDrillCompleteID, "button", reviewXYCords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
         // button.setMessage("loadLesson "+lessons[i].getLessonID());
-        //button.setMessage("loadLesson " + reviewLesson.getLessonID() + " " + reviewDrillCompleteID);
+        // button.setMessage("loadLesson " + reviewLesson.getLessonID() + " " +
+        // reviewDrillCompleteID);
         button.setText("Review Lesson");
         controller.addParsable(buttonID);
         button.getObject().toBack();
@@ -252,20 +280,19 @@ public class MenuViewer {
         drillComplete.getObject().toFront();
         close(drillComplete);
 
-        //Make a public method that can be called in controller if the activity is a drill,
-        //where if there are incorrect answers from a drill the menuviewer will update
-        //the drillcomplete component to add the review button that will link to the
-        //review lesson
+        // Make a public method that can be called in controller if the activity is a
+        // drill,
+        // where if there are incorrect answers from a drill the menuviewer will update
+        // the drillcomplete component to add the review button that will link to the
+        // review lesson
 
-        System.out.println("Menu creation complete. loading unit selection");
-        loadMenu(unitSelection);
-        previousMenu = unitSelection;
-        System.out.println("Unit selection displayed");
+        System.out.println("Menu creation complete. loading home page");
+        loadMenu(homePage);
+        previousMenu = homePage;
+        System.out.println("Home page displayed");
 
-        
-
-        //Create button that brings user to review lesson if selected
-        //If any questions were answered incorrectly
+        // Create button that brings user to review lesson if selected
+        // If any questions were answered incorrectly
     }
 
     /*
@@ -281,7 +308,9 @@ public class MenuViewer {
             throw new IllegalArgumentException("Cant load menu, command doesnt have the correct number of arguments");
         }
         ViewComponent menu;
-        if (args[0].equals("showUnitSelection")) {
+        if (args[0].equals("showHomePage")) {
+            menu = homePage;
+        } else if (args[0].equals("showUnitSelection")) {
             menu = unitSelection;
         } else if (args[0].equals("showLessonComplete")) {
             menu = lessonComplete;
@@ -363,10 +392,12 @@ public class MenuViewer {
     /**
      * Closes the given ViewComponent and all its child components recursively.
      * If the given component is null, it returns true.
-     * If all child components are successfully closed, the given component is marked as hidden.
+     * If all child components are successfully closed, the given component is
+     * marked as hidden.
      *
      * @param obj the ViewComponent to be closed
-     * @return true if the given component and all its child components are hidden, false otherwise
+     * @return true if the given component and all its child components are hidden,
+     *         false otherwise
      */
     public boolean close(ViewComponent obj) {
         if (obj == null) {
@@ -389,7 +420,7 @@ public class MenuViewer {
         System.out.println("Adding review lesson to drill complete screen");
         ButtonComponent button;
         int buttonID;
-        //RectangleComponent currMenu;
+        // RectangleComponent currMenu;
         int screenWidth = ui.getScreenWidth();
         int reviewButtonWidth = screenWidth - (PADDING + PADDING);
         int[] reviewXYCords = new int[] { PADDING, reviewButtonWidth, 450, 100 };
@@ -409,7 +440,7 @@ public class MenuViewer {
         System.out.println("Creating complete screen with review lesson");
         //ButtonComponent button;
         int buttonID;
-        //RectangleComponent currMenu;
+        // RectangleComponent currMenu;
         int screenWidth = ui.getScreenWidth();
         int screenHeight = ui.getScreenHeight();
         int[] screenSize = new int[] { 0, screenWidth, 0, screenHeight };
@@ -452,7 +483,6 @@ public class MenuViewer {
         //});
         text.setHidden(true);*/
         //System.out.println("Score: " + Integer.toString(numberCorrectAnswers) + "/" + Integer.toString(totalDrillFlashcards));
-
         //Create button that brings user back to unit selection
         buttonID = ui.createViewComponent(reviewDrillCompleteID, "button", returnXYCords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
@@ -461,7 +491,7 @@ public class MenuViewer {
         controller.addParsable(buttonID);
         button.setHidden(true);
 
-        //Create review button
+        // Create review button
         int reviewButtonWidth = screenWidth - (PADDING + PADDING);
         int[] reviewXYCords = new int[] { PADDING, reviewButtonWidth, 450, 100 };
 

@@ -1,3 +1,9 @@
+/**
+ * The NoteMapping class provides a mapping between MIDI values and their corresponding
+ * coordinates and image paths for both treble and bass clefs. It uses HashMaps to store
+ * these mappings and provides methods to retrieve the coordinates and image paths based
+ * on the MIDI value and clef type.
+ */
 package Controller;
 
 import java.util.HashMap;
@@ -9,144 +15,96 @@ public class NoteMapping {
     private final HashMap<Integer, int[]> bassClefCoordinates = new HashMap<>();
     private final HashMap<Integer, String> bassClefImages = new HashMap<>();
 
+    /**
+     * Constructor to initialize the NoteMapping object.
+     * Initializes the mappings for treble and bass clefs.
+     */
     public NoteMapping() {
         // Treble Clef MIDI Positions and Image Paths
-        trebleClefCoordinates.put(0, new int[] { 615, 745, 528, 658 }); // C4
-        trebleClefImages.put(0, "/Assets/NoteOnLedgerLine.png");
-
-        trebleClefCoordinates.put(1, new int[] { 615, 745, 528, 658 }); // C#4
-        trebleClefImages.put(1, "/Assets/SharpNoteOnLedgerLine.png");
-
-        trebleClefCoordinates.put(2, new int[] { 615, 745, 496, 626 }); // D4
-        trebleClefImages.put(2, "/Assets/NoteBetweenLines.png");
-
-        trebleClefCoordinates.put(3, new int[] { 615, 745, 496, 626 }); // D#4
-        trebleClefImages.put(3, "/Assets/SharpNoteBetweenLines.png");
-
-        trebleClefCoordinates.put(4, new int[] { 615, 745, 464, 594 }); // E4
-        trebleClefImages.put(4, "/Assets/NoteOnLedgerLine.png");
-
-        trebleClefCoordinates.put(5, new int[] { 615, 745, 432, 562 }); // F4
-        trebleClefImages.put(5, "/Assets/NoteBetweenLines.png");
-
-        trebleClefCoordinates.put(6, new int[] { 615, 745, 432, 562 }); // F#4
-        trebleClefImages.put(6, "/Assets/SharpNoteBetweenLines.png");
-
-        trebleClefCoordinates.put(7, new int[] { 615, 745, 400, 530 }); // G4
-        trebleClefImages.put(7, "/Assets/NoteOnLedgerLine.png");
-
-        trebleClefCoordinates.put(8, new int[] { 615, 745, 400, 530 }); // G#4
-        trebleClefImages.put(8, "/Assets/SharpNoteOnLedgerLine.png");
-
-        trebleClefCoordinates.put(9, new int[] { 615, 745, 368, 498 }); // A4
-        trebleClefImages.put(9, "/Assets/NoteBetweenLines.png");
-
-        trebleClefCoordinates.put(10, new int[] { 615, 745, 368, 498 }); // A#4
-        trebleClefImages.put(10, "/Assets/SharpNoteBetweenLines.png");
-
-        trebleClefCoordinates.put(11, new int[] { 615, 745, 336, 466 }); // B4
-        trebleClefImages.put(11, "/Assets/NoteOnLedgerLine.png");
-
-        trebleClefCoordinates.put(12, new int[] { 615, 745, 304, 434 }); // C5
-        trebleClefImages.put(12, "/Assets/NoteBetweenLines.png");
-        
-        trebleClefCoordinates.put(13, new int[] { 615, 745, 304, 434 }); // C#5
-        trebleClefImages.put(13, "/Assets/SharpNoteBetweenLines.png");
-        
-        trebleClefCoordinates.put(14, new int[] { 615, 745, 272, 402 }); // D5
-        trebleClefImages.put(14, "/Assets/NoteOnLedgerLine.png");
-        
-        trebleClefCoordinates.put(15, new int[] { 615, 745, 272, 402 }); // D#5
-        trebleClefImages.put(15, "/Assets/SharpNoteOnLedgerLine.png");
-        
-        trebleClefCoordinates.put(16, new int[] { 615, 745, 240, 370 }); // E5
-        trebleClefImages.put(16, "/Assets/NoteBetweenLines.png");
-        
-        trebleClefCoordinates.put(17, new int[] { 615, 745, 208, 338 }); // F5
-        trebleClefImages.put(17, "/Assets/NoteOnLedgerLine.png");
-        
-        trebleClefCoordinates.put(18, new int[] { 615, 745, 208, 338 }); // F#5
-        trebleClefImages.put(18, "/Assets/SharpNoteOnLedgerLine.png");
-        
-        trebleClefCoordinates.put(19, new int[] { 615, 745, 176, 306}); // G5
-        trebleClefImages.put(19, "/Assets/NoteBetweenLines.png");
-        
-        trebleClefCoordinates.put(20, new int[] { 615, 745, 176, 306}); // G#5
-        trebleClefImages.put(20, "/Assets/SharpNoteBetweenLines.png");
-        
-        trebleClefCoordinates.put(21, new int[] { 615, 745, 144, 274 }); // A5
-        trebleClefImages.put(21, "/Assets/NoteOnLedgerLine.png");
-        
-        trebleClefCoordinates.put(22, new int[] { 615, 745, 144, 274 }); // A#5
-        trebleClefImages.put(22, "/Assets/SharpNoteOnLedgerLine.png");
-        
-      
+        initializeTrebleClef();
         // Bass Clef MIDI Positions and Image Paths
-        bassClefCoordinates.put(4, new int[] { 615, 745, 528, 658 }); // E2
-        bassClefImages.put(4, "/Assets/NoteOnLedgerLine.png");
+        initializeBassClef();
+    }
 
-        bassClefCoordinates.put(5, new int[] { 615, 745, 496, 626 }); // F2
-        bassClefImages.put(5, "/Assets/NoteBetweenLines.png");
+    /**
+     * Initializes the mappings for the treble clef.
+     */
+    private void initializeTrebleClef() {
+        addTrebleClefMapping(60, new int[] { 615, 745, 528, 658 }, "/Assets/NoteOnLedgerLine.png");
+        addTrebleClefMapping(61, new int[] { 560, 800, 473, 713 }, "/Assets/SharpNoteOnLedgerLine.png");
+        addTrebleClefMapping(62, new int[] { 615, 745, 496, 626 }, "/Assets/NoteBetweenLines.png");
+        addTrebleClefMapping(63, new int[] { 560, 800, 441, 681 }, "/Assets/SharpNoteBetweenLines.png");
+        addTrebleClefMapping(64, new int[] { 615, 745, 464, 594 }, "/Assets/NoteOnLedgerLine.png");
+        addTrebleClefMapping(65, new int[] { 615, 745, 432, 562 }, "/Assets/NoteBetweenLines.png");
+        addTrebleClefMapping(66, new int[] { 560, 800, 377, 617 }, "/Assets/SharpNoteBetweenLines.png");
+        addTrebleClefMapping(67, new int[] { 615, 745, 400, 530 }, "/Assets/NoteOnLedgerLine.png");
+        addTrebleClefMapping(68, new int[] { 560, 800, 345, 585 }, "/Assets/SharpNoteOnLedgerLine.png");
+        addTrebleClefMapping(69, new int[] { 615, 745, 368, 498 }, "/Assets/NoteBetweenLines.png");
+        addTrebleClefMapping(70, new int[] { 560, 800, 313, 553 }, "/Assets/SharpNoteBetweenLines.png");
+        addTrebleClefMapping(71, new int[] { 615, 745, 336, 466 }, "/Assets/NoteOnLedgerLine.png");
+        addTrebleClefMapping(72, new int[] { 615, 745, 304, 434 }, "/Assets/NoteBetweenLines.png");
+        addTrebleClefMapping(73, new int[] { 560, 800, 249, 489 }, "/Assets/SharpNoteBetweenLines.png");
+        addTrebleClefMapping(74, new int[] { 615, 745, 272, 402 }, "/Assets/NoteOnLedgerLine.png");
+        addTrebleClefMapping(75, new int[] { 560, 800, 217, 457 }, "/Assets/SharpNoteOnLedgerLine.png");
+        addTrebleClefMapping(76, new int[] { 615, 745, 240, 370 }, "/Assets/NoteBetweenLines.png");
+        addTrebleClefMapping(77, new int[] { 615, 745, 208, 338 }, "/Assets/NoteOnLedgerLine.png");
+        addTrebleClefMapping(78, new int[] { 560, 800, 153, 393 }, "/Assets/SharpNoteOnLedgerLine.png");
+        addTrebleClefMapping(79, new int[] { 615, 745, 176, 306 }, "/Assets/NoteBetweenLines.png");
+        addTrebleClefMapping(80, new int[] { 560, 800, 121, 361 }, "/Assets/SharpNoteBetweenLines.png");
+        addTrebleClefMapping(81, new int[] { 615, 745, 144, 274 }, "/Assets/NoteOnLedgerLine.png");
+        addTrebleClefMapping(82, new int[] { 560, 800, 89, 329 }, "/Assets/SharpNoteOnLedgerLine.png");
+    }
 
-        bassClefCoordinates.put(6, new int[] { 615, 745, 496, 626 }); // F#2
-        bassClefImages.put(6, "/Assets/SharpNoteBetweenLines.png");
+    /**
+     * Initializes the mappings for the bass clef.
+     */
+    private void initializeBassClef() {
+        addBassClefMapping(40, new int[] { 615, 745, 528, 658 }, "/Assets/NoteOnLedgerLine.png");
+        addBassClefMapping(41, new int[] { 615, 745, 496, 626 }, "/Assets/NoteBetweenLines.png");
+        addBassClefMapping(42, new int[] { 560, 800, 441, 681 }, "/Assets/SharpNoteBetweenLines.png");
+        addBassClefMapping(43, new int[] { 615, 745, 464, 594 }, "/Assets/NoteOnLedgerLine.png");
+        addBassClefMapping(44, new int[] { 560, 800, 409, 649 }, "/Assets/SharpNoteOnLedgerLine.png");
+        addBassClefMapping(45, new int[] { 615, 745, 432, 562 }, "/Assets/NoteBetweenLines.png");
+        addBassClefMapping(46, new int[] { 560, 800, 377, 617 }, "/Assets/SharpNoteBetweenLines.png");
+        addBassClefMapping(47, new int[] { 615, 745, 400, 530 }, "/Assets/NoteOnLedgerLine.png");
+        addBassClefMapping(48, new int[] { 615, 745, 368, 498 }, "/Assets/NoteBetweenLines.png");
+        addBassClefMapping(49, new int[] { 560, 800, 313, 553 }, "/Assets/SharpNoteBetweenLines.png");
+        addBassClefMapping(50, new int[] { 615, 745, 336, 466 }, "/Assets/NoteOnLedgerLine.png");
+        addBassClefMapping(51, new int[] { 560, 800, 281, 521 }, "/Assets/SharpNoteOnLedgerLine.png");
+        addBassClefMapping(52, new int[] { 615, 745, 304, 434 }, "/Assets/NoteBetweenLines.png");
+        addBassClefMapping(53, new int[] { 615, 745, 272, 402 }, "/Assets/NoteOnLedgerLine.png");
+        addBassClefMapping(54, new int[] { 560, 800, 217, 457 }, "/Assets/SharpNoteOnLedgerLine.png");
+        addBassClefMapping(55, new int[] { 615, 745, 240, 370 }, "/Assets/NoteBetweenLines.png");
+        addBassClefMapping(56, new int[] { 560, 800, 185, 425 }, "/Assets/SharpNoteBetweenLines.png");
+        addBassClefMapping(57, new int[] { 615, 745, 208, 338 }, "/Assets/NoteOnLedgerLine.png");
+        addBassClefMapping(58, new int[] { 560, 800, 153, 393 }, "/Assets/SharpNoteOnLedgerLine.png");
+        addBassClefMapping(59, new int[] { 615, 745, 176, 306 }, "/Assets/NoteBetweenLines.png");
+        addBassClefMapping(60, new int[] { 615, 745, 144, 274 }, "/Assets/NoteOnLedgerLine.png");
+        addBassClefMapping(61, new int[] { 560, 800, 89, 329 }, "/Assets/SharpNoteOnLedgerLine.png");
+    }
 
-        bassClefCoordinates.put(7, new int[] { 615, 745, 464, 594 }); // G2
-        bassClefImages.put(7, "/Assets/NoteOnLedgerLine.png");
+    /**
+     * Adds a mapping for a treble clef note.
+     *
+     * @param midiValue   the MIDI value of the note
+     * @param coordinates the coordinates of the note
+     * @param imagePath   the image path of the note
+     */
+    private void addTrebleClefMapping(int midiValue, int[] coordinates, String imagePath) {
+        trebleClefCoordinates.put(midiValue, coordinates);
+        trebleClefImages.put(midiValue, imagePath);
+    }
 
-        bassClefCoordinates.put(8, new int[] { 615, 745, 464, 594 }); // G#2
-        bassClefImages.put(8, "/Assets/SharpNoteOnLedgerLine.png");
-
-        bassClefCoordinates.put(9, new int[] { 615, 745, 432, 562 }); // A2
-        bassClefImages.put(9, "/Assets/NoteBetweenLines.png");
-
-        bassClefCoordinates.put(10, new int[] { 615, 745, 432, 562 }); // A#2
-        bassClefImages.put(10, "/Assets/SharpNoteBetweenLines.png");
-
-        bassClefCoordinates.put(11, new int[] { 615, 745, 400, 530 }); // B2
-        bassClefImages.put(11, "/Assets/NoteOnLedgerLine.png");
-
-        bassClefCoordinates.put(12, new int[] { 615, 745, 368, 498 }); // C3
-        bassClefImages.put(12, "/Assets/NoteBetweenLines.png");
-
-        bassClefCoordinates.put(13, new int[] { 615, 745, 368, 498 }); // C#3
-        bassClefImages.put(13, "/Assets/SharpNoteBetweenLines.png");
-
-        bassClefCoordinates.put(14, new int[] { 615, 745, 336, 466 }); // D3
-        bassClefImages.put(14, "/Assets/NoteOnLedgerLine.png");
-
-        bassClefCoordinates.put(15, new int[] { 615, 745, 336, 466 }); // D#3
-        bassClefImages.put(15, "/Assets/SharpNoteOnLedgerLine.png");
-
-        bassClefCoordinates.put(16, new int[] { 615, 745, 304, 434 }); // E3
-        bassClefImages.put(16, "/Assets/NoteBetweenLines.png");
-
-        bassClefCoordinates.put(17, new int[] { 615, 745, 272, 402 }); // F3
-        bassClefImages.put(17, "/Assets/NoteOnLedgerLine.png");
-        
-        bassClefCoordinates.put(18, new int[] { 615, 745, 272, 402 }); // F#3
-        bassClefImages.put(18, "/Assets/SharpNoteOnLedgerLine.png");
-        
-        bassClefCoordinates.put(19, new int[] { 615, 745, 240, 370 }); // G3
-        bassClefImages.put(19, "/Assets/NoteBetweenLines.png");
-        
-        bassClefCoordinates.put(20, new int[] { 615, 745, 240, 370 }); // G#3
-        bassClefImages.put(20, "/Assets/SharpNoteBetweenLines.png");
-        
-        bassClefCoordinates.put(21, new int[] { 615, 745, 208, 338 }); // A3
-        bassClefImages.put(21, "/Assets/NoteOnLedgerLine.png");
-        
-        bassClefCoordinates.put(22, new int[] { 615, 745, 208, 338 }); // A#3
-        bassClefImages.put(22, "/Assets/SharpNoteOnLedgerLine.png");
-        
-        bassClefCoordinates.put(23, new int[] { 615, 745, 176, 306}); // B3
-        bassClefImages.put(23, "/Assets/NoteBetweenLines.png");
-        
-        bassClefCoordinates.put(0, new int[] { 615, 745, 144, 274 }); // C4
-        bassClefImages.put(0, "/Assets/NoteOnLedgerLine.png");
-        
-        bassClefCoordinates.put(1, new int[] { 615, 745, 144, 274 }); // C#4
-        bassClefImages.put(1, "/Assets/SharpNoteOnLedgerLine.png");
+    /**
+     * Adds a mapping for a bass clef note.
+     *
+     * @param midiValue   the MIDI value of the note
+     * @param coordinates the coordinates of the note
+     * @param imagePath   the image path of the note
+     */
+    private void addBassClefMapping(int midiValue, int[] coordinates, String imagePath) {
+        bassClefCoordinates.put(midiValue, coordinates);
+        bassClefImages.put(midiValue, imagePath);
     }
 
     /**
@@ -158,7 +116,6 @@ public class NoteMapping {
      *         or null if the MIDI value is not found or the clef is invalid
      */
     public int[] getCoordinates(int midiValue, char clef) {
-        midiValue = ((midiValue+12) % 24);
         if (clef == 'T') {
             return trebleClefCoordinates.getOrDefault(midiValue, null);
         } else if (clef == 'B') {
@@ -176,7 +133,6 @@ public class NoteMapping {
      *         found or the clef is invalid
      */
     public String getImagePath(int midiValue, char clef) {
-        midiValue = ((midiValue+12) % 24);
         if (clef == 'T') {
             return trebleClefImages.getOrDefault(midiValue, null);
         } else if (clef == 'B') {

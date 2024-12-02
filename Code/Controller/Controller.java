@@ -40,7 +40,7 @@ public class Controller {
      * Constructs a Controller with the given primary stage.
      *
      * @param primaryStage the primary stage
-     * @throws IOException            if an I/O error occurs
+     * @throws IOException              if an I/O error occurs
      * @throws MidiUnavailableException if the MIDI device is unavailable
      */
     public Controller(Stage primaryStage) throws IOException, MidiUnavailableException {
@@ -81,7 +81,8 @@ public class Controller {
     }
 
     /**
-     * Adds a parsable ID to the list of parsables and updates the command parser with the new list of IDs.
+     * Adds a parsable ID to the list of parsables and updates the command parser
+     * with the new list of IDs.
      *
      * @param parsableID the ID of the parsable to be added
      */
@@ -95,9 +96,10 @@ public class Controller {
      *
      * @param lessonID the ID of the lesson to retrieve
      */
-    public void getLesson(int lessonID) {
+    public Lesson getLesson(int lessonID) {
         Lesson currentLesson = model.getLesson(lessonID);
         startLesson(currentLesson);
+        return currentLesson;
     }
 
     /**
@@ -108,7 +110,7 @@ public class Controller {
         currentFlashcardIndex = 0;
 
         activity = "Lesson";
-        //lessonViewer.initializeLesson();
+        // lessonViewer.initializeLesson();
         answerProcessor.setFlashcard(flashcards[currentFlashcardIndex]);
         lessonViewer.loadFlashcard(flashcards[currentFlashcardIndex]);
     }
@@ -133,9 +135,9 @@ public class Controller {
         currentFlashcardIndex = 0;
         totalDrillFlashcards = drill.getLessonSize();
         activity = "Drill";
-        //drillViewer.initializeDrill();
+        // drillViewer.initializeDrill();
         incorrectAnswers = new ArrayList<Flashcard>();
-        //drillViewer.startTimer(drill.getTimeLim());
+        // drillViewer.startTimer(drill.getTimeLim());
         answerProcessor.setFlashcard(flashcards[currentFlashcardIndex]);
         drillViewer.loadFlashcard(flashcards[currentFlashcardIndex]);
     }
@@ -167,7 +169,6 @@ public class Controller {
             answerProcessor.noteOn(note);
         }
     }
-
 
     /**
      * Handles the note off event.
@@ -206,67 +207,69 @@ public class Controller {
         }
     }
 
-
     /**
-     * Moves to the next flashcard in the sequence. Depending on the current activity,
-     * it will load the next flashcard into the appropriate viewer (lesson or drill).
+     * Moves to the next flashcard in the sequence. Depending on the current
+     * activity,
+     * it will load the next flashcard into the appropriate viewer (lesson or
+     * drill).
      * If the end of the flashcards is reached, it will handle the completion of the
-     * activity. For lessons, it will print "Lesson Complete!" and close the lesson viewer.
-     * For drills, it will print "Drill Complete!", close the drill viewer, and if there
-     * are any incorrect answers, it will start a review session with those flashcards.
+     * activity. For lessons, it will print "Lesson Complete!" and close the lesson
+     * viewer.
+     * For drills, it will print "Drill Complete!", close the drill viewer, and if
+     * there
+     * are any incorrect answers, it will start a review session with those
+     * flashcards.
      */
     private void moveToNextFlashcard() {
-        if (activity != null && activity != "") {
+        if (activity != null && !activity.isEmpty()) {
             System.out.println("Activity: " + activity);
             if (currentFlashcardIndex < flashcards.length - 1) {
                 currentFlashcardIndex++;
                 answerProcessor.setFlashcard(flashcards[currentFlashcardIndex]);
                 if (activity.equals("Lesson")) {
                     lessonViewer.loadFlashcard(flashcards[currentFlashcardIndex]);
-                }
-                if (activity.equals("Drill")) {
+                } else if (activity.equals("Drill")) {
                     drillViewer.loadFlashcard(flashcards[currentFlashcardIndex]);
                 }
             } else {
-                if (activity.equals("Lesson")) {
-                    activity = "";
-                    //activity = null;
-                    System.out.println("Lesson Complete!");
-                    lessonViewer.close();
-                    //menuViewer.loadMenu("showUnitSelection 0");
-                    menuViewer.loadMenu("showLessonComplete 0");
-                }
-                if (activity.equals("Drill")) {
-                    activity = "";
-                    //activity = null;
-                    System.out.println("Drill Complete!");
-                    drillViewer.close();
-                    if (!incorrectAnswers.isEmpty()) {
-                        Flashcard[] wrongAnswers = new Flashcard[incorrectAnswers.size()];
-                        for (int i = 0; i < incorrectAnswers.size(); i++) {
-                            wrongAnswers[i] = incorrectAnswers.get(i);
-                        }
-                        Lesson review = new Lesson(nextReviewLessonID, "Review Drill", "Review Session", wrongAnswers);
-                        model.getLessons().add(review);
-                        //menuViewer.updateDrillCompleteScreen(review, totalDrillFlashcards, totalDrillFlashcards-incorrectAnswers.size());
-                        menuViewer.createNewDrillCompleteScreen(review, totalDrillFlashcards, totalDrillFlashcards-incorrectAnswers.size());
-                        menuViewer.loadMenu("showReviewDrillComplete 0");
-                        menuViewer.printScore(totalDrillFlashcards-incorrectAnswers.size(), totalDrillFlashcards);
-                        nextReviewLessonID++;
-                        //startLesson(review);
-                        //menuViewer.loadMenu("showReviewDrillComplete 0");
-                    } else {
-                        //menuViewer.loadMenu("showLessonComplete 0");
-                        menuViewer.loadMenu("showDrillComplete 0");
-                    }
-                    //menuViewer.loadMenu("showDrillComplete 0");
-                }
+                completeActivity();
             }
         }
     }
 
+    private void completeActivity() {
+        if (activity.equals("Lesson")) {
+            activity = "";
+            System.out.println("Lesson Complete!");
+            lessonViewer.close();
+            menuViewer.loadMenu("showLessonComplete 0");
+        } else if (activity.equals("Drill")) {
+            activity = "";
+            System.out.println("Drill Complete!");
+            drillViewer.close();
+            if (!incorrectAnswers.isEmpty()) {
+                Lesson review = makeReviewSession();
+                menuViewer.createNewDrillCompleteScreen(review, totalDrillFlashcards, totalDrillFlashcards-incorrectAnswers.size());
+                menuViewer.loadMenu("showReviewDrillComplete 0");
+                menuViewer.printScore(totalDrillFlashcards-incorrectAnswers.size(), totalDrillFlashcards);
+                nextReviewLessonID++;
+            } else {
+                menuViewer.loadMenu("showLessonComplete 0");
+            }
+        }
+    }
 
-    
+    private Lesson makeReviewSession() {
+        Flashcard[] wrongAnswers = new Flashcard[incorrectAnswers.size()];
+        for (int i = 0; i < incorrectAnswers.size(); i++) {
+            wrongAnswers[i] = incorrectAnswers.get(i);
+        }
+        Lesson review = new Lesson(nextReviewLessonID, "Review Drill", "Review Session", wrongAnswers);
+        model.getLessons().add(review);
+        resetProgressbar(review.getLessonSize());
+        return review;
+    }
+
     /**
      * Closes the view component with the specified ID.
      *
@@ -280,10 +283,12 @@ public class Controller {
     }
 
     /**
-     * Recursively hides the given ViewComponent and its child components if all child components are hidden.
+     * Recursively hides the given ViewComponent and its child components if all
+     * child components are hidden.
      *
      * @param obj the ViewComponent to be checked and potentially hidden
-     * @return true if the given ViewComponent is null or all its child components are hidden, false otherwise
+     * @return true if the given ViewComponent is null or all its child components
+     *         are hidden, false otherwise
      */
     private boolean closeHelper(ViewComponent obj) {
         if (obj == null) {
@@ -300,5 +305,9 @@ public class Controller {
             obj.setHidden(true);
         }
         return obj.getHidden();
+    }
+
+    public void resetProgressbar(int size) {
+        lessonViewer.resetProgressbar(size);
     }
 }

@@ -14,14 +14,14 @@
 
 - **Lessons with Single Note Input**: Practice identifying and playing single notes displayed on a staff using a MIDI keyboard. Get immediate feedback on accuracy.
 - **Lessons with Chord Input**: Challenge yourself with chord identification exercises and receive detailed feedback on each chord played.
-- **Real-Time Feedback**: Immediate visual feedback using color-coded indicators and note-specific guidance to help users understand their performance.
+- **Real-Time Feedback**: Immediate visual feedback using colour-coded indicators and note-specific guidance to help users understand their performance.
 - **Unit-Based Progression**: Lessons are organized into units, allowing users to advance their skills step by step.
 - **Customizable Learning Path** (Planned): Users will be able to track progress, revisit past lessons, and customize their practice sessions.
 
 ## How It Works
 
 1. **Select a Unit**: Choose from a variety of units tailored to different skill levels and musical concepts.
-2. **Practice a Lesson**: Follow on-screen prompts to play single notes or chords on a MIDI keyboard.
+2. **Practice a Lesson**: Follow on-screen prompts to play single notes or chords on a MIDI keyboard. (Note: the program takes into consideration octaves so you may need to change the octave on the MIDI keyboard as you complete lessons.)
 3. **Receive Feedback**: View instant feedback indicating correctness and areas for improvement.
 4. **Track Your Progress** (Planned): Review your drill results and export progress summaries as PDFs for long-term tracking.
 
@@ -35,13 +35,17 @@
 
 This project is currently in the **medium-fidelity prototype** stage. Two core functionalities are implemented:
 
-1. Single note lessons with real-time feedback.
-2. Chord lessons with real-time feedback.
+1. Lessons: Guides the user through a series of flashcards to learn new concepts in sight reading. This includes topics such as:
+   - Single note identification in both bass and treble clef,
+   - Triads and inversions
+   - 7th chords.
+   - Sharp accidentals
+2. Drills: A collection of flashcards meant to test the user. These drills are meant to simulate playing at the piano so feedback is only offered after in the form of a review.
 
 Future updates will include:
 
 - Gamification elements, such as progress tracking and badges.
-- Enhanced lesson navigation as well as a tutorial mode.
+- Enhanced lesson navigation menus as well as a tutorial mode.
 
 ## Getting Started
 

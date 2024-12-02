@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import View.UI;
 import View.Keyboard;
 import View.ButtonComponent;
+import Model.Lesson;
 
 import View.UI;
 import javafx.scene.web.HTMLEditorSkin.Command;
@@ -100,50 +101,64 @@ public class CommandParser implements Runnable {
         running = false;
     }
 
-    
     /**
      * Parses the given command string and executes the corresponding action.
      *
      * @param command the command string to parse and execute
      * 
-     * The command string should be in the format of a space-separated list of arguments.
-     * The first argument specifies the command type, and the subsequent arguments are
-     * the parameters for that command.
+     *                The command string should be in the format of a
+     *                space-separated list of arguments.
+     *                The first argument specifies the command type, and the
+     *                subsequent arguments are
+     *                the parameters for that command.
      * 
-     * Supported commands:
-     * - "displayComponent": (implementation needed)
-     * - "checkAnswer": (implementation needed)
-     * - "toggleKeys": followed by a list of integers representing notes to combine
-     * - "showUnitSelection": loads the unit selection menu
-     * - "showLessonSelection": loads the lesson selection menu
-     * - "loadLesson": followed by two integers, the first for the lesson ID and the second for the close command
+     *                Supported commands:
+     *                - "displayComponent": (implementation needed)
+     *                - "checkAnswer": (implementation needed)
+     *                - "toggleKeys": followed by a list of integers representing
+     *                notes to combine
+     *                - "showUnitSelection": loads the unit selection menu
+     *                - "showLessonSelection": loads the lesson selection menu
+     *                - "loadLesson": followed by two integers, the first for the
+     *                lesson ID and the second for the close command
      * 
-     * If the command is not recognized, it should be handled appropriately.
+     *                If the command is not recognized, it should be handled
+     *                appropriately.
      */
     public void parse(String command) {
         String[] args = command.split(" ");
 
-        if (args[0].equals("displayComponent")) {
-            // implement
-        } else if (args[0].equals("checkAnswer")) {
-            // implement
-        } /**else if (args[0].equals("toggleKeys")) {
-            // of format: playNote (followed by some number of notes to combine)
-            int[] notes = new int[args.length - 1];
-            for (int i = 0; i < args.length - 1; i++) {
-                notes[i] = Integer.valueOf(args[i + 1]);
-            }
-            controller.toggleKeys(notes);
-        }*/ else if (args[0].equals("showUnitSelection") || args[0].equals("showLessonSelection")) {
-            controller.loadMenu(command);
-        } else if (args[0].equals("loadLesson")) {
-            controller.close(Integer.parseInt(args[2]));
-            controller.getLesson(Integer.parseInt(args[1]));
-        } else if (args[0].equals("loadDrill")) {
-            controller.close(Integer.parseInt(args[2]));
-            controller.getDrill(Integer.parseInt(args[1]));
-        } else {
-            // commnd not recognized, find some standard way to handle appropriately.
+        switch (args[0]) {
+            case "displayComponent":
+                // implement
+                break;
+            case "checkAnswer":
+                // implement
+                break;
+            case "showUnitSelection":
+            case "showLessonSelection":
+            case "showHomePage":
+                controller.loadMenu(command);
+                break;
+            case "loadLesson":
+                controller.close(Integer.parseInt(args[2]));
+                Lesson lesson = controller.getLesson(Integer.parseInt(args[1]));
+                controller.resetProgressbar(lesson.getLessonSize());
+                break;
+            case "loadDrill":
+                controller.close(Integer.parseInt(args[2]));
+                controller.getDrill(Integer.parseInt(args[1]));
+                break;
+            // case "toggleKeys":
+            // // of format: playNote (followed by some number of notes to combine)
+            // int[] notes = new int[args.length - 1];
+            // for (int i = 0; i < args.length - 1; i++) {
+            // notes[i] = Integer.valueOf(args[i + 1]);
+            // }
+            // controller.toggleKeys(notes);
+            default:
+                // command not recognized, find some standard way to handle appropriately.
+                break;
         }
     }
 }
