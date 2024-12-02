@@ -8,6 +8,9 @@ import java.util.HashSet;
 import java.util.HashMap;
 import java.util.ArrayList;
 
+import javafx.application.Platform;
+import javafx.scene.text.Font;
+
 /**
  * The MenuViewer class is responsible for managing and displaying menus in the
  * UI.
@@ -26,8 +29,11 @@ public class MenuViewer {
     private RectangleComponent drillComplete;
     private RectangleComponent reviewDrillComplete;
     private int drillCompleteID;
+    ButtonComponent button;
+    TextComponent text;
     private final static int PADDING = 50;
     private final static int FILLER = 0;
+    private final static Font FONT = new Font(32);
 
     /**
      * Constructs a MenuViewer object.
@@ -91,7 +97,7 @@ public class MenuViewer {
         int unitButtonWidth = screenWidth / numUnits - (PADDING + PADDING);
         // int[] unitXYCords = new int[]{0,unitButtonWidth,0,screenHeight};
         int[] unitXYCords = new int[] { PADDING, unitButtonWidth, 300, 100 };
-        ButtonComponent button;
+        //ButtonComponent button;
         int buttonID;
         int menuID;
         RectangleComponent currMenu;
@@ -187,33 +193,71 @@ public class MenuViewer {
         int returnButtonWidth = screenWidth - (PADDING + PADDING);
         int[] returnXYCords = new int[] { PADDING, returnButtonWidth, 300, 100 };
         // Add text to say that the lesson is complete
-
-        // Create button that brings user back to unit selection
+        int[] lessonCompleteTestXYCords = new int[] {550, 900, 50, 75};
+        int lessonCompleteTextID = ui.createViewComponent(lessonCompleteID, "text", lessonCompleteTestXYCords);
+        TextComponent lessonCompleteText = (TextComponent) ui.getViewComponent(lessonCompleteTextID);
+        lessonCompleteText.setText("Lesson Complete");
+        lessonCompleteText.setFont(FONT);
+        lessonCompleteText.setXY(lessonCompleteTestXYCords);
+        lessonCompleteText.setHidden(true);
+        //Create button that brings user back to unit selection
         buttonID = ui.createViewComponent(lessonCompleteID, "button", returnXYCords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
         button.setMessage("showUnitSelection " + unitSelectionID);
         button.setText("Return to Menu");
         controller.addParsable(buttonID);
         button.setHidden(true);
+        //Hide Lesson Complete Screen
         lessonComplete.setHidden(false);
         lessonComplete.getObject().toFront();
         close(lessonComplete);
 
-        // Screen for Drill Completion with review
-        int reviewDrillCompleteID = ui.createViewComponent("rectangle");
-        reviewDrillComplete = (RectangleComponent) ui.getViewComponent(reviewDrillCompleteID);
-        reviewDrillComplete.updateXY(screenSize);
-        // Add text to say that the lesson is complete
+        
+        // Screen for Drill Completion without review
+        int drillCompleteID = ui.createViewComponent("rectangle");
+        drillComplete = (RectangleComponent) ui.getViewComponent(drillCompleteID);
+        drillComplete.updateXY(screenSize);
+        // Add text to say that the Drill is complete
+        int[] drillCompleteTextXYCords = new int[] {600, 900, 50, 75};
+        int drillCompleteTextID = ui.createViewComponent(drillCompleteID, "text", drillCompleteTextXYCords);
+        //TextComponent drillCompleteText = (TextComponent) ui.getViewComponent(drillCompleteTextID);
+        text = (TextComponent) ui.getViewComponent(drillCompleteTextID);
+        /**drillCompleteText.setText("Drill Complete");
+        drillCompleteText.setFont(FONT);
+        drillCompleteText.setXY(drillCompleteTestXYCords);
+        drillCompleteText.setHidden(true);*/
 
-        // Create button that brings user back to unit selection
-        buttonID = ui.createViewComponent(reviewDrillCompleteID, "button", returnXYCords);
+        text.setText("Drill Complete");
+        System.out.println("Text: " + text.getText());
+        text.setFont(FONT);
+        text.setXY(drillCompleteTextXYCords);
+        text.setHidden(true);
+
+        //Add text to say that everything was answered correctly
+        int[] drillCompleteScoreXYCords = new int[] {450, 950, 100, 125};
+        int drillCompleteScoreID = ui.createViewComponent(drillCompleteID, "text", drillCompleteScoreXYCords);
+        //TextComponent drillCompleteText = (TextComponent) ui.getViewComponent(drillCompleteTextID);
+        text = (TextComponent) ui.getViewComponent(drillCompleteScoreID);
+        /**drillCompleteText.setText("Drill Complete");
+        drillCompleteText.setFont(FONT);
+        drillCompleteText.setXY(drillCompleteTestXYCords);
+        drillCompleteText.setHidden(true);*/
+
+        text.setText("You answered everything correctly!");
+        System.out.println("Text: " + text.getText());
+        text.setFont(FONT);
+        text.setXY(drillCompleteScoreXYCords);
+        text.setHidden(true);
+
+        //Create button that brings user back to unit selection
+        buttonID = ui.createViewComponent(drillCompleteID, "button", returnXYCords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
         button.setMessage("showUnitSelection " + unitSelectionID);
         button.setText("Return to Menu");
         controller.addParsable(buttonID);
         button.setHidden(true);
 
-        // Create review button
+        /**Create review button
         int reviewButtonWidth = screenWidth - (PADDING + PADDING);
         int[] reviewXYCords = new int[] { PADDING, reviewButtonWidth, 450, 100 };
 
@@ -229,11 +273,12 @@ public class MenuViewer {
 
         reviewDrillComplete.setHidden(false);
         reviewDrillComplete.getObject().toFront();
-        close(reviewDrillComplete);
+        close(reviewDrillComplete);*/
 
-        // drillComplete.setHidden(false);
-        // drillComplete.getObject().toFront();
-        // close(drillComplete);
+
+        drillComplete.setHidden(false);
+        drillComplete.getObject().toFront();
+        close(drillComplete);
 
         // Make a public method that can be called in controller if the activity is a
         // drill,
@@ -241,7 +286,7 @@ public class MenuViewer {
         // the drillcomplete component to add the review button that will link to the
         // review lesson
 
-        System.out.println("Menu creation complete. loading unit selection");
+        System.out.println("Menu creation complete. loading home page");
         loadMenu(homePage);
         previousMenu = homePage;
         System.out.println("Home page displayed");
@@ -277,7 +322,7 @@ public class MenuViewer {
             menu = lessonSelection.get(Integer.parseInt(args[1]));
 
             // menu = unitSelection.getComponents()
-            System.out.println("UnitID " + args[1] + " selected");
+            System.out.println("Unit/Lesson/DrillID " + args[1] + " selected");
 
             if (menu == null) {
                 System.out.println("FAILED");
@@ -324,10 +369,13 @@ public class MenuViewer {
          * }
          */
 
+        //menu.setHidden(false);
         for (ViewComponent component : menu.getComponents()) {
             if (component != null) {
                 component.setHidden(false);
-                // component.toFront();
+                //component.toFront();
+            } else {
+                System.out.println("This is null");
             }
         }
 
@@ -388,9 +436,9 @@ public class MenuViewer {
         button.setHidden(true);
     }
 
-    public void createNewDrillCompleteScreen(Lesson reviewLesson) {
+    public void createNewDrillCompleteScreen(Lesson reviewLesson, int totalDrillFlashcards, int numberCorrectAnswers) {
         System.out.println("Creating complete screen with review lesson");
-        ButtonComponent button;
+        //ButtonComponent button;
         int buttonID;
         // RectangleComponent currMenu;
         int screenWidth = ui.getScreenWidth();
@@ -398,14 +446,44 @@ public class MenuViewer {
         int[] screenSize = new int[] { 0, screenWidth, 0, screenHeight };
 
         int reviewDrillCompleteID = ui.createViewComponent("rectangle");
-        reviewDrillComplete = (RectangleComponent) ui.getViewComponent(drillCompleteID);
+        reviewDrillComplete = (RectangleComponent) ui.getViewComponent(reviewDrillCompleteID);
         reviewDrillComplete.updateXY(screenSize);
 
         int returnButtonWidth = screenWidth - (PADDING + PADDING);
         int[] returnXYCords = new int[] { PADDING, returnButtonWidth, 300, 100 };
-        // Add text to say that the lesson is complete
+        
+        /**Add text to say that the drill is complete
+        int[] drillCompleteTextXYCords = new int[] {550, 900, 50, 75};
+        int drillCompleteTextID = ui.createViewComponent(reviewDrillCompleteID, "text", drillCompleteTextXYCords);
+        //TextComponent drillCompleteText = (TextComponent) ui.getViewComponent(drillCompleteTextID);
+        text = (TextComponent) ui.getViewComponent(drillCompleteTextID);
+        /**drillCompleteText.setText("Drill Complete");
+        drillCompleteText.setFont(FONT);
+        drillCompleteText.setXY(drillCompleteTestXYCords);
+        drillCompleteText.setHidden(true);
 
-        // Create button that brings user back to unit selection
+        text.setText("Drill Complete");
+        System.out.println("Text: " + text.getText());
+        text.setFont(FONT);
+        text.setXY(drillCompleteTextXYCords);
+        text.setHidden(true);
+
+        //Add text with results
+        int[] drillScoreXYCords = new int[] {50, 900, 100, 125};
+        int drillResultsTextID = ui.createViewComponent(reviewDrillCompleteID, "text", drillScoreXYCords);
+
+        text = (TextComponent) ui.getViewComponent(drillResultsTextID);
+
+        text.setText("Score: " + Integer.toString(numberCorrectAnswers) + "/" + Integer.toString(totalDrillFlashcards));
+        System.out.println("Score: " + text.getText());
+        text.setFont(FONT);
+        text.setXY(drillScoreXYCords);
+        //Platform.runLater(() -> {
+        //text.getObject().toBack();
+        //});
+        text.setHidden(true);*/
+        //System.out.println("Score: " + Integer.toString(numberCorrectAnswers) + "/" + Integer.toString(totalDrillFlashcards));
+        //Create button that brings user back to unit selection
         buttonID = ui.createViewComponent(reviewDrillCompleteID, "button", returnXYCords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
         button.setMessage("showUnitSelection " + FILLER);
@@ -423,11 +501,19 @@ public class MenuViewer {
         button.setMessage("loadLesson " + reviewLesson.getLessonID() + " " + reviewDrillCompleteID);
         button.setText(reviewLesson.getName());
         controller.addParsable(buttonID);
-        button.getObject().toBack();
+        Platform.runLater(() -> {
+            button.getObject().toBack();
+        });
         button.setHidden(true);
 
         reviewDrillComplete.setHidden(false);
-        reviewDrillComplete.getObject().toFront();
+        Platform.runLater(() -> {
+            reviewDrillComplete.getObject().toFront();
+        });
         close(reviewDrillComplete);
+    }
+
+    public void printScore(int numberCorrectAnswers, int totalDrillFlashcards) {
+        System.out.println("Score: " + Integer.toString(numberCorrectAnswers) + "/" + Integer.toString(totalDrillFlashcards));
     }
 }

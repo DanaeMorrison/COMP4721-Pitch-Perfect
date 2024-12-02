@@ -31,8 +31,10 @@ public class Controller {
 
     private boolean check;
     private int currentFlashcardIndex;
+    private int totalDrillFlashcards;
     private Flashcard[] flashcards;
     private ArrayList<Flashcard> incorrectAnswers;
+    private int nextReviewLessonID;
 
     /**
      * Constructs a Controller with the given primary stage.
@@ -50,6 +52,7 @@ public class Controller {
         drillViewer.initializeDrill();
         midiInputHandler = new MidiInputHandler(this);
         model = new Model();
+        nextReviewLessonID = model.getLessons().size();
         answerProcessor = new AnswerProcessor();
         System.out.println("Creating commandParser");
         commandParser = new CommandParser(this, ui);
@@ -130,7 +133,7 @@ public class Controller {
     private void startDrill(Drill drill) {
         flashcards = drill.getFlashcards();
         currentFlashcardIndex = 0;
-
+        totalDrillFlashcards = drill.getLessonSize();
         activity = "Drill";
         // drillViewer.initializeDrill();
         incorrectAnswers = new ArrayList<Flashcard>();
@@ -245,21 +248,26 @@ public class Controller {
             System.out.println("Drill Complete!");
             drillViewer.close();
             if (!incorrectAnswers.isEmpty()) {
-                startReviewSession();
+                Lesson review = makeReviewSession();
+                menuViewer.createNewDrillCompleteScreen(review, totalDrillFlashcards, totalDrillFlashcards-incorrectAnswers.size());
+                menuViewer.loadMenu("showReviewDrillComplete 0");
+                menuViewer.printScore(totalDrillFlashcards-incorrectAnswers.size(), totalDrillFlashcards);
+                nextReviewLessonID++;
             } else {
                 menuViewer.loadMenu("showLessonComplete 0");
             }
         }
     }
 
-    private void startReviewSession() {
+    private Lesson makeReviewSession() {
         Flashcard[] wrongAnswers = new Flashcard[incorrectAnswers.size()];
         for (int i = 0; i < incorrectAnswers.size(); i++) {
             wrongAnswers[i] = incorrectAnswers.get(i);
         }
-        Lesson review = new Lesson(1, "Review Drill", "Review Session", wrongAnswers);
+        Lesson review = new Lesson(nextReviewLessonID, "Review Drill", "Review Session", wrongAnswers);
+        model.getLessons().add(review);
         resetProgressbar(review.getLessonSize());
-        startLesson(review);
+        return review;
     }
 
     /**
