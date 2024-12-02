@@ -149,6 +149,8 @@ public class CommandParser implements Runnable {
                 controller.close(Integer.parseInt(args[2]));
                 controller.getDrill(Integer.parseInt(args[1]));
                 break;
+            case "back":
+                controller.loadMainMenu();
             // case "toggleKeys":
             // // of format: playNote (followed by some number of notes to combine)
             // int[] notes = new int[args.length - 1];
