@@ -20,6 +20,8 @@ public class MenuViewer {
     private HashMap<Integer, ViewComponent> lessonSelection;
     private RectangleComponent unitSelection;
     private ViewComponent previousMenu;
+    private RectangleComponent homePage;
+    private ImageComponent homePageImage;
     private RectangleComponent lessonComplete;
     private RectangleComponent drillComplete;
     private RectangleComponent reviewDrillComplete;
@@ -152,6 +154,28 @@ public class MenuViewer {
                 close(currMenu);
             }
         }
+        // Home page
+        int homePageID = ui.createViewComponent("rectangle");
+        homePage = (RectangleComponent) ui.getViewComponent(homePageID);
+        homePage.updateXY(screenSize);
+        
+        int homePageImageID = ui.createViewComponent(homePageID, "image", screenSize);
+        homePageImage = (ImageComponent) ui.getViewComponent(homePageImageID);
+        homePageImage.changeImage("/Assets/homePage.png");
+        homePageImage.updateXY(screenSize);
+        
+        int[] startButtonXYCords = new int[] { 600, 150, 450, 50 };
+        
+        //Create button that brings users to unit selection
+        buttonID = ui.createViewComponent(homePageID, "button", startButtonXYCords);
+        button = (ButtonComponent) ui.getViewComponent(buttonID);
+        button.setMessage("showUnitSelection " + unitSelectionID);
+        button.setText("Start");
+        controller.addParsable(buttonID);
+        button.setHidden(true);
+        homePage.setHidden(true);
+        homePage.getObject().toFront();
+        close(homePage);
 
         // Screen for Lesson Completion
         int lessonCompleteID = ui.createViewComponent("rectangle");
@@ -214,9 +238,9 @@ public class MenuViewer {
         //review lesson
 
         System.out.println("Menu creation complete. loading unit selection");
-        loadMenu(unitSelection);
-        previousMenu = unitSelection;
-        System.out.println("Unit selection displayed");
+        loadMenu(homePage);
+        previousMenu = homePage;
+        System.out.println("Home page displayed");
 
         
 
@@ -237,7 +261,9 @@ public class MenuViewer {
             throw new IllegalArgumentException("Cant load menu, command doesnt have the correct number of arguments");
         }
         ViewComponent menu;
-        if (args[0].equals("showUnitSelection")) {
+        if (args[0].equals("showHomePage")) {
+            menu = homePage;
+        } else if (args[0].equals("showUnitSelection")) {
             menu = unitSelection;
         } else if (args[0].equals("showLessonComplete")) {
             menu = lessonComplete;
