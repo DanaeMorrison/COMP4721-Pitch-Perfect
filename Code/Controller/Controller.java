@@ -319,6 +319,7 @@ public class Controller {
     
     public void loadMainMenu()
     {
+        activity = "";
         lessonViewer.close();
         drillViewer.close();
         menuViewer.loadMainMenu();
