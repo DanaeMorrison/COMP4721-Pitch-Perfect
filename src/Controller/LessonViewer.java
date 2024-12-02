@@ -51,51 +51,51 @@ public class LessonViewer {
     public void initializeLesson() {
         // Setting up the flashcard
 
-        int[] clefChords = { 170, 0, 0, 0 };
+        int[] clefCoords = { 170, 0, 0, 0 };
         int clefID = ui.createViewComponent("image");
-        ui.getViewComponent(clefID).updateXY(clefChords);
+        ui.getViewComponent(clefID).updateXY(clefCoords);
         clef = (ImageComponent) ui.getViewComponent(clefID);
         clef.setHidden(true);
 
-        int[] leftHandChords = { 155, 0, 600, 0 };
+        int[] leftHandCoords = { 155, 0, 600, 0 };
         int leftHandID = ui.createViewComponent("image");
-        ui.getViewComponent(leftHandID).updateXY(leftHandChords);
+        ui.getViewComponent(leftHandID).updateXY(leftHandCoords);
         leftHand = (ImageComponent) ui.getViewComponent(leftHandID);
         leftHand.setHidden(true);
 
-        int[] rightHandChords = { 995, 0, 600, 0 };
+        int[] rightHandCoords = { 995, 0, 600, 0 };
         int rightHandID = ui.createViewComponent("image");
-        ui.getViewComponent(rightHandID).updateXY(rightHandChords);
+        ui.getViewComponent(rightHandID).updateXY(rightHandCoords);
         rightHand = (ImageComponent) ui.getViewComponent(rightHandID);
         rightHand.setHidden(true);
 
-        int[] feedbackChords = { 1050, 0, 300, 0 };
+        int[] feedbackCoords = { 1050, 0, 300, 0 };
         int feedbackID = ui.createViewComponent("image");
-        ui.getViewComponent(feedbackID).updateXY(feedbackChords);
+        ui.getViewComponent(feedbackID).updateXY(feedbackCoords);
         feedback = (ImageComponent) ui.getViewComponent(feedbackID);
         feedback.setHidden(true);
         
         //progressbar background
-        int[] progressbarBackgroundChords = {menuSize[0]+100,menuSize[1]-200,menuSize[2]-100,100};
+        int[] progressbarBackgroundCoords = {menuSize[0]+100,menuSize[1]-200,menuSize[2]-100,100};
         int progressbarBackgroundID = ui.createViewComponent("rectangle");
-        ui.getViewComponent(progressbarBackgroundID).updateXY(progressbarBackgroundChords);
+        ui.getViewComponent(progressbarBackgroundID).updateXY(progressbarBackgroundCoords);
         progressbarBackground = (RectangleComponent) ui.getViewComponent(progressbarBackgroundID);
         progressbarBackground.setColor(Color.GREY);
         progressbarBackground.setHidden(true);
         
         //progressbar
-        int[] progressbarChords = {menuSize[0]+100,0,menuSize[2]-100,100};
+        int[] progressbarCoords = {menuSize[0]+100,0,menuSize[2]-100,100};
         int progressbarID = ui.createViewComponent("rectangle");
-        ui.getViewComponent(progressbarID).updateXY(progressbarChords);
+        ui.getViewComponent(progressbarID).updateXY(progressbarCoords);
         progressbar = (RectangleComponent) ui.getViewComponent(progressbarID);
         progressbar.setColor(Color.GREEN);
         progressbar.setHidden(true);
         
         //back button
-        int[] backButtonCords = {0, 100, menuSize[2], 100};
+        int[] backButtonCoords = {0, 100, menuSize[2], 100};
         int backButtonID = ui.createViewComponent("button");
         backButton = (ButtonComponent) ui.getViewComponent(backButtonID);
-        backButton.updateXY(backButtonCords);
+        backButton.updateXY(backButtonCoords);
         backButton.setHidden(true);
         backButton.setMessage("back");
         backButton.setText("Main Menu");
@@ -143,18 +143,18 @@ public class LessonViewer {
      * @param flashcard the flashcard object containing the data to be loaded
      */
     public void loadFlashcard(Flashcard flashcard) {
-        int[] feedbackChords = { 1050, 1205, 300, 500 };
-        feedback.setXY(feedbackChords);
+        int[] feedbackCoords = { 1050, 1205, 300, 500 };
+        feedback.setXY(feedbackCoords);
         feedback.setHidden(true);
 
-        int[] clefChords = { 170, 1190, 0, 800 };
-        clef.setXY(clefChords);
+        int[] clefCoords = { 170, 1190, 0, 800 };
+        clef.setXY(clefCoords);
 
-        int[] leftHandChords = { 155, 355, 600, 800 };
-        leftHand.setXY(leftHandChords);
+        int[] leftHandCoords = { 155, 355, 600, 800 };
+        leftHand.setXY(leftHandCoords);
 
-        int[] rightHandChords = { 995, 1195, 600, 800 };
-        rightHand.setXY(rightHandChords);
+        int[] rightHandCoords = { 995, 1195, 600, 800 };
+        rightHand.setXY(rightHandCoords);
 
         for (int i = 0; i < notes.length; i++) {
             notes[i].setHidden(true);
@@ -196,8 +196,8 @@ public class LessonViewer {
      * @param numFlashCards the number of flashcards in the lesson
      */
     public void resetProgressbar(int numFlashCards) {
-        int[] progressbarChords = { menuSize[0] + 100, 0, menuSize[2] - 100, 100 };
-        progressbar.updateXY(progressbarChords);
+        int[] progressbarCoords = { menuSize[0] + 100, 0, menuSize[2] - 100, 100 };
+        progressbar.updateXY(progressbarCoords);
         numFlashcardsInLesson = numFlashCards;
     }
 
@@ -205,16 +205,16 @@ public class LessonViewer {
      * Increases the progress bar based on the number of flashcards in the lesson.
      */
     public void increaseProgressbar() {
-        int[] progressbarChords = progressbar.getXY();
+        int[] progressbarCoords = progressbar.getXY();
         int desiredStart = menuSize[0] + 100;
         int desiredEnd = menuSize[1] - 100;
         int lengthIncrease = (desiredEnd - desiredStart) / numFlashcardsInLesson;
-        if ((progressbarChords[1] + lengthIncrease) > (desiredEnd - desiredStart)) {
-            progressbarChords[1] = desiredEnd - desiredStart;
+        if ((progressbarCoords[1] + lengthIncrease) > (desiredEnd - desiredStart)) {
+            progressbarCoords[1] = desiredEnd - desiredStart;
         } else {
-            progressbarChords[1] += lengthIncrease;
+            progressbarCoords[1] += lengthIncrease;
         }
-        progressbar.updateXY(progressbarChords);
+        progressbar.updateXY(progressbarCoords);
     }
 
     /**

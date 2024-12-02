@@ -82,47 +82,47 @@ public class MenuViewer {
         unitSelection.updateXY(screenSize);
         int numUnits = units.size();
         int unitButtonWidth = screenWidth / numUnits - (PADDING + PADDING);
-        int[] unitXYCords = new int[] { PADDING, unitButtonWidth, 300, 100 };
+        int[] unitXYCoords = new int[] { PADDING, unitButtonWidth, 300, 100 };
         int buttonID;
         int menuID;
         RectangleComponent currMenu;
         int lessonButtonWidth;
-        int[] lessonXYCords;
+        int[] lessonXYCoords;
 
         for (Unit unit : units) {
             if (unit != null) {
-                buttonID = ui.createViewComponent(unitSelectionID, "button", unitXYCords);
+                buttonID = ui.createViewComponent(unitSelectionID, "button", unitXYCoords);
                 button = (ButtonComponent) ui.getViewComponent(buttonID);
                 button.setMessage("showLessonSelection " + unit.getUnitID());
                 button.setText(unit.getName());
                 controller.addParsable(buttonID);
-                unitXYCords[0] += unitButtonWidth + PADDING + PADDING;
+                unitXYCoords[0] += unitButtonWidth + PADDING + PADDING;
                 button.setHidden(true);
 
                 menuID = ui.createViewComponent("rectangle");
                 currMenu = (RectangleComponent) ui.getViewComponent(menuID);
                 currMenu.updateXY(screenSize);
                 lessonButtonWidth = screenWidth / (unit.getNumLessons() + unit.getNumDrills()) - (PADDING + PADDING);
-                lessonXYCords = new int[] { PADDING, lessonButtonWidth, 300, 100 };
+                lessonXYCoords = new int[] { PADDING, lessonButtonWidth, 300, 100 };
                 Lesson[] lessons = unit.getLessons();
 
                 for (int i = 0; i < unit.getNumLessons(); i++) {
-                    buttonID = ui.createViewComponent(menuID, "button", lessonXYCords);
+                    buttonID = ui.createViewComponent(menuID, "button", lessonXYCoords);
                     button = (ButtonComponent) ui.getViewComponent(buttonID);
                     button.setMessage("loadLesson " + lessons[i].getLessonID() + " " + menuID);
                     button.setText(lessons[i].getName());
                     controller.addParsable(buttonID);
-                    lessonXYCords[0] += lessonButtonWidth + PADDING + PADDING;
+                    lessonXYCoords[0] += lessonButtonWidth + PADDING + PADDING;
                     button.getObject().toBack();
                     button.setHidden(true);
                 }
 
-                buttonID = ui.createViewComponent(menuID, "button", lessonXYCords);
+                buttonID = ui.createViewComponent(menuID, "button", lessonXYCoords);
                 button = (ButtonComponent) ui.getViewComponent(buttonID);
                 button.setMessage("loadDrill " + unit.getDrills()[0].getLessonID() + " " + menuID);
                 button.setText(unit.getDrills()[0].getName());
                 controller.addParsable(buttonID);
-                lessonXYCords[0] += lessonButtonWidth + PADDING + PADDING;
+                lessonXYCoords[0] += lessonButtonWidth + PADDING + PADDING;
                 button.getObject().toBack();
                 button.setHidden(true);
 
@@ -143,9 +143,9 @@ public class MenuViewer {
         homePageImage.changeImage("/Assets/homePage.png");
         homePageImage.updateXY(screenSize);
         
-        int[] startButtonXYCords = new int[] { 600, 150, 450, 50 };
+        int[] startButtonXYCoords = new int[] { 600, 150, 450, 50 };
         
-        buttonID = ui.createViewComponent(homePageID, "button", startButtonXYCords);
+        buttonID = ui.createViewComponent(homePageID, "button", startButtonXYCoords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
         button.setMessage("showUnitSelection " + unitSelectionID);
         button.setText("Start");
@@ -160,15 +160,15 @@ public class MenuViewer {
         lessonComplete = (RectangleComponent) ui.getViewComponent(lessonCompleteID);
         lessonComplete.updateXY(screenSize);
         int returnButtonWidth = screenWidth - (PADDING + PADDING);
-        int[] returnXYCords = new int[] { PADDING, returnButtonWidth, 300, 100 };
-        int[] lessonCompleteTestXYCords = new int[] {550, 900, 50, 75};
-        int lessonCompleteTextID = ui.createViewComponent(lessonCompleteID, "text", lessonCompleteTestXYCords);
+        int[] returnXYCoords = new int[] { PADDING, returnButtonWidth, 300, 100 };
+        int[] lessonCompleteTextXYCoords = new int[] {550, 900, 50, 75};
+        int lessonCompleteTextID = ui.createViewComponent(lessonCompleteID, "text", lessonCompleteTextXYCoords);
         TextComponent lessonCompleteText = (TextComponent) ui.getViewComponent(lessonCompleteTextID);
         lessonCompleteText.setText("Lesson Complete");
         lessonCompleteText.setFont(FONT);
-        lessonCompleteText.setXY(lessonCompleteTestXYCords);
+        lessonCompleteText.setXY(lessonCompleteTextXYCoords);
         lessonCompleteText.setHidden(true);
-        buttonID = ui.createViewComponent(lessonCompleteID, "button", returnXYCords);
+        buttonID = ui.createViewComponent(lessonCompleteID, "button", returnXYCoords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
         button.setMessage("back");
         button.setText("Return to Menu");
@@ -182,23 +182,23 @@ public class MenuViewer {
         int drillCompleteID = ui.createViewComponent("rectangle");
         drillComplete = (RectangleComponent) ui.getViewComponent(drillCompleteID);
         drillComplete.updateXY(screenSize);
-        int[] drillCompleteTextXYCords = new int[] {600, 900, 50, 75};
-        int drillCompleteTextID = ui.createViewComponent(drillCompleteID, "text", drillCompleteTextXYCords);
+        int[] drillCompleteTextXYCoords = new int[] {600, 900, 50, 75};
+        int drillCompleteTextID = ui.createViewComponent(drillCompleteID, "text", drillCompleteTextXYCoords);
         text = (TextComponent) ui.getViewComponent(drillCompleteTextID);
         text.setText("Drill Complete");
         text.setFont(FONT);
-        text.setXY(drillCompleteTextXYCords);
+        text.setXY(drillCompleteTextXYCoords);
         text.setHidden(true);
 
-        int[] drillCompleteScoreXYCords = new int[] {450, 950, 100, 125};
-        int drillCompleteScoreID = ui.createViewComponent(drillCompleteID, "text", drillCompleteScoreXYCords);
+        int[] drillCompleteScoreXYCoords = new int[] {450, 950, 100, 125};
+        int drillCompleteScoreID = ui.createViewComponent(drillCompleteID, "text", drillCompleteScoreXYCoords);
         text = (TextComponent) ui.getViewComponent(drillCompleteScoreID);
         text.setText("You answered everything correctly!");
         text.setFont(FONT);
-        text.setXY(drillCompleteScoreXYCords);
+        text.setXY(drillCompleteScoreXYCoords);
         text.setHidden(true);
 
-        buttonID = ui.createViewComponent(drillCompleteID, "button", returnXYCords);
+        buttonID = ui.createViewComponent(drillCompleteID, "button", returnXYCoords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
         button.setMessage("back");
         button.setText("Return to Menu");
@@ -299,9 +299,9 @@ public class MenuViewer {
         int buttonID;
         int screenWidth = ui.getScreenWidth();
         int reviewButtonWidth = screenWidth - (PADDING + PADDING);
-        int[] reviewXYCords = new int[] { PADDING, reviewButtonWidth, 450, 100 };
+        int[] reviewXYCoords = new int[] { PADDING, reviewButtonWidth, 450, 100 };
 
-        buttonID = ui.createViewComponent(drillCompleteID, "button", reviewXYCords);
+        buttonID = ui.createViewComponent(drillCompleteID, "button", reviewXYCoords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
         button.setMessage("loadLesson " + reviewLesson.getLessonID() + " " + drillCompleteID);
         button.setText(reviewLesson.getName());
@@ -329,9 +329,9 @@ public class MenuViewer {
         reviewDrillComplete.updateXY(screenSize);
 
         int returnButtonWidth = screenWidth - (PADDING + PADDING);
-        int[] returnXYCords = new int[] { PADDING, returnButtonWidth, 300, 100 };
+        int[] returnXYCoords = new int[] { PADDING, returnButtonWidth, 300, 100 };
 
-        buttonID = ui.createViewComponent(reviewDrillCompleteID, "button", returnXYCords);
+        buttonID = ui.createViewComponent(reviewDrillCompleteID, "button", returnXYCoords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
         button.setMessage("back");
         button.setText("Return to Menu");
@@ -339,9 +339,9 @@ public class MenuViewer {
         button.setHidden(true);
 
         int reviewButtonWidth = screenWidth - (PADDING + PADDING);
-        int[] reviewXYCords = new int[] { PADDING, reviewButtonWidth, 450, 100 };
+        int[] reviewXYCoords = new int[] { PADDING, reviewButtonWidth, 450, 100 };
 
-        buttonID = ui.createViewComponent(reviewDrillCompleteID, "button", reviewXYCords);
+        buttonID = ui.createViewComponent(reviewDrillCompleteID, "button", reviewXYCoords);
         button = (ButtonComponent) ui.getViewComponent(buttonID);
         button.setMessage("loadLesson " + reviewLesson.getLessonID() + " " + reviewDrillCompleteID);
         button.setText(reviewLesson.getName());

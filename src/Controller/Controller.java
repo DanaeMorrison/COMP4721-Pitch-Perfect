@@ -1,3 +1,9 @@
+/**
+ * The Controller class is responsible for managing the interactions between the
+ * user interface, audio handling, MIDI input, and the model. It coordinates
+ * activities such as lessons and drills, processes user inputs, and updates
+ * the UI accordingly.
+ */
 package Controller;
 
 import Model.*;

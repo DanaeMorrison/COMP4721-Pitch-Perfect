@@ -9,8 +9,7 @@ import java.io.IOException;
  * Main class that extends the JavaFX Application class.
  * It serves as the entry point for the application.
  */
-public class Main extends Application
-{
+public class Main extends Application {
     /**
      * The main method that launches the JavaFX application.
      *
@@ -28,22 +27,17 @@ public class Main extends Application
      * @throws IOException if an I/O error occurs
      */
     @Override
-    public void start(Stage primaryStage) throws IOException
-    {
-        System.out.println("Running");
+    public void start(Stage primaryStage) throws IOException {
         File stateFile = new File("../input.txt");
-        try{
+        try {
             Controller controller = new Controller(primaryStage);
             CommandParser commandParser = controller.getParser();
             Thread commandParserThread = new Thread(commandParser);
             commandParserThread.setDaemon(true);
-            System.out.println("Starting thread:");
             commandParserThread.start();
-            System.out.println("should be started");
             Runtime.getRuntime().addShutdownHook(new Thread(() -> commandParser.stop()));
+        } catch (Exception exception) {
+            System.out.println(exception);
         }
-        catch(Exception exception){
-            System.out.println(exception);            
-        }
-    }   
+    }
 }

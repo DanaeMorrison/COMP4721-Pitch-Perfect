@@ -44,34 +44,34 @@ public class DrillViewer {
      */
     public void initializeDrill() {
         // Setting up the flashcard
-        int[] clefChords = { 170, 0, 0, 0 };
+        int[] clefCoords = { 170, 0, 0, 0 };
         int clefID = ui.createViewComponent("image");
-        ui.getViewComponent(clefID).updateXY(clefChords);
+        ui.getViewComponent(clefID).updateXY(clefCoords);
         clef = (ImageComponent) ui.getViewComponent(clefID);
         clef.setHidden(true);
 
-        int[] leftHandChords = { 155, 0, 600, 0 };
+        int[] leftHandCoords = { 155, 0, 600, 0 };
         int leftHandID = ui.createViewComponent("image");
-        ui.getViewComponent(leftHandID).updateXY(leftHandChords);
+        ui.getViewComponent(leftHandID).updateXY(leftHandCoords);
         leftHand = (ImageComponent) ui.getViewComponent(leftHandID);
         leftHand.setHidden(true);
 
-        int[] rightHandChords = { 995, 0, 600, 0 };
+        int[] rightHandCoords = { 995, 0, 600, 0 };
         int rightHandID = ui.createViewComponent("image");
-        ui.getViewComponent(rightHandID).updateXY(rightHandChords);
+        ui.getViewComponent(rightHandID).updateXY(rightHandCoords);
         rightHand = (ImageComponent) ui.getViewComponent(rightHandID);
         rightHand.setHidden(true);
 
-        int[] timerChords = { 400, 0, 100, 0 };
+        int[] timerCoords = { 400, 0, 100, 0 };
         int timerID = ui.createViewComponent("text");
-        ui.getViewComponent(timerID).updateXY(timerChords);
+        ui.getViewComponent(timerID).updateXY(timerCoords);
         timer = (TextComponent) ui.getViewComponent(timerID);
         timer.setHidden(true);
         
-        int[] backButtonCords = {0, 100, menuSize[2], 100};
+        int[] backButtonCoords = {0, 100, menuSize[2], 100};
         int backButtonID = ui.createViewComponent("button");
         backButton = (ButtonComponent) ui.getViewComponent(backButtonID);
-        backButton.updateXY(backButtonCords);
+        backButton.updateXY(backButtonCoords);
         backButton.setHidden(true);
         backButton.setMessage("back");
         backButton.setText("Main Menu");
@@ -117,14 +117,14 @@ public class DrillViewer {
      * @param flashcard The flashcard to be loaded.
      */
     public void loadFlashcard(Flashcard flashcard) {
-        int[] clefChords = { 170, 1190, 0, 800 };
-        clef.setXY(clefChords);
+        int[] clefCoords = { 170, 1190, 0, 800 };
+        clef.setXY(clefCoords);
 
-        int[] leftHandChords = { 155, 355, 600, 800 };
-        leftHand.setXY(leftHandChords);
+        int[] leftHandCoords = { 155, 355, 600, 800 };
+        leftHand.setXY(leftHandCoords);
 
-        int[] rightHandChords = { 995, 1195, 600, 800 };
-        rightHand.setXY(rightHandChords);
+        int[] rightHandCoords = { 995, 1195, 600, 800 };
+        rightHand.setXY(rightHandCoords);
 
         for (int i = 0; i < notes.length; i++) {
             notes[i].setHidden(true);
