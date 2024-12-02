@@ -15,6 +15,7 @@ import View.*;
  */
 public class DrillViewer {
     private UI ui;
+    private Controller controller;
     private NoteMapping noteCoords;
     private ImageComponent clef;
     private ImageComponent leftHand;
@@ -22,25 +23,67 @@ public class DrillViewer {
     private ImageComponent[] notes;
     private TextComponent timer;
     private DrillTimer drillTimer; // Private timer class for this DrillViewer
+    private ButtonComponent backButton;
+    private int[] menuSize;
 
     /**
      * Initializes the DrillViewer with the given UI.
      *
      * @param ui The UI instance to be used by the DrillViewer.
      */
-    public DrillViewer(UI ui) {
+    public DrillViewer(UI ui, Controller controller) {
         noteCoords = new NoteMapping();
         this.ui = ui;
+        this.controller = controller;
+        menuSize = new int[]{0, ui.getScreenWidth(), 0, ui.getScreenHeight()};
     }
 
     /**
      * Initializes the drill by setting up the flashcard components.
      */
     public void initializeDrill() {
-        clef = createImageComponent(new int[] { 170, 0, 0, 0 });
-        leftHand = createImageComponent(new int[] { 155, 0, 600, 0 });
-        rightHand = createImageComponent(new int[] { 995, 0, 600, 0 });
-        timer = createTextComponent(new int[] { 400, 0, 100, 0 });
+        // Setting up the flashcard
+        // int[] clefChords = { 170, 1190, 0, 800 };
+        int[] clefChords = { 170, 0, 0, 0 };
+        System.out.println("Creating clef image");
+        int clefID = ui.createViewComponent("image");
+        ui.getViewComponent(clefID).updateXY(clefChords);
+        clef = (ImageComponent) ui.getViewComponent(clefID);
+        clef.setHidden(true);
+
+        // int[] leftHandChords = { 155, 355, 600, 800 };
+        int[] leftHandChords = { 155, 0, 600, 0 };
+        System.out.println("Creating left hand image");
+        int leftHandID = ui.createViewComponent("image");
+        ui.getViewComponent(leftHandID).updateXY(leftHandChords);
+        leftHand = (ImageComponent) ui.getViewComponent(leftHandID);
+        leftHand.setHidden(true);
+
+        // int[] rightHandChords = { 995, 1195, 600, 800 };
+        int[] rightHandChords = { 995, 0, 600, 0 };
+        System.out.println("Creating right hand image");
+        int rightHandID = ui.createViewComponent("image");
+        ui.getViewComponent(rightHandID).updateXY(rightHandChords);
+        rightHand = (ImageComponent) ui.getViewComponent(rightHandID);
+        rightHand.setHidden(true);
+
+        //int[] timerChords = { 400, 800, 100, 150 };
+        int[] timerChords = { 400, 0, 100, 0 };
+        int timerID = ui.createViewComponent("text"); // Timer text component
+        ui.getViewComponent(timerID).updateXY(timerChords);
+        timer = (TextComponent) ui.getViewComponent(timerID);
+        timer.setHidden(true);
+        
+        //back button
+        int[] backButtonCords = {0, 100, menuSize[2], 100};
+        System.out.println("Creating back button");
+        int backButtonID = ui.createViewComponent("button");
+        backButton = (ButtonComponent) ui.getViewComponent(backButtonID);
+        backButton.updateXY(backButtonCords);
+        backButton.setHidden(true);
+        backButton.setMessage("back");
+        backButton.setText("Back");
+        controller.addParsable(backButtonID);
 
         notes = new ImageComponent[4];
         for (int i = 0; i < notes.length; i++) {
@@ -124,6 +167,7 @@ public class DrillViewer {
         }
         leftHand.setHidden(false);
         rightHand.setHidden(false);
+        backButton.setHidden(false);
     }
 
     /**
@@ -133,6 +177,7 @@ public class DrillViewer {
         clef.setHidden(true);
         leftHand.setHidden(true);
         rightHand.setHidden(true);
+        backButton.setHidden(true);
 
         for (ImageComponent note : notes) {
             note.setHidden(true);

@@ -74,21 +74,17 @@ public class MenuViewer {
     public void initializeMenus(ArrayList<Unit> units) {
         System.out.println("Initializing menus");
         int screenWidth = ui.getScreenWidth();
-        System.out.println("-1");
         int screenHeight = ui.getScreenHeight();
-        System.out.println("0");
         // Setup the menus:
         System.out.println("Testing Menu Setup");
 
         // Unit selection:
-        System.out.println("1");
         // Size of screen
         int[] screenSize = new int[] { 0, screenWidth, 0, screenHeight };
         // The ID of the component that holds all unit buttons
         int unitSelectionID = ui.createViewComponent("rectangle");
         unitSelection = (RectangleComponent) ui.getViewComponent(unitSelectionID);
         unitSelection.updateXY(screenSize);
-        System.out.println("2");
         // Okay and we'd want menus for each unit
         int numUnits = units.size();
         // Determine how wide a unit button can be based on width of screen
@@ -286,10 +282,10 @@ public class MenuViewer {
         // the drillcomplete component to add the review button that will link to the
         // review lesson
 
-        System.out.println("Menu creation complete. loading home page");
-        loadMenu(homePage);
-        previousMenu = homePage;
-        System.out.println("Home page displayed");
+        System.out.println("Menu creation complete. loading unit selection");
+        loadMainMenu();
+        previousMenu = unitSelection;
+        System.out.println("Unit selection displayed");
 
         // Create button that brings user to review lesson if selected
         // If any questions were answered incorrectly
@@ -515,5 +511,12 @@ public class MenuViewer {
 
     public void printScore(int numberCorrectAnswers, int totalDrillFlashcards) {
         System.out.println("Score: " + Integer.toString(numberCorrectAnswers) + "/" + Integer.toString(totalDrillFlashcards));
+    }
+    
+    public void loadMainMenu()
+    {
+        close(previousMenu);
+        loadMenu(unitSelection);
+        previousMenu=unitSelection;
     }
 }

@@ -45,18 +45,18 @@ public class Controller {
      */
     public Controller(Stage primaryStage) throws IOException, MidiUnavailableException {
         ui = new UI(primaryStage);
+        parsables = new ArrayList<>();
+        System.out.println("Creating commandParser");
+        commandParser = new CommandParser(this, ui);
         audio = new AudioHandler();
-        lessonViewer = new LessonViewer(ui);
+        lessonViewer = new LessonViewer(ui, this);
         lessonViewer.initializeLesson();
-        drillViewer = new DrillViewer(ui);
+        drillViewer = new DrillViewer(ui, this);
         drillViewer.initializeDrill();
         midiInputHandler = new MidiInputHandler(this);
         model = new Model();
         nextReviewLessonID = model.getLessons().size();
         answerProcessor = new AnswerProcessor();
-        System.out.println("Creating commandParser");
-        commandParser = new CommandParser(this, ui);
-        parsables = new ArrayList<>();
         System.out.println("Creating menuViewer");
         menuViewer = new MenuViewer(this, ui, model.getUnits());
     }
@@ -307,7 +307,20 @@ public class Controller {
         return obj.getHidden();
     }
 
-    public void resetProgressbar(int size) {
+    /*
+     * helper methods. decide if should be done here or have getter methods
+     * for the objects (such as lesson viewer etc...) and do elsewhere. Kept
+     * here for now to try and centralize access and logic
+     */
+    public void resetProgressbar(int size)
+    {
         lessonViewer.resetProgressbar(size);
+    }
+    
+    public void loadMainMenu()
+    {
+        lessonViewer.close();
+        drillViewer.close();
+        menuViewer.loadMainMenu();
     }
 }
