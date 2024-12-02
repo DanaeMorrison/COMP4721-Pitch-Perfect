@@ -34,7 +34,7 @@
 
 ## Current Development Status
 
-This project is currently in the **digital prototype** stage. Two core functionalities are implemented:
+This project is currently in the **high-fidelity prototype** stage. Two core functionalities are implemented:
 
 1. Lessons: Guides the user through a series of flashcards to learn new concepts in sight reading. This includes topics such as:
    - Single note identification in both bass and treble clef,
