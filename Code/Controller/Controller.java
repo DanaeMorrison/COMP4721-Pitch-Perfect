@@ -34,6 +34,7 @@ public class Controller {
     private int totalDrillFlashcards;
     private Flashcard[] flashcards;
     private ArrayList<Flashcard> incorrectAnswers;
+    private int nextReviewLessonID;
 
     /**
      * Constructs a Controller with the given primary stage.
@@ -51,6 +52,7 @@ public class Controller {
         drillViewer.initializeDrill();
         midiInputHandler = new MidiInputHandler(this);
         model = new Model();
+        nextReviewLessonID = model.getLessons().size();
         answerProcessor = new AnswerProcessor();
         System.out.println("Creating commandParser");
         commandParser = new CommandParser(this, ui);
@@ -244,10 +246,13 @@ public class Controller {
                         for (int i = 0; i < incorrectAnswers.size(); i++) {
                             wrongAnswers[i] = incorrectAnswers.get(i);
                         }
-                        Lesson review = new Lesson(1, "Review Drill", "Review Session", wrongAnswers);
+                        Lesson review = new Lesson(nextReviewLessonID, "Review Drill", "Review Session", wrongAnswers);
+                        model.getLessons().add(review);
                         //menuViewer.updateDrillCompleteScreen(review, totalDrillFlashcards, totalDrillFlashcards-incorrectAnswers.size());
                         menuViewer.createNewDrillCompleteScreen(review, totalDrillFlashcards, totalDrillFlashcards-incorrectAnswers.size());
                         menuViewer.loadMenu("showReviewDrillComplete 0");
+                        menuViewer.printScore(totalDrillFlashcards-incorrectAnswers.size(), totalDrillFlashcards);
+                        nextReviewLessonID++;
                         //startLesson(review);
                         //menuViewer.loadMenu("showReviewDrillComplete 0");
                     } else {
