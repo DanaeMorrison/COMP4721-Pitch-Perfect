@@ -23,7 +23,8 @@
 1. **Select a Unit**: Choose from a variety of units tailored to different skill levels and musical concepts.
 2. **Practice a Lesson**: Follow on-screen prompts to play single notes or chords on a MIDI keyboard. (Note: the program takes into consideration octaves so you may need to change the octave on the MIDI keyboard as you complete lessons.)
 3. **Receive Feedback**: View instant feedback indicating correctness and areas for improvement.
-4. **Track Your Progress** (Planned): Review your drill results and export progress summaries as PDFs for long-term tracking.
+4. **Get Drill Results**: View your drill results at the end of a drill (currently visible in the terminal as opposed to in the GUI window)
+6. **Track Your Progress** (Planned): Review your drill results and export progress summaries as PDFs for long-term tracking.
 
 ## Technologies Used
 
@@ -33,7 +34,7 @@
 
 ## Current Development Status
 
-This project is currently in the **medium-fidelity prototype** stage. Two core functionalities are implemented:
+This project is currently in the **digital prototype** stage. Two core functionalities are implemented:
 
 1. Lessons: Guides the user through a series of flashcards to learn new concepts in sight reading. This includes topics such as:
    - Single note identification in both bass and treble clef,
@@ -46,6 +47,9 @@ Future updates will include:
 
 - Gamification elements, such as progress tracking and badges.
 - Enhanced lesson navigation menus as well as a tutorial mode.
+
+Current encountered problems:
+- Getting text to display the score of a drill consistently does not seem possible with our understanding of JavaFX. To further the app, the team might have to consider switching to another framework for UI development.
 
 ## Getting Started
 
@@ -61,6 +65,9 @@ To run Pitch Perfect:
 2. Open the project in your Java IDE (e.g., IntelliJ, Eclipse).
 3. Connect your MIDI keyboard.
 4. Run the `main` class in the `\Code` folder to launch the application.
+
+When doing drills:
+
 
 ## Contribution Guidelines
 
