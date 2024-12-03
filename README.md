@@ -66,8 +66,6 @@ To run Pitch Perfect:
 3. Connect your MIDI keyboard.
 4. Run the `Main` class in the `\src` folder to launch the application.
 
-When doing drills:
-
 
 ## Contribution Guidelines
 
