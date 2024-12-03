@@ -53,8 +53,6 @@ public class Controller {
         model = new Model();
         nextReviewLessonID = model.getLessons().size();
         answerProcessor = new AnswerProcessor();
-        commandParser = new CommandParser(this, ui);
-        parsables = new ArrayList<>();
         menuViewer = new MenuViewer(this, ui, model.getUnits());
     }
 
